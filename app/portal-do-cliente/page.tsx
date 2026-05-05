@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { LockKeyhole, Mail, ShieldCheck } from 'lucide-react';
+import { LockKeyhole, ShieldCheck } from 'lucide-react';
+import { PortalLoginForm } from '@/components/PortalLoginForm';
 
 export const metadata: Metadata = {
   title: 'Portal do Cliente',
@@ -43,47 +43,7 @@ export default function PortalDoClientePage() {
             <p className="mt-3 text-sm leading-relaxed text-slate-600">Use suas credenciais para acessar informações e acompanhamento da sua conta.</p>
           </div>
 
-          <form className="space-y-4">
-            <div>
-              <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">E-mail corporativo</label>
-              <div className="flex items-center rounded-2xl border border-slate-200 bg-white px-4 py-3">
-                <Mail className="mr-3 h-4 w-4 text-slate-400" />
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="voce@empresa.com"
-                  className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
-                />
-              </div>
-            </div>
-            <div>
-              <label htmlFor="password" className="mb-2 block text-sm font-medium text-slate-700">Senha</label>
-              <div className="flex items-center rounded-2xl border border-slate-200 bg-white px-4 py-3">
-                <LockKeyhole className="mr-3 h-4 w-4 text-slate-400" />
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Sua senha"
-                  className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
-                />
-              </div>
-            </div>
-            <button
-              type="button"
-              className="w-full rounded-md bg-brand-gradient px-5 py-3 text-sm font-semibold text-white shadow-brand transition hover:opacity-95"
-            >
-              Entrar no Portal
-            </button>
-          </form>
-
-          <div className="mt-5 flex flex-col gap-3 text-sm text-slate-600">
-            <Link href="mailto:suporte@hypercloud.com.br?subject=Esqueci%20minha%20senha" className="hover:text-brand-600">
-              Esqueci minha senha
-            </Link>
-            <Link href="/suporte" className="hover:text-brand-600">
-              Abrir chamado sem login
-            </Link>
-          </div>
+          <PortalLoginForm />
         </div>
       </div>
     </section>

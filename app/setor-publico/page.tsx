@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Building2, ShieldCheck, Users } from 'lucide-react';
 import { SectionHeader } from '@/components/SectionHeader';
 
 export const metadata: Metadata = {
@@ -16,50 +17,59 @@ const badges = [
 ];
 
 const steps = [
-  'Diagnóstico institucional com foco em Workspace, Gemini e Google Cloud.',
-  'Estruturação da jornada pública com linguagem executiva e credenciais oficiais.',
-  'Comparação e priorização de frentes para tomada de decisão mais clara.',
-  'Atendimento contínuo para governo, instituições e estruturas críticas.'
+  {
+    title: 'Diagnóstico institucional',
+    description: 'Mapeamos o contexto de governo, instituição ou estrutura crítica com foco em Google Workspace, Google Workspace with Gemini e Google Cloud.'
+  },
+  {
+    title: 'Estruturação da jornada pública',
+    description: 'Organizamos a oferta com linguagem mais executiva, credenciais oficiais e clareza de escopo para facilitar a decisão.'
+  },
+  {
+    title: 'Comparação e priorização',
+    description: 'Comparamos frentes, planos e direcionamentos para tornar diferenças mais visíveis e apoiar a escolha institucional.'
+  }
 ];
 
 export default function SetorPublicoPage() {
   return (
     <>
-      <section className="border-b border-slate-200 bg-gradient-to-b from-white to-surface-soft py-24 sm:py-28">
-        <div className="container-shell grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="border-b border-slate-200/60 bg-gradient-to-b from-white to-slate-50 py-20 sm:py-24 lg:py-28">
+        <div className="container-shell grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <div>
-            <span className="inline-flex rounded-full border border-brand-200 bg-brand-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">
+            <span className="inline-flex rounded-full border border-slate-200/80 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
               Setor Público · Google Workspace · Governança
             </span>
-            <h1 className="mt-6 text-balance text-5xl font-extrabold tracking-tight text-slate-950 sm:text-6xl">
+            <h1 className="mt-6 text-balance text-4xl font-extrabold tracking-tighter text-slate-900 sm:text-5xl lg:text-6xl">
               Modernização, colaboração e credibilidade para governo e instituições.
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600">
-              A Hypercloud preserva a frente pública como uma área estratégica do site, com foco em Google Workspace,
-              Gemini, credenciais Google e uma jornada dedicada para estruturas institucionais e operações críticas.
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-600">
+              A Hypercloud mantém a frente pública como uma área estratégica do app, com foco em Google Workspace,
+              Google Workspace with Gemini, credenciais Google e uma jornada dedicada para instituições e operações críticas.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="mailto:corporativo@hypercloud.com.br?subject=Quero%20falar%20sobre%20Setor%20P%C3%BAblico"
-                className="rounded-full bg-brand-gradient px-6 py-3 text-sm font-semibold text-white shadow-brand transition hover:opacity-95"
+                className="rounded-md bg-brand-gradient px-6 py-3 text-sm font-semibold text-white shadow-brand transition hover:opacity-95"
               >
                 Falar com Especialista
               </Link>
               <Link
                 href="/#comparador"
-                className="rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-600"
+                className="rounded-md border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-600"
               >
                 Comparar soluções
               </Link>
             </div>
           </div>
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-soft">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Jornada pública</p>
-            <div className="mt-6 space-y-4">
+
+          <div className="rounded-[28px] border border-slate-200/60 bg-white p-6 shadow-soft sm:p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Jornada pública</p>
+            <div className="mt-6 space-y-3">
               {steps.map((step, index) => (
-                <div key={step} className="rounded-2xl border border-slate-100 bg-surface-soft p-5">
-                  <p className="text-sm font-bold text-slate-950">0{index + 1}</p>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{step}</p>
+                <div key={step.title} className="rounded-2xl border border-slate-200/60 bg-slate-50 p-5">
+                  <p className="text-sm font-bold text-slate-900">0{index + 1} · {step.title}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{step.description}</p>
                 </div>
               ))}
             </div>
@@ -67,7 +77,34 @@ export default function SetorPublicoPage() {
         </div>
       </section>
 
-      <section className="border-b border-slate-200 bg-white py-20">
+      <section className="border-b border-slate-200/60 bg-white py-20 sm:py-24 lg:py-32">
+        <div className="container-shell">
+          <SectionHeader
+            eyebrow="Direção institucional"
+            title="Uma frente pública mais leve, mais clara e mais executiva."
+            description="Reduzimos o ruído visual e priorizamos entendimento institucional, confiança e clareza sobre a oferta Google da Hypercloud."
+          />
+          <div className="grid gap-6 md:grid-cols-3">
+            <div className="rounded-3xl border border-slate-200/60 bg-white p-6">
+              <Building2 className="h-6 w-6 text-brand-600" />
+              <h3 className="mt-4 text-xl font-extrabold tracking-tighter text-slate-900">Instituições</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">Google Workspace e Google Cloud apresentados com uma leitura mais apropriada para ambientes públicos e institucionais.</p>
+            </div>
+            <div className="rounded-3xl border border-slate-200/60 bg-white p-6">
+              <ShieldCheck className="h-6 w-6 text-brand-600" />
+              <h3 className="mt-4 text-xl font-extrabold tracking-tighter text-slate-900">Credibilidade</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">Badges reais do ecossistema Google aparecem como prova institucional sem carregar demais a interface.</p>
+            </div>
+            <div className="rounded-3xl border border-slate-200/60 bg-white p-6">
+              <Users className="h-6 w-6 text-brand-600" />
+              <h3 className="mt-4 text-xl font-extrabold tracking-tighter text-slate-900">Decisão guiada</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">A comparação entre frentes e soluções fica mais objetiva para públicos leigos e técnicos.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-slate-50 py-20 sm:py-24 lg:py-32">
         <div className="container-shell">
           <SectionHeader
             eyebrow="Credenciais Google"
@@ -77,7 +114,7 @@ export default function SetorPublicoPage() {
           />
           <div className="grid gap-6 md:grid-cols-3">
             {badges.map((file) => (
-              <div key={file} className="flex min-h-[160px] items-center justify-center rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+              <div key={file} className="flex min-h-[160px] items-center justify-center rounded-3xl border border-slate-200/60 bg-white p-6 shadow-soft">
                 <Image src={`/logo/logos partner/${file}`} alt={file} width={280} height={120} className="h-auto max-h-24 w-auto object-contain" />
               </div>
             ))}
