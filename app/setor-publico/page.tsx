@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Building2, ShieldCheck, Users } from 'lucide-react';
+import { Building2, FileText, ShieldCheck, Users } from 'lucide-react';
 import { SectionHeader } from '@/components/SectionHeader';
 
 export const metadata: Metadata = {
@@ -14,6 +14,19 @@ const badges = [
   'google-clound_select-services-partner.jpeg',
   'google-clound_select-Tecnology_partner.jpeg',
   'google-workspace_premier-Co-sell-service_partner.jpeg'
+];
+
+const atas = [
+  {
+    title: 'ARP CIMPAR — Software',
+    description: 'Ata disponível para consulta pública com foco em software e jornada institucional.',
+    href: 'https://hypercloud.com.br/atas/arp_cimpar-software.pdf'
+  },
+  {
+    title: 'CIASC-SC',
+    description: 'Documento institucional público para apoio à navegação e entendimento da atuação da Hypercloud.',
+    href: 'https://hypercloud.com.br/atas/ciasc-sc.pdf'
+  }
 ];
 
 const steps = [
@@ -104,7 +117,34 @@ export default function SetorPublicoPage() {
         </div>
       </section>
 
-      <section className="bg-slate-50 py-20 sm:py-24 lg:py-32">
+      <section className="border-b border-slate-200/60 bg-slate-50 py-20 sm:py-24 lg:py-32">
+        <div className="container-shell">
+          <SectionHeader
+            eyebrow="ATAs e documentos"
+            title="ATAs públicas disponíveis para consulta."
+            description="Incluímos as ATAs fornecidas por você em um bloco claro e direto para facilitar o acesso institucional a esses documentos."
+          />
+          <div className="grid gap-6 md:grid-cols-2">
+            {atas.map((ata) => (
+              <article key={ata.title} className="rounded-3xl border border-slate-200/60 bg-white p-6 shadow-soft">
+                <FileText className="h-6 w-6 text-brand-600" />
+                <h3 className="mt-4 text-xl font-extrabold tracking-tighter text-slate-900">{ata.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{ata.description}</p>
+                <Link
+                  href={ata.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-5 inline-flex rounded-md border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-600"
+                >
+                  Abrir PDF
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-20 sm:py-24 lg:py-32">
         <div className="container-shell">
           <SectionHeader
             eyebrow="Credenciais Google"
