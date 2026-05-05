@@ -47,88 +47,76 @@ const products = [
 const credibility = [
   'Partnered with Google Cloud',
   'Google Workspace para empresas e instituições',
-  'Jornada dedicada para Setor Público',
-  'Comparador comercial orientado por planos'
+  'Jornada dedicada para Setor Público'
 ];
 
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-slate-200 bg-hero-glow py-16 sm:py-20 lg:py-28">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:88px_88px] [mask-image:radial-gradient(ellipse_72%_62%_at_50%_35%,black,transparent)]" />
+      <section className="relative overflow-hidden border-b border-slate-200/60 bg-hero-glow py-16 sm:py-20 lg:py-28">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.06)_1px,transparent_1px)] bg-[size:88px_88px] [mask-image:radial-gradient(ellipse_72%_62%_at_50%_35%,black,transparent)]" />
         <div className="container-shell relative grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <div>
-            <span className="inline-flex max-w-full rounded-full border border-brand-200 bg-brand-50 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-700 sm:text-xs">
+            <span className="inline-flex max-w-full rounded-full border border-slate-200/80 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-600 sm:text-xs">
               Google Workspace · Google Workspace with Gemini · Google Cloud · AppSheet
             </span>
-            <h1 className="mt-6 max-w-5xl text-balance text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl lg:text-7xl">
-              Transformação digital com <span className="bg-brand-gradient bg-clip-text text-transparent">Google Cloud</span>, produtividade e IA em padrão enterprise.
+            <h1 className="mt-6 max-w-5xl text-balance text-4xl font-extrabold tracking-tighter text-slate-900 sm:text-5xl lg:text-7xl">
+              Transformação digital com Google Cloud, produtividade e IA em uma jornada mais clara.
             </h1>
-            <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl">
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-600 sm:text-xl">
               A Hypercloud vende Google Workspace, Google Workspace with Gemini, Google Cloud e AppSheet com credenciais oficiais, comparador dinâmico de planos e uma frente robusta dedicada a governo e estruturas institucionais.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="mailto:contato@hypercloud.com.br?subject=Quero%20falar%20com%20um%20especialista"
-                className="inline-flex items-center gap-2 rounded-full bg-brand-gradient px-6 py-3 text-sm font-semibold text-white shadow-brand transition hover:opacity-95"
+                className="inline-flex items-center gap-2 rounded-md bg-brand-gradient px-6 py-3 text-sm font-semibold text-white shadow-brand transition hover:opacity-95"
               >
                 Falar com Especialista <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="#comparador"
-                className="rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-600"
+                className="rounded-md border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-600"
               >
                 Comparar planos
               </Link>
             </div>
-            <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-              {credibility.map((item, index) => (
-                <div
-                  key={item}
-                  className={`rounded-2xl border px-4 py-4 text-sm font-medium leading-6 shadow-soft backdrop-blur ${
-                    index === 0
-                      ? 'border-sky-100 bg-sky-50/70 text-sky-800'
-                      : index === 1
-                        ? 'border-violet-100 bg-violet-50/70 text-violet-800'
-                        : index === 2
-                          ? 'border-emerald-100 bg-emerald-50/70 text-emerald-800'
-                          : 'border-amber-100 bg-amber-50/70 text-amber-800'
-                  }`}
-                >
+            <div className="mt-8 flex flex-wrap gap-3">
+              {credibility.map((item) => (
+                <div key={item} className="rounded-full border border-slate-200/80 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
                   {item}
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-premium sm:p-8">
+          <div className="rounded-[28px] border border-slate-200/60 bg-white p-6 shadow-soft sm:p-8">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Oferta principal</span>
-                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950">Google para produtividade, IA e governança</h2>
+                <h2 className="mt-3 text-3xl font-extrabold tracking-tighter text-slate-900">Google para produtividade, IA e governança</h2>
               </div>
-              <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-brand-700">
+              <span className="rounded-full border border-brand-200/70 bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-brand-700">
                 Hypercloud first
               </span>
             </div>
-            <div className="mt-8 space-y-4">
+            <div className="mt-8 space-y-3">
               {[
                 ['Google Workspace', 'Gmail, Drive, Meet e colaboração com Google Workspace with Gemini.'],
                 ['Google Workspace with Gemini', 'IA do Google para produtividade, escrita, resumo e ganho operacional.'],
                 ['Setor Público', 'Jornada dedicada para instituições, governo e estruturas críticas com narrativa própria.']
               ].map(([title, description]) => (
-                <div key={title} className="rounded-2xl border border-slate-100 bg-surface-soft p-5">
-                  <p className="text-sm font-bold text-slate-950">{title}</p>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">{description}</p>
+                <div key={title} className="rounded-2xl border border-slate-200/60 bg-slate-50 p-5">
+                  <p className="text-sm font-bold text-slate-900">{title}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{description}</p>
                 </div>
               ))}
             </div>
-            <div className="mt-8 rounded-2xl border border-brand-100 bg-brand-50/60 p-5">
+            <div className="mt-6 rounded-2xl border border-slate-200/60 bg-white p-5">
               <div className="flex items-start gap-3">
                 <ShieldCheck className="mt-0.5 h-5 w-5 text-brand-600" />
                 <div>
-                  <p className="text-sm font-bold text-slate-950">Partnered with Google Cloud</p>
-                  <p className="mt-1 text-sm leading-6 text-slate-600">
+                  <p className="text-sm font-bold text-slate-900">Partnered with Google Cloud</p>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-600">
                     Posicionamento consultivo com credenciais oficiais, jornada comercial clara e foco em conversão B2B e institucional.
                   </p>
                 </div>
@@ -138,7 +126,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="parceiros" className="border-b border-slate-200 bg-white py-24">
+      <section id="parceiros" className="border-b border-slate-200/60 bg-white py-24">
         <div className="container-shell">
           <SectionHeader
             eyebrow="Parcerias e credenciais"
@@ -153,7 +141,7 @@ export default function HomePage() {
               'google-workspace_premier-Co-sell-service_partner.jpeg',
               'google-workspace_select_tecnology_partner.jpeg'
             ].map((file) => (
-              <div key={file} className="flex min-h-[172px] items-center justify-center rounded-3xl border border-slate-200 bg-white p-8 shadow-soft transition hover:-translate-y-1 hover:shadow-medium">
+              <div key={file} className="flex min-h-[172px] items-center justify-center rounded-3xl border border-slate-200/60 bg-white p-8 transition hover:-translate-y-1 hover:shadow-soft">
                 <Image src={`/logo/logos partner/${file}`} alt={file} width={280} height={120} className="h-auto max-h-24 w-auto object-contain" />
               </div>
             ))}
@@ -161,7 +149,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="solucoes" className="bg-surface-soft py-24">
+      <section id="solucoes" className="bg-slate-50 py-24 lg:py-32">
         <div className="container-shell">
           <SectionHeader
             eyebrow="Produtos principais"
@@ -171,7 +159,7 @@ export default function HomePage() {
           <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
             {products.map((product) => (
               <div key={product.title} className="space-y-4">
-                <div className="inline-flex rounded-2xl border border-slate-200 bg-white p-3 shadow-soft">
+                <div className="inline-flex rounded-2xl border border-slate-200/60 bg-white p-3">
                   <product.icon className={`h-7 w-7 ${product.iconClassName}`} />
                 </div>
                 <ProductCard title={product.title} description={product.description} href={product.href} badge={product.badge} tone={product.tone} />
@@ -181,7 +169,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="comparador" className="bg-white py-24">
+      <section id="comparador" className="bg-white py-24 lg:py-32">
         <div className="container-shell">
           <SectionHeader
             eyebrow="Comparador Pro"
