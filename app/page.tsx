@@ -46,14 +46,14 @@ const credibility = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-slate-200 bg-hero-glow py-24 sm:py-28">
+      <section className="relative overflow-hidden border-b border-slate-200 bg-hero-glow py-16 sm:py-20 lg:py-28">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:88px_88px] [mask-image:radial-gradient(ellipse_72%_62%_at_50%_35%,black,transparent)]" />
-        <div className="container-shell relative grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="container-shell relative grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <div>
-            <span className="inline-flex rounded-full border border-brand-200 bg-brand-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">
+            <span className="inline-flex max-w-full rounded-full border border-brand-200 bg-brand-50 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-700 sm:text-xs">
               Google Workspace · Google Workspace with Gemini · Google Cloud · AppSheet
             </span>
-            <h1 className="mt-6 max-w-5xl text-balance text-5xl font-extrabold tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
+            <h1 className="mt-6 max-w-5xl text-balance text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl lg:text-7xl">
               Transformação digital com <span className="bg-brand-gradient bg-clip-text text-transparent">Google Cloud</span>, produtividade e IA em padrão enterprise.
             </h1>
             <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl">
@@ -73,16 +73,16 @@ export default function HomePage() {
                 Comparar planos
               </Link>
             </div>
-            <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
               {credibility.map((item) => (
-                <div key={item} className="rounded-2xl border border-slate-200/90 bg-white/90 px-4 py-4 text-sm font-medium text-slate-700 shadow-soft backdrop-blur">
+                <div key={item} className="rounded-2xl border border-slate-200/90 bg-white/90 px-4 py-4 text-sm font-medium leading-6 text-slate-700 shadow-soft backdrop-blur">
                   {item}
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-premium">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-premium sm:p-8">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Oferta principal</span>

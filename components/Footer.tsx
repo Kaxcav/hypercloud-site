@@ -4,18 +4,18 @@ import Link from 'next/link';
 export function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-white">
-      <div className="container-shell grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div className="container-shell grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:py-14">
         <div>
-          <Image src="/logo/lg.hypercloud_horizontal.png" alt="Hypercloud" width={220} height={56} className="h-11 w-auto" />
+          <Image src="/logo/lg.hypercloud_horizontal.png" alt="Hypercloud" width={220} height={56} className="h-10 w-auto sm:h-11" />
           <p className="mt-5 max-w-sm text-sm leading-7 text-slate-600">
-            Google Workspace, Gemini Enterprise, Google Cloud Platform e AppSheet com foco em performance, autoridade e transformação digital.
+            Google Workspace, Google Workspace with Gemini, Google Cloud e AppSheet com foco em performance, autoridade e transformação digital.
           </p>
         </div>
         <div>
           <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Produtos</h3>
           <div className="space-y-3 text-sm text-slate-700">
             <Link href="/solucoes/google-workspace" className="block hover:text-brand-600">Google Workspace</Link>
-            <Link href="/solucoes/gemini-enterprise" className="block hover:text-brand-600">Gemini Enterprise</Link>
+            <Link href="/solucoes/gemini-enterprise" className="block hover:text-brand-600">Google Workspace with Gemini</Link>
             <Link href="/solucoes/google-cloud" className="block hover:text-brand-600">Google Cloud</Link>
             <Link href="/solucoes/appsheet" className="block hover:text-brand-600">AppSheet</Link>
           </div>

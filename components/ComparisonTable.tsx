@@ -39,12 +39,12 @@ export function ComparisonTable() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr_auto] lg:items-center">
+      <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-soft sm:p-6">
+        <div className="grid gap-6 xl:grid-cols-[1.1fr_1fr_auto] xl:items-center">
           <div>
             <h3 className="text-lg font-bold text-slate-950">Comparador Pro</h3>
             <p className="mt-2 text-sm leading-6 text-slate-600">
-              Selecione até quatro opções e destaque apenas o que muda entre Workspace, Gemini Enterprise, Google Cloud e AppSheet.
+              Selecione até quatro opções e destaque apenas o que muda entre Google Workspace, Google Workspace with Gemini, Google Cloud e AppSheet.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -53,7 +53,7 @@ export function ComparisonTable() {
                 key={category.id}
                 type="button"
                 onClick={() => setActiveCategory(category.id)}
-                className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] transition ${
+                className={`rounded-full border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition sm:px-4 sm:text-xs ${
                   activeCategory === category.id
                     ? 'border-brand-300 bg-brand-50 text-brand-700'
                     : 'border-slate-200 bg-white text-slate-600 hover:border-brand-200 hover:text-brand-600'
@@ -81,16 +81,16 @@ export function ComparisonTable() {
           return (
             <article
               key={plan.id}
-              className={`rounded-3xl border bg-white p-6 shadow-soft transition ${
+              className={`rounded-3xl border bg-white p-5 shadow-soft transition sm:p-6 ${
                 active ? 'border-brand-300 shadow-brand' : 'border-slate-200'
               }`}
             >
-              <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
+              <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-600 sm:text-xs">
                 {plan.category}
               </span>
               <h3 className="mt-4 text-xl font-bold tracking-tight text-slate-950">{plan.name}</h3>
               <p className="mt-3 text-sm leading-6 text-slate-600">{plan.summary}</p>
-              <p className="mt-3 text-sm font-medium text-slate-500">{plan.audience}</p>
+              <p className="mt-3 text-sm font-medium leading-6 text-slate-500">{plan.audience}</p>
               <button
                 type="button"
                 onClick={() => togglePlan(plan.id)}
@@ -109,11 +109,11 @@ export function ComparisonTable() {
         {selectedPlans.length === 0 ? (
           <div className="p-8 text-center text-sm text-slate-600">Selecione pelo menos um plano para iniciar a comparação.</div>
         ) : (
-          <div className="min-w-[860px]">
-            <div className="grid grid-cols-[220px_repeat(4,minmax(180px,1fr))] border-b border-slate-200 bg-slate-50">
-              <div className="px-5 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Atributo</div>
+          <div className="min-w-[700px] sm:min-w-[820px]">
+            <div className="grid grid-cols-[170px_repeat(4,minmax(160px,1fr))] border-b border-slate-200 bg-slate-50 sm:grid-cols-[220px_repeat(4,minmax(180px,1fr))]">
+              <div className="px-4 py-4 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500 sm:px-5 sm:text-xs">Atributo</div>
               {selectedPlans.map((plan) => (
-                <div key={plan.id} className="px-5 py-4 text-sm font-bold text-slate-950">
+                <div key={plan.id} className="px-4 py-4 text-sm font-bold leading-6 text-slate-950 sm:px-5">
                   {plan.name}
                 </div>
               ))}
@@ -121,12 +121,12 @@ export function ComparisonTable() {
             {rows.map((row) => {
               const diff = new Set(row.values).size > 1;
               return (
-                <div key={row.label} className="grid grid-cols-[220px_repeat(4,minmax(180px,1fr))] border-b border-slate-100 last:border-b-0">
-                  <div className="bg-slate-50 px-5 py-4 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{row.label}</div>
+                <div key={row.label} className="grid grid-cols-[170px_repeat(4,minmax(160px,1fr))] border-b border-slate-100 last:border-b-0 sm:grid-cols-[220px_repeat(4,minmax(180px,1fr))]">
+                  <div className="bg-slate-50 px-4 py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500 sm:px-5 sm:text-xs">{row.label}</div>
                   {row.values.map((value, index) => (
                     <div
                       key={`${row.label}-${index}`}
-                      className={`px-5 py-4 text-sm leading-6 text-slate-700 ${diff ? 'bg-brand-50/50 font-medium text-slate-950' : 'bg-white'}`}
+                      className={`px-4 py-4 text-sm leading-6 text-slate-700 sm:px-5 ${diff ? 'bg-brand-50/50 font-medium text-slate-950' : 'bg-white'}`}
                     >
                       {value}
                     </div>
