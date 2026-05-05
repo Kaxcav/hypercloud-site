@@ -1,2 +1,11 @@
-# Static site project. Prefer Railway static hosting instead of a custom start command.
-# If Railway is still using this file, remove the custom Start Command in the Railway dashboard.
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = ["npm install"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "npm run start"

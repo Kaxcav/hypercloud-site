@@ -1,1 +1,1 @@
-# Static site: Railway should serve this project via static hosting / detected static output.
+web: npm run start
