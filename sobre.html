@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sobre a Hypercloud — Credibilidade, operação e ecossistema</title>
+<meta name="description" content="Conheça a Hypercloud com uma apresentação institucional mais clara, assets reais da marca, credenciais Google e uma narrativa coesa para empresas e Setor Público.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.timeline { display:flex; flex-direction:column; gap:0; position:relative; }
+.timeline::before { content:''; position:absolute; left:111px; top:0; bottom:0; width:1px; background:var(--border); }
+.timeline-item { display:grid; grid-template-columns:120px 1fr; gap:32px; padding:32px 0; border-bottom:1px solid var(--border-soft); align-items:start; position:relative; }
+.timeline-item:last-child { border-bottom:none; }
+.timeline-year { font-family:var(--mono); font-size:13px; color:var(--accent); font-weight:500; text-align:right; padding-right:32px; padding-top:4px; position:relative; }
+.timeline-year::after { content:''; position:absolute; right:-5px; top:8px; width:9px; height:9px; border-radius:50%; background:var(--accent); border:2px solid #fff; box-shadow:0 0 0 1px var(--accent); }
+.timeline-content h4 { font-size:18px; margin-bottom:8px; }
+.timeline-content p { font-size:14px; color:var(--cream-dim); line-height:1.6; }
+.values-grid, .partners-grid, .logo-support-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; }
+.value-card, .partner-card, .logo-support-card, .team-note { border:1px solid var(--border); border-radius:var(--radius-xl); background:#fff; box-shadow:var(--shadow-soft); }
+.value-card { padding:36px 32px; }
+.value-icon { width:44px; height:44px; border-radius:12px; background:var(--accent-soft); border:1px solid rgba(249,115,22,0.18); display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:20px; }
+.value-card p, .partner-card p, .logo-support-card p { color:var(--cream-dim); font-size:14px; line-height:1.6; }
+.partner-card { padding:28px 24px; display:flex; align-items:center; gap:16px; transition:border-color var(--transition), box-shadow var(--transition); }
+.partner-card:hover { border-color:rgba(249,115,22,0.24); box-shadow:var(--shadow-glow); }
+.partner-logo-box { width:52px; height:52px; border-radius:12px; background:var(--surface-2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--display); font-size:16px; font-weight:800; color:var(--accent); flex-shrink:0; }
+.partner-info strong { display:block; margin-bottom:3px; }
+.partner-info span { font-family:var(--mono); font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
+.clients-mosaic { display:flex; flex-wrap:wrap; gap:12px; }
+.client-chip { padding:10px 18px; border:1px solid var(--border); border-radius:var(--radius-pill); font-size:14px; color:var(--cream-dim); background:#fff; transition:all var(--transition); box-shadow:var(--shadow-soft); }
+.client-chip:hover { border-color:rgba(249,115,22,0.24); color:var(--cream); box-shadow:var(--shadow-glow); }
+.certifications-row { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+.cert-badge { display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border:1px solid var(--border); border-radius:var(--radius-pill); font-family:var(--mono); font-size:12px; color:var(--muted-2); background:#fff; }
+.cert-badge::before { content:'✓'; color:var(--accent); font-weight:700; }
+.compliance-grid { display:grid; grid-template-columns:repeat(5, 1fr); gap:12px; }
+.compliance-doc { border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 18px; background:#fff; text-align:center; text-decoration:none; color:inherit; transition:all var(--transition); display:flex; flex-direction:column; gap:10px; align-items:center; box-shadow:var(--shadow-soft); }
+.compliance-doc:hover { border-color:rgba(249,115,22,0.24); box-shadow:var(--shadow-glow); }
+.doc-icon { font-size:28px; }
+.doc-name { font-family:var(--mono); font-size:11px; color:var(--muted-2); text-transform:uppercase; letter-spacing:0.08em; text-align:center; line-height:1.4; }
+.team-note { padding:48px; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+.quote-block { position:relative; padding-left:24px; border-left:2px solid var(--accent); }
+.quote-text { font-size:22px; color:var(--cream); line-height:1.45; margin-bottom:20px; font-weight:700; }
+.quote-author { font-family:var(--mono); font-size:12px; color:var(--muted-2); text-transform:uppercase; letter-spacing:0.1em; }
+.quote-author strong { display:block; color:var(--cream); font-size:15px; font-weight:800; text-transform:none; letter-spacing:-0.02em; margin-bottom:2px; }
+.logo-support-card { padding:28px; text-align:center; }
+.logo-support-card img { max-width:100%; max-height:70px; object-fit:contain; margin:0 auto 16px; }
+@media (max-width:1100px) { .values-grid, .partners-grid, .logo-support-grid, .compliance-grid { grid-template-columns:1fr 1fr; } .team-note { grid-template-columns:1fr; } }
+@media (max-width:768px) { .values-grid, .partners-grid, .logo-support-grid, .compliance-grid { grid-template-columns:1fr; } .timeline-item { grid-template-columns:1fr; gap:12px; } .timeline::before { display:none; } .timeline-year { text-align:left; padding-right:0; } .timeline-year::after { display:none; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar-inner">
+    <div class="topbar-info">
+      <span>Apresentação institucional com ativos reais da marca</span>
+      <span>Parcerias Google e presença forte em Setor Público</span>
+      <span>(31) 4042-4483</span>
+    </div>
+    <div class="topbar-actions">
+      <a href="index.html">Início</a>
+      <a href="governo.html">Setor Público</a>
+      <a href="index.html#contato">Atendimento</a>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo logo-image-wrap" aria-label="Hypercloud">
+      <img src="logo/lg.hypercloud_horizontal.png" alt="Hypercloud" class="brand-logo brand-logo-nav">
+    </a>
+    <ul class="nav-menu">
+      <li><a href="index.html#solucoes">Soluções</a></li>
+      <li><a href="index.html#setores">Segmentos</a></li>
+      <li><a href="governo.html">Setor Público</a></li>
+      <li><a href="index.html#comparador">Comparar serviços</a></li>
+      <li><a href="sobre.html" class="active">Sobre</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="governo.html" class="btn btn-ghost">Área pública</a>
+      <a href="index.html#contato" class="btn btn-primary btn-arrow">Falar com especialista</a>
+    </div>
+    <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="hero hero-light" style="min-height:auto; padding:80px 0;">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow" style="top:-100px; right:-300px; width:600px; height:600px;"></div>
+  <div class="container" style="position:relative; z-index:2;">
+    <div class="breadcrumb fade-up"><a href="index.html">Início</a><span>/</span><span style="color:var(--cream-dim)">Sobre</span></div>
+    <div style="max-width:780px;" class="fade-up d1">
+      <div class="section-eyebrow">Quem somos</div>
+      <h1 style="font-family:var(--display);font-size:clamp(42px,6vw,80px);font-weight:800;line-height:0.97;letter-spacing:-0.05em;margin-bottom:24px;">A Hypercloud agora se apresenta com uma linguagem mais <span class="text-gradient">institucional</span>, clara e credível.</h1>
+      <p style="font-size:19px;color:var(--cream-dim);line-height:1.55;max-width:640px;">Preservamos a estrutura do site, mas organizamos melhor a narrativa visual, os assets da marca, as credenciais Google e o peso estratégico da área de Setor Público.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Nossa evolução</div>
+        <h2 class="section-title">Uma jornada de <em>estruturação</em>, confiança e posicionamento institucional.</h2>
+      </div>
+      <div>
+        <p class="section-desc" style="margin-bottom:16px;">A Hypercloud consolidou uma base visual e de conteúdo robusta, e agora passa a comunicar com mais clareza seus diferenciais, suas credenciais e sua capacidade de atender empresas, instituições e Setor Público com linguagem mais madura.</p>
+        <p class="section-desc">A nova fase usa logos reais, fundo claro, melhor hierarquia de navegação e uma apresentação mais alinhada com ambientes corporativos e institucionais.</p>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item"><div class="timeline-year">Marca</div><div class="timeline-content"><h4>Ativos visuais reais</h4><p>Substituição de elementos improvisados pelos logos originais da Hypercloud para reforçar coerência e credibilidade.</p></div></div>
+      <div class="timeline-item"><div class="timeline-year">UI</div><div class="timeline-content"><h4>Experiência mais clara</h4><p>Migração de um ambiente escuro para uma leitura mais limpa, institucional e adequada a decisões corporativas.</p></div></div>
+      <div class="timeline-item"><div class="timeline-year">Google</div><div class="timeline-content"><h4>Credenciais em evidência</h4><p>Inclusão dos badges originais do ecossistema Google como prova institucional e reforço de parceria.</p></div></div>
+      <div class="timeline-item"><div class="timeline-year">Público</div><div class="timeline-content"><h4>Setor Público fortalecido</h4><p>Preservação da área dedicada com maior protagonismo, melhor visual e filtros mais funcionais.</p></div></div>
+      <div class="timeline-item"><div class="timeline-year">Hoje</div><div class="timeline-content"><h4>Comparação e clareza</h4><p>Nova etapa com comparador de serviços, navegação mais madura e apresentação consistente em todas as páginas.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft">
+  <div class="container">
+    <div class="section-head center">
+      <div class="section-eyebrow center">O que nos guia</div>
+      <h2 class="section-title">Valores que sustentam nossa <em>presença</em> institucional.</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card"><div class="value-icon">⌗</div><h4>Clareza</h4><p>Organizamos conteúdo, serviços e credenciais para facilitar leitura, decisão e entendimento do escopo.</p></div>
+      <div class="value-card"><div class="value-icon">◎</div><h4>Coerência</h4><p>O branding, as páginas e os ativos visuais passam a comunicar a mesma maturidade institucional.</p></div>
+      <div class="value-card"><div class="value-icon">⬡</div><h4>Credibilidade</h4><p>Os assets oficiais da marca e as credenciais Google aparecem como prova visual objetiva.</p></div>
+      <div class="value-card"><div class="value-icon">◈</div><h4>Preservação de conteúdo</h4><p>A estrutura existente continua viva, especialmente as frentes de Setor Público, governo e operações críticas.</p></div>
+      <div class="value-card"><div class="value-icon">⟁</div><h4>Comparação orientada</h4><p>Novas interações ajudam o usuário a comparar serviços e entender diferenças com menos atrito.</p></div>
+      <div class="value-card"><div class="value-icon">⊕</div><h4>Leitura executiva</h4><p>O site passa a suportar melhor contextos institucionais, corporativos e decisões de maior responsabilidade.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Assets e ecossistema</div>
+        <h2 class="section-title">A marca Hypercloud e as credenciais Google agora aparecem com <em>mais peso</em>.</h2>
+      </div>
+      <p class="section-desc">Usamos logos oficiais da Hypercloud e badges reais do ecossistema Google para reforçar reconhecimento, consistência e maturidade institucional em toda a jornada do site.</p>
+    </div>
+    <div class="logo-support-grid">
+      <div class="logo-support-card"><img src="logo/lg.hypercloud_horizontal.png" alt="Logo horizontal Hypercloud"><p>Logo institucional horizontal usada nas áreas principais de navegação e rodapé.</p></div>
+      <div class="logo-support-card"><img src="logo/lg.hypercloud_vertical.png" alt="Logo vertical Hypercloud"><p>Versão vertical da marca para blocos de apoio visual e reforço institucional.</p></div>
+      <div class="logo-support-card"><img src="logo/logos partner/google-workspace_premier-Co-sell-service_partner.jpeg" alt="Badge Google Workspace"><p>Credencial oficial incorporada à experiência como prova visual de parceria.</p></div>
+    </div>
+    <div class="partners-grid" style="margin-top:20px;">
+      <div class="partner-card"><div class="partner-logo-box">UI</div><div class="partner-info"><strong>Visual institucional</strong><span>Leitura mais clara</span></div></div>
+      <div class="partner-card"><div class="partner-logo-box">GP</div><div class="partner-info"><strong>Parceiros Google</strong><span>Badges oficiais</span></div></div>
+      <div class="partner-card"><div class="partner-logo-box">SP</div><div class="partner-info"><strong>Setor Público</strong><span>Área preservada e fortalecida</span></div></div>
+    </div>
+    <div class="certifications-row" style="margin-top:32px;">
+      <span class="cert-badge">Logo oficial Hypercloud</span>
+      <span class="cert-badge">Credenciais Google reais</span>
+      <span class="cert-badge">Experiência em fundo claro</span>
+      <span class="cert-badge">Comparação de serviços</span>
+      <span class="cert-badge">Setor Público fortalecido</span>
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Cenários atendidos</div>
+        <h2 class="section-title">Empresas, instituições e governo com uma mesma lógica de <em>estrutura</em>.</h2>
+      </div>
+      <p class="section-desc">A nova apresentação fortalece a leitura de segmentos já existentes no site, mantendo a base de conteúdo e melhorando a relação entre marca, serviço e jornada de navegação.</p>
+    </div>
+    <div class="clients-mosaic">
+      <span class="client-chip">Empresas em modernização</span>
+      <span class="client-chip">Estruturas institucionais</span>
+      <span class="client-chip">Setor Público e governo</span>
+      <span class="client-chip">Operações críticas</span>
+      <span class="client-chip">Ambientes colaborativos</span>
+      <span class="client-chip">Projetos com ecossistema Google</span>
+      <span class="client-chip">Processos comparativos de decisão</span>
+      <span class="client-chip">Jornadas consultivas</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Governança e consistência</div>
+        <h2 class="section-title">A mesma disciplina aplicada a conteúdo, marca e <em>estrutura</em>.</h2>
+      </div>
+      <p class="section-desc">O site passa a refletir melhor a Hypercloud como organização: mais clareza visual, mais coerência institucional e melhor aproveitamento dos ativos reais da empresa.</p>
+    </div>
+    <div class="compliance-grid">
+      <a href="#" class="compliance-doc"><span class="doc-icon">📋</span><span class="doc-name">Estrutura clara</span></a>
+      <a href="#" class="compliance-doc"><span class="doc-icon">🧭</span><span class="doc-name">Navegação refinada</span></a>
+      <a href="#" class="compliance-doc"><span class="doc-icon">🤝</span><span class="doc-name">Credenciais visíveis</span></a>
+      <a href="#" class="compliance-doc"><span class="doc-icon">⚖️</span><span class="doc-name">Setor Público preservado</span></a>
+      <a href="#" class="compliance-doc"><span class="doc-icon">🛡️</span><span class="doc-name">Comparação orientada</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-soft">
+  <div class="container">
+    <div class="team-note">
+      <div class="quote-block">
+        <p class="quote-text">"A nova experiência da Hypercloud deixa mais evidente aquilo que já existia de valor: estrutura, credibilidade, atuação institucional e capacidade de apoiar escolhas com mais clareza."</p>
+        <div class="quote-author"><strong>Hypercloud</strong>Marca, experiência e posicionamento</div>
+      </div>
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:16px;">Próxima etapa</div>
+        <p style="font-size:16px;color:var(--cream-dim);line-height:1.65;margin-bottom:20px;">Com a base visual clara e os assets reais integrados, a Hypercloud ganha espaço para comunicar melhor seus serviços, suas credenciais Google e sua presença forte em Setor Público.</p>
+        <p style="font-size:16px;color:var(--cream-dim);line-height:1.65;margin-bottom:28px;">Isso cria uma plataforma mais robusta para navegação executiva, comparação lado a lado e evolução futura do conteúdo institucional.</p>
+        <a href="index.html#contato" class="btn btn-primary btn-arrow">Falar com o time</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="big-cta">
+  <div class="big-cta-glow"></div>
+  <div class="container big-cta-inner">
+    <h2>Pronto para ver a Hypercloud com uma apresentação mais <em>institucional</em>?</h2>
+    <p>Volte para a home, explore os parceiros Google, compare serviços e mantenha o Setor Público como parte central da experiência.</p>
+    <div class="big-cta-actions">
+      <a href="index.html" class="btn btn-primary btn-arrow btn-lg">Ir para a homepage</a>
+      <a href="governo.html" class="btn btn-ghost btn-lg">Ver Setor Público</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="logo logo-image-wrap" aria-label="Hypercloud"><img src="logo/lg.hypercloud_horizontal.png" alt="Hypercloud" class="brand-logo brand-logo-footer"></a>
+        <p>Uma Hypercloud mais clara, institucional e consistente, com assets reais da marca e maior destaque para credenciais e Setor Público.</p>
+        <div class="footer-social"><a href="https://linkedin.com/company/hypercloudoficial" aria-label="LinkedIn">in</a><a href="https://instagram.com/hypercloudoficial" aria-label="Instagram">ig</a><a href="https://youtube.com/channel/UCO_u2hbfZq6w7V4gXD1f1YQ" aria-label="YouTube">yt</a></div>
+      </div>
+      <div class="footer-col"><h5>Soluções</h5><ul><li><a href="index.html#solucoes">Soluções</a></li><li><a href="index.html#comparador">Comparar serviços</a></li><li><a href="index.html#parceiros">Parceiros Google</a></li></ul></div>
+      <div class="footer-col"><h5>Navegação</h5><ul><li><a href="index.html">Início</a></li><li><a href="governo.html">Setor Público</a></li><li><a href="sobre.html">Sobre</a></li></ul></div>
+      <div class="footer-col"><h5>Contato</h5><ul><li><a href="mailto:contato@hypercloud.com.br">contato@hypercloud.com.br</a></li><li><a href="tel:3140424483">(31) 4042-4483</a></li><li>Contagem · MG · Atendimento nacional</li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Hypercloud · Todos os direitos reservados</span><div class="footer-bottom-links"><a href="mailto:contato@hypercloud.com.br?subject=Solicitação%20de%20informações%20sobre%20privacidade">Privacidade</a><a href="mailto:contato@hypercloud.com.br?subject=Solicitação%20de%20termos%20comerciais">Termos</a><a href="mailto:contato@hypercloud.com.br?subject=Solicitação%20de%20informações%20sobre%20compliance">Compliance</a><a href="index.html#contato">Atendimento</a></div></div>
+  </div>
+</footer>
+
+<a href="https://wa.me/5531992391683" class="fab" aria-label="WhatsApp">💬</a>
+
+<script>
+const toggle = document.querySelector('.nav-toggle');
+const menu = document.querySelector('.nav-menu');
+let menuOpen = false;
+if (toggle && menu) {
+  toggle.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    toggle.setAttribute('aria-expanded', String(menuOpen));
+    if (menuOpen) {
+      Object.assign(menu.style, { display:'flex', flexDirection:'column', position:'absolute', top:'76px', left:'0', right:'0', background:'rgba(255,255,255,0.98)', backdropFilter:'blur(10px)', WebkitBackdropFilter:'blur(10px)', padding:'16px 28px 24px', borderBottom:'1px solid rgba(15,23,42,0.08)', gap:'4px', zIndex:'200' });
+    } else {
+      menu.style.display = '';
+    }
+  });
+}
+</script>
+</body>
+</html>
