@@ -16,14 +16,14 @@ export const solutions: SolutionContent[] = [
     title: 'Google Workspace para empresas e instituições',
     eyebrow: 'Google Workspace',
     description:
-      'Gmail corporativo, Drive, Meet, Docs, Sheets e administração centralizada com Gemini integrado, em uma jornada comercial orientada por comparação de planos.',
+      'Gmail corporativo, Drive, Meet, Docs, Sheets e administração centralizada com Google Workspace with Gemini, em uma jornada comercial orientada por comparação de planos.',
     intro:
       'A Hypercloud posiciona o Google Workspace como oferta principal para organizações que precisam de produtividade, colaboração e governança em um ambiente Google reconhecido globalmente.',
     bullets: [
       'Comparação entre Starter, Standard, Plus e Enterprise',
       'Gmail corporativo com domínio profissional',
       'Meet, Drive, Docs, Sheets e Admin Console',
-      'Gemini integrado à suíte conforme plano e escopo'
+      'Google Workspace with Gemini integrado à suíte conforme plano e escopo'
     ],
     metadata: {
       title: 'Google Workspace',
@@ -33,32 +33,32 @@ export const solutions: SolutionContent[] = [
   },
   {
     slug: 'gemini-enterprise',
-    title: 'Gemini Enterprise para produtividade com IA',
-    eyebrow: 'Gemini Enterprise',
+    title: 'Google Workspace with Gemini para produtividade com IA',
+    eyebrow: 'Google Workspace with Gemini',
     description:
       'IA aplicada ao trabalho em Gmail, Docs, Meet e app Gemini, com foco em ganho operacional, escrita, resumo de reuniões e aceleração da produção diária.',
     intro:
       'Gemini Enterprise entra como camada estratégica de IA para clientes que já usam ou querem ampliar o uso do ecossistema Google no dia a dia da organização.',
     bullets: [
-      'Gemini no Gmail, Docs e Meet',
+      'Google Workspace with Gemini no Gmail, Docs e Meet',
       'Apoio a escrita, resumo e pesquisa',
       'Integração com a jornada do Workspace',
       'Venda consultiva para ambientes empresariais e institucionais'
     ],
     metadata: {
-      title: 'Gemini Enterprise',
+      title: 'Google Workspace with Gemini',
       description:
-        'Gemini Enterprise com a Hypercloud para produtividade com IA no ecossistema Google.'
+        'Google Workspace with Gemini com a Hypercloud para produtividade com IA no ecossistema Google.'
     }
   },
   {
     slug: 'google-cloud',
-    title: 'Google Cloud Platform com abordagem consultiva',
-    eyebrow: 'Google Cloud Platform',
+    title: 'Google Cloud com abordagem consultiva',
+    eyebrow: 'Google Cloud',
     description:
       'Infraestrutura, dados, segurança, IA e modernização em Google Cloud para empresas e instituições que precisam de escala, desempenho e governança.',
     intro:
-      'A Hypercloud trata GCP como oferta consultiva de alta autoridade, conectando arquitetura, dados, segurança e transformação digital em ambientes críticos.',
+      'A Hypercloud trata Google Cloud como oferta consultiva de alta autoridade, conectando arquitetura, dados, segurança e transformação digital em ambientes críticos.',
     bullets: [
       'Infraestrutura e modernização em nuvem',
       'Dados, analytics e serviços de IA',
@@ -66,7 +66,7 @@ export const solutions: SolutionContent[] = [
       'Projetos empresariais e institucionais'
     ],
     metadata: {
-      title: 'Google Cloud Platform',
+      title: 'Google Cloud',
       description:
         'Soluções Google Cloud com a Hypercloud para transformação digital, dados e infraestrutura.'
     }

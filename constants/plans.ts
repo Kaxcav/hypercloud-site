@@ -2,7 +2,7 @@ export type Plan = {
   id: string;
   slug: string;
   name: string;
-  category: 'workspace' | 'gemini' | 'gcp' | 'appsheet' | 'publico';
+  category: 'workspace' | 'gemini' | 'cloud' | 'appsheet' | 'publico';
   summary: string;
   audience: string;
   cta: string;
@@ -30,7 +30,7 @@ export const plans: Plan[] = [
       model: 'Plano de entrada',
       storage: '30 GB por usuário',
       meetings: 'Até 100 participantes',
-      ai: 'Gemini no Gmail e app Gemini',
+      ai: 'Google Workspace with Gemini no Gmail e no app Gemini',
       security: 'Controles essenciais',
       admin: 'Admin Console padrão',
       idealFor: 'Pequenas equipes'
@@ -48,7 +48,7 @@ export const plans: Plan[] = [
       model: 'Mais vendido',
       storage: '2 TB por usuário',
       meetings: 'Até 150 participantes',
-      ai: 'Gemini em Gmail, Docs, Meet e NotebookLM',
+      ai: 'Google Workspace with Gemini em Gmail, Docs, Meet e NotebookLM',
       security: 'Governança intermediária',
       admin: 'Administração ampliada',
       idealFor: 'Equipes em expansão'
@@ -66,7 +66,7 @@ export const plans: Plan[] = [
       model: 'Governança reforçada',
       storage: '5 TB por usuário',
       meetings: 'Até 500 participantes',
-      ai: 'Gemini ampliado por suíte',
+      ai: 'Google Workspace with Gemini ampliado por suíte',
       security: 'Vault e gestão avançada',
       admin: 'Controles e retenção',
       idealFor: 'Operações estruturadas'
@@ -84,7 +84,7 @@ export const plans: Plan[] = [
       model: 'Enterprise',
       storage: 'Conforme política da organização',
       meetings: 'Até 1000 participantes',
-      ai: 'Gemini conforme escopo enterprise',
+      ai: 'Google Workspace with Gemini conforme escopo enterprise',
       security: 'DLP, Vault, Cloud Identity Premium',
       admin: 'Administração enterprise',
       idealFor: 'Instituições e grandes operações'
@@ -93,7 +93,7 @@ export const plans: Plan[] = [
   {
     id: 'gemini-enterprise',
     slug: 'gemini-enterprise',
-    name: 'Gemini Enterprise',
+    name: 'Google Workspace with Gemini',
     category: 'gemini',
     summary: 'IA do Google aplicada ao Gmail, Docs, Meet e fluxos de trabalho corporativos.',
     audience: 'Organizações que querem produtividade com IA no dia a dia.',
@@ -102,7 +102,7 @@ export const plans: Plan[] = [
       model: 'IA aplicada',
       storage: 'Conforme o ambiente Google',
       meetings: 'Resumos e apoio no Meet',
-      ai: 'Gemini em Gmail, Docs, Meet e app Gemini',
+      ai: 'Google Workspace with Gemini em Gmail, Docs, Meet e app Gemini',
       security: 'Políticas do ambiente Google',
       admin: 'Gestão conforme tenant Google',
       idealFor: 'Times que querem acelerar produção'
@@ -111,8 +111,8 @@ export const plans: Plan[] = [
   {
     id: 'google-cloud',
     slug: 'google-cloud',
-    name: 'Google Cloud Platform',
-    category: 'gcp',
+    name: 'Google Cloud',
+    category: 'cloud',
     summary: 'Infraestrutura, dados, segurança e modernização em Google Cloud com abordagem consultiva.',
     audience: 'Empresas e instituições com projetos de cloud e transformação digital.',
     cta: 'Solicitar Diagnóstico',
@@ -156,7 +156,7 @@ export const plans: Plan[] = [
       model: 'Institucional',
       storage: 'Sob escopo institucional',
       meetings: 'Conforme plano ou projeto',
-      ai: 'Gemini e Workspace sob contexto institucional',
+      ai: 'Google Workspace with Gemini sob contexto institucional',
       security: 'Governança e requisitos públicos',
       admin: 'Jornada dedicada e atendimento consultivo',
       idealFor: 'Setor Público e instituições'
@@ -168,7 +168,7 @@ export const categories = [
   { id: 'all', label: 'Todos' },
   { id: 'workspace', label: 'Workspace' },
   { id: 'gemini', label: 'Gemini' },
-  { id: 'gcp', label: 'Google Cloud' },
+  { id: 'cloud', label: 'Google Cloud' },
   { id: 'appsheet', label: 'AppSheet' },
   { id: 'publico', label: 'Setor Público' }
 ] as const;

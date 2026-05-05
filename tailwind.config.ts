@@ -32,10 +32,13 @@ const config: Config = {
       },
       boxShadow: {
         soft: '0 14px 40px rgba(15, 23, 42, 0.08)',
-        brand: '0 18px 48px rgba(249, 115, 22, 0.18)'
+        medium: '0 18px 52px rgba(15, 23, 42, 0.1)',
+        brand: '0 18px 48px rgba(249, 115, 22, 0.18)',
+        premium: '0 24px 80px rgba(15, 23, 42, 0.12)'
       },
       backgroundImage: {
-        'brand-gradient': 'linear-gradient(90deg, #f97316 0%, #fb923c 45%, #facc15 100%)'
+        'brand-gradient': 'linear-gradient(90deg, #f97316 0%, #fb923c 45%, #facc15 100%)',
+        'hero-glow': 'radial-gradient(circle at top right, rgba(249,115,22,0.16), transparent 32%), radial-gradient(circle at bottom left, rgba(251,146,60,0.14), transparent 28%)'
       },
       borderRadius: {
         '4xl': '2rem'

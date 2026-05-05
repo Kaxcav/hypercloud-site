@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Building2, BrainCircuit, Cloud, Workflow } from 'lucide-react';
+import { ArrowRight, Building2, BrainCircuit, Cloud, ShieldCheck, Workflow } from 'lucide-react';
 import { ComparisonTable } from '@/components/ComparisonTable';
 import { ProductCard } from '@/components/ProductCard';
 import { SectionHeader } from '@/components/SectionHeader';
@@ -14,14 +14,14 @@ const products = [
     icon: Building2
   },
   {
-    title: 'Google Cloud Platform',
-    description: 'Infraestrutura, dados, modernização e segurança em GCP com abordagem consultiva para empresas e instituições.',
+    title: 'Google Cloud',
+    description: 'Infraestrutura, dados, modernização e segurança em Google Cloud com abordagem consultiva para empresas e instituições.',
     href: '/solucoes/google-cloud',
-    badge: 'GCP',
+    badge: 'Cloud',
     icon: Cloud
   },
   {
-    title: 'Gemini Enterprise',
+    title: 'Google Workspace with Gemini',
     description: 'IA aplicada ao Gmail, Docs, Meet e ao fluxo de trabalho com foco em produtividade e aceleração operacional.',
     href: '/solucoes/gemini-enterprise',
     badge: 'Gemini',
@@ -36,28 +36,35 @@ const products = [
   }
 ] as const;
 
+const credibility = [
+  'Partnered with Google Cloud',
+  'Google Workspace para empresas e instituições',
+  'Jornada dedicada para Setor Público',
+  'Comparador comercial orientado por planos'
+];
+
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-slate-200 bg-gradient-to-b from-white to-surface-soft py-24 sm:py-28">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_35%,black,transparent)]" />
-        <div className="container-shell relative grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="relative overflow-hidden border-b border-slate-200 bg-hero-glow py-24 sm:py-28">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:88px_88px] [mask-image:radial-gradient(ellipse_72%_62%_at_50%_35%,black,transparent)]" />
+        <div className="container-shell relative grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
           <div>
             <span className="inline-flex rounded-full border border-brand-200 bg-brand-50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">
-              Google Workspace · Gemini Enterprise · Google Cloud · AppSheet
+              Google Workspace · Google Workspace with Gemini · Google Cloud · AppSheet
             </span>
-            <h1 className="mt-6 max-w-4xl text-balance text-5xl font-extrabold tracking-tight text-slate-950 sm:text-6xl">
-              Transformação digital com Google Cloud, Workspace e IA para empresas e Setor Público.
+            <h1 className="mt-6 max-w-5xl text-balance text-5xl font-extrabold tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
+              Transformação digital com <span className="bg-brand-gradient bg-clip-text text-transparent">Google Cloud</span>, produtividade e IA em padrão enterprise.
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl">
-              A Hypercloud vende Google Workspace, Gemini Enterprise, GCP e AppSheet com credenciais oficiais, comparador dinâmico de planos e uma frente robusta dedicada a governo e estruturas institucionais.
+            <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-600 sm:text-xl">
+              A Hypercloud vende Google Workspace, Google Workspace with Gemini, Google Cloud e AppSheet com credenciais oficiais, comparador dinâmico de planos e uma frente robusta dedicada a governo e estruturas institucionais.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="mailto:contato@hypercloud.com.br?subject=Quero%20falar%20com%20um%20especialista"
-                className="rounded-full bg-brand-gradient px-6 py-3 text-sm font-semibold text-white shadow-brand transition hover:opacity-95"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-gradient px-6 py-3 text-sm font-semibold text-white shadow-brand transition hover:opacity-95"
               >
-                Falar com Especialista
+                Falar com Especialista <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="#comparador"
@@ -66,28 +73,30 @@ export default function HomePage() {
                 Comparar planos
               </Link>
             </div>
-            <div className="mt-8 flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-              <span className="rounded-full border border-slate-200 bg-white px-4 py-2">Badges Google originais</span>
-              <span className="rounded-full border border-slate-200 bg-white px-4 py-2">Setor Público com jornada própria</span>
-              <span className="rounded-full border border-slate-200 bg-white px-4 py-2">Comparador Pro de Workspace</span>
+            <div className="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {credibility.map((item) => (
+                <div key={item} className="rounded-2xl border border-slate-200/90 bg-white/90 px-4 py-4 text-sm font-medium text-slate-700 shadow-soft backdrop-blur">
+                  {item}
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-soft">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-premium">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Oferta principal</span>
-                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950">Produtos Google com posicionamento enterprise</h2>
+                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950">Google para produtividade, IA e governança</h2>
               </div>
               <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-brand-700">
-                Google Partner
+                Hypercloud first
               </span>
             </div>
             <div className="mt-8 space-y-4">
               {[
-                ['Workspace', 'Gmail, Drive, Meet e colaboração com IA Gemini.'],
-                ['Gemini', 'IA do Google para produtividade e ganho operacional.'],
-                ['Setor Público', 'Jornada dedicada para instituições, governo e estruturas críticas.']
+                ['Google Workspace', 'Gmail, Drive, Meet e colaboração com Google Workspace with Gemini.'],
+                ['Google Workspace with Gemini', 'IA do Google para produtividade, escrita, resumo e ganho operacional.'],
+                ['Setor Público', 'Jornada dedicada para instituições, governo e estruturas críticas com narrativa própria.']
               ].map(([title, description]) => (
                 <div key={title} className="rounded-2xl border border-slate-100 bg-surface-soft p-5">
                   <p className="text-sm font-bold text-slate-950">{title}</p>
@@ -95,16 +104,27 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
+            <div className="mt-8 rounded-2xl border border-brand-100 bg-brand-50/60 p-5">
+              <div className="flex items-start gap-3">
+                <ShieldCheck className="mt-0.5 h-5 w-5 text-brand-600" />
+                <div>
+                  <p className="text-sm font-bold text-slate-950">Partnered with Google Cloud</p>
+                  <p className="mt-1 text-sm leading-6 text-slate-600">
+                    Posicionamento consultivo com credenciais oficiais, jornada comercial clara e foco em conversão B2B e institucional.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="parceiros" className="border-b border-slate-200 bg-white py-20">
+      <section id="parceiros" className="border-b border-slate-200 bg-white py-24">
         <div className="container-shell">
           <SectionHeader
             eyebrow="Parcerias e credenciais"
             title="Reconhecimento oficial no ecossistema Google."
-            description="Badges reais da Hypercloud para reforçar autoridade comercial na venda de Google Workspace, Gemini Enterprise, GCP e soluções para Setor Público."
+            description="Badges reais da Hypercloud para reforçar autoridade comercial na venda de Google Workspace, Google Workspace with Gemini, Google Cloud e soluções para Setor Público."
             centered
           />
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
@@ -114,7 +134,7 @@ export default function HomePage() {
               'google-workspace_premier-Co-sell-service_partner.jpeg',
               'google-workspace_select_tecnology_partner.jpeg'
             ].map((file) => (
-              <div key={file} className="flex min-h-[160px] items-center justify-center rounded-3xl border border-slate-200 bg-white p-6 shadow-soft">
+              <div key={file} className="flex min-h-[172px] items-center justify-center rounded-3xl border border-slate-200 bg-white p-8 shadow-soft transition hover:-translate-y-1 hover:shadow-medium">
                 <Image src={`/logo/logos partner/${file}`} alt={file} width={280} height={120} className="h-auto max-h-24 w-auto object-contain" />
               </div>
             ))}
@@ -126,13 +146,15 @@ export default function HomePage() {
         <div className="container-shell">
           <SectionHeader
             eyebrow="Produtos principais"
-            title="Google Workspace, Google Cloud, Gemini e AppSheet em uma arquitetura de venda mais forte."
-            description="A Hypercloud assume uma hierarquia comercial clara: Workspace como vitrine principal, Gemini como camada de IA, GCP como oferta consultiva e AppSheet como automação de processos."
+            title="Google Workspace, Google Cloud, Google Workspace with Gemini e AppSheet em uma arquitetura de venda mais forte."
+            description="A Hypercloud assume uma hierarquia comercial clara: Google Workspace como vitrine principal, Google Workspace with Gemini como camada de IA, Google Cloud como oferta consultiva e AppSheet como automação de processos."
           />
           <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
             {products.map((product) => (
               <div key={product.title} className="space-y-4">
-                <product.icon className="h-10 w-10 text-brand-600" />
+                <div className="inline-flex rounded-2xl border border-brand-100 bg-white p-3 shadow-soft">
+                  <product.icon className="h-7 w-7 text-brand-600" />
+                </div>
                 <ProductCard title={product.title} description={product.description} href={product.href} badge={product.badge} />
               </div>
             ))}
@@ -144,7 +166,7 @@ export default function HomePage() {
         <div className="container-shell">
           <SectionHeader
             eyebrow="Comparador Pro"
-            title="Compare Google Workspace, Gemini Enterprise e soluções Google lado a lado."
+            title="Compare Google Workspace, Google Workspace with Gemini e soluções Google lado a lado."
             description="Sem preços públicos. Em vez disso, a Hypercloud posiciona a venda com conversa consultiva, solicitação de diagnóstico e leitura clara dos recursos mais relevantes."
           />
           <ComparisonTable />
