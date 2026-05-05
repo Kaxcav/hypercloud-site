@@ -11,28 +11,36 @@ const products = [
     description: 'Gmail corporativo, Drive, Meet, Docs e Sheets com administração centralizada e comparação entre os principais planos.',
     href: '/solucoes/google-workspace',
     badge: 'Workspace',
-    icon: Building2
+    icon: Building2,
+    tone: 'blue' as const,
+    iconClassName: 'text-sky-600'
   },
   {
     title: 'Google Cloud',
     description: 'Infraestrutura, dados, modernização e segurança em Google Cloud com abordagem consultiva para empresas e instituições.',
     href: '/solucoes/google-cloud',
     badge: 'Cloud',
-    icon: Cloud
+    icon: Cloud,
+    tone: 'green' as const,
+    iconClassName: 'text-emerald-600'
   },
   {
     title: 'Google Workspace with Gemini',
     description: 'IA aplicada ao Gmail, Docs, Meet e ao fluxo de trabalho com foco em produtividade e aceleração operacional.',
     href: '/solucoes/gemini-enterprise',
     badge: 'Gemini',
-    icon: BrainCircuit
+    icon: BrainCircuit,
+    tone: 'purple' as const,
+    iconClassName: 'text-violet-600'
   },
   {
     title: 'AppSheet',
     description: 'Automação sem código para processos internos, formulários, aprovações e operações com baixo atrito.',
     href: '/solucoes/appsheet',
     badge: 'AppSheet',
-    icon: Workflow
+    icon: Workflow,
+    tone: 'yellow' as const,
+    iconClassName: 'text-amber-600'
   }
 ] as const;
 
@@ -74,8 +82,19 @@ export default function HomePage() {
               </Link>
             </div>
             <div className="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-              {credibility.map((item) => (
-                <div key={item} className="rounded-2xl border border-slate-200/90 bg-white/90 px-4 py-4 text-sm font-medium leading-6 text-slate-700 shadow-soft backdrop-blur">
+              {credibility.map((item, index) => (
+                <div
+                  key={item}
+                  className={`rounded-2xl border px-4 py-4 text-sm font-medium leading-6 shadow-soft backdrop-blur ${
+                    index === 0
+                      ? 'border-sky-100 bg-sky-50/70 text-sky-800'
+                      : index === 1
+                        ? 'border-violet-100 bg-violet-50/70 text-violet-800'
+                        : index === 2
+                          ? 'border-emerald-100 bg-emerald-50/70 text-emerald-800'
+                          : 'border-amber-100 bg-amber-50/70 text-amber-800'
+                  }`}
+                >
                   {item}
                 </div>
               ))}
@@ -152,10 +171,10 @@ export default function HomePage() {
           <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-4">
             {products.map((product) => (
               <div key={product.title} className="space-y-4">
-                <div className="inline-flex rounded-2xl border border-brand-100 bg-white p-3 shadow-soft">
-                  <product.icon className="h-7 w-7 text-brand-600" />
+                <div className="inline-flex rounded-2xl border border-slate-200 bg-white p-3 shadow-soft">
+                  <product.icon className={`h-7 w-7 ${product.iconClassName}`} />
                 </div>
-                <ProductCard title={product.title} description={product.description} href={product.href} badge={product.badge} />
+                <ProductCard title={product.title} description={product.description} href={product.href} badge={product.badge} tone={product.tone} />
               </div>
             ))}
           </div>
