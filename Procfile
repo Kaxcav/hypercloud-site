@@ -1,1 +1,1 @@
-web: python3 -m http.server $PORT
+# Static site: Railway should serve this project via static hosting / detected static output.
