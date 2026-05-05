@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Building2, FileText, ShieldCheck, Users } from 'lucide-react';
 import { SectionHeader } from '@/components/SectionHeader';
+import { SpecialistCta } from '@/components/SpecialistCta';
 
 export const metadata: Metadata = {
   title: 'Setor Público',
@@ -62,7 +63,7 @@ export default function SetorPublicoPage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
-                href="mailto:corporativo@hypercloud.com.br?subject=Quero%20falar%20sobre%20Setor%20P%C3%BAblico"
+                href="#falar-com-especialista"
                 className="rounded-md bg-brand-gradient px-6 py-3 text-sm font-semibold text-white shadow-brand transition hover:opacity-95"
               >
                 Falar com Especialista
@@ -161,6 +162,11 @@ export default function SetorPublicoPage() {
           </div>
         </div>
       </section>
+
+      <SpecialistCta
+        title="Fale com um especialista da Hypercloud para Setor Público"
+        description="Se quiser avançar em Google Workspace, Google Cloud, credenciais ou consulta sobre ATAs, escolha o canal mais confortável e nossa equipe continua a conversa com você."
+      />
     </>
   );
 }

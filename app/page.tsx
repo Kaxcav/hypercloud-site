@@ -4,6 +4,7 @@ import { ArrowRight, Building2, BrainCircuit, Cloud, ShieldCheck, Workflow } fro
 import { ComparisonTable } from '@/components/ComparisonTable';
 import { ProductCard } from '@/components/ProductCard';
 import { SectionHeader } from '@/components/SectionHeader';
+import { SpecialistCta } from '@/components/SpecialistCta';
 
 const products = [
   {
@@ -68,7 +69,7 @@ export default function HomePage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
-                href="mailto:contato@hypercloud.com.br?subject=Quero%20falar%20com%20um%20especialista"
+                href="#falar-com-especialista"
                 className="inline-flex items-center gap-2 rounded-md bg-brand-gradient px-6 py-3 text-sm font-semibold text-white shadow-brand transition hover:opacity-95"
               >
                 Falar com Especialista <ArrowRight className="h-4 w-4" />
@@ -179,6 +180,8 @@ export default function HomePage() {
           <ComparisonTable />
         </div>
       </section>
+
+      <SpecialistCta />
     </>
   );
 }
