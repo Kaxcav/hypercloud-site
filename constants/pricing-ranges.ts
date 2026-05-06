@@ -1,61 +1,84 @@
 /**
- * Heurísticas de faixa de investimento por usuário/mês.
- * Não publica preço fixo — apenas sinaliza ordem de grandeza para o cliente.
- * Calibrar com a equipe comercial; estes valores são placeholders realistas em BRL.
+ * Configuração de cada plano para o estimador de escala.
+ * Sem valores monetários — preserva política de "sem preços públicos".
+ * Mostra o que vem incluído em cada plano à medida que a operação cresce.
  */
 
-export type PricingRange = {
+export type ScalePlan = {
   planId: string;
   label: string;
   shortLabel: string;
   audience: string;
-  perUserMonth: { min: number; max: number };
+  storagePerUserGb: number; // 0 = personalizado
+  meetCap: number;
   highlights: string[];
+  governance: 'Essencial' | 'Intermediária' | 'Avançada' | 'Enterprise';
+  aiTier: 'Essencial' | 'Ampliado' | 'Take notes' | 'Enterprise';
 };
 
-export const pricingRanges: PricingRange[] = [
+export const scalePlans: ScalePlan[] = [
   {
     planId: 'workspace-starter',
     label: 'Google Workspace Starter',
     shortLabel: 'Starter',
     audience: 'Pequenas equipes em entrada',
-    perUserMonth: { min: 35, max: 55 },
-    highlights: ['30 GB / usuário', 'Meet até 100', 'Gemini essencial']
+    storagePerUserGb: 30,
+    meetCap: 100,
+    governance: 'Essencial',
+    aiTier: 'Essencial',
+    highlights: ['Gmail corporativo', 'Drive + Docs', 'Gemini essencial']
   },
   {
     planId: 'workspace-standard',
     label: 'Google Workspace Standard',
     shortLabel: 'Standard',
     audience: 'Equipes em crescimento',
-    perUserMonth: { min: 70, max: 110 },
-    highlights: ['2 TB / usuário', 'Gravação Meet', 'Gemini ampliado']
+    storagePerUserGb: 2048,
+    meetCap: 150,
+    governance: 'Intermediária',
+    aiTier: 'Ampliado',
+    highlights: ['Gravação Meet', 'Drives compartilhados', 'Gemini ampliado']
   },
   {
     planId: 'workspace-plus',
     label: 'Google Workspace Plus',
     shortLabel: 'Plus',
     audience: 'Operações estruturadas',
-    perUserMonth: { min: 130, max: 200 },
-    highlights: ['5 TB / usuário', 'Vault + DLP', 'Take notes Gemini']
+    storagePerUserGb: 5120,
+    meetCap: 500,
+    governance: 'Avançada',
+    aiTier: 'Take notes',
+    highlights: ['Vault + DLP', 'Take notes Gemini', 'NotebookLM Plus']
   },
   {
     planId: 'workspace-enterprise',
     label: 'Google Workspace Enterprise',
     shortLabel: 'Enterprise',
     audience: 'Grandes empresas e instituições',
-    perUserMonth: { min: 220, max: 360 },
-    highlights: ['Sob política', 'DLP, S/MIME, Cloud Identity', 'Meet até 1.000']
+    storagePerUserGb: 0, // personalizado
+    meetCap: 1000,
+    governance: 'Enterprise',
+    aiTier: 'Enterprise',
+    highlights: ['DLP + S/MIME', 'Cloud Identity Premium', 'Meet até 1.000']
   }
 ];
 
-export function findRange(planId: string) {
-  return pricingRanges.find((p) => p.planId === planId) ?? pricingRanges[1];
+export function findPlan(planId: string) {
+  return scalePlans.find((p) => p.planId === planId) ?? scalePlans[1];
 }
 
-export function formatBRL(value: number) {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-    maximumFractionDigits: 0
-  }).format(value);
+export function formatStorage(perUserGb: number, users: number): string {
+  if (perUserGb === 0) return 'Personalizado';
+  const totalGb = perUserGb * users;
+  if (totalGb >= 1024) {
+    const tb = totalGb / 1024;
+    return tb >= 100
+      ? `${Math.round(tb).toLocaleString('pt-BR')} TB`
+      : `${tb.toFixed(1).replace('.', ',')} TB`;
+  }
+  return `${totalGb.toLocaleString('pt-BR')} GB`;
+}
+
+export function formatNumber(n: number) {
+  return n.toLocaleString('pt-BR');
 }

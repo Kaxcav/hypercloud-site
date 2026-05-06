@@ -60,7 +60,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
     return [
       { id: 'home', label: 'Início', group: 'Navegar', icon: Home, keywords: 'home', run: go('/') },
       { id: 'comparador', label: 'Comparar planos', group: 'Navegar', icon: Layers, run: go('/#comparador') },
-      { id: 'calculadora', label: 'Calculadora de investimento', group: 'Navegar', icon: Calculator, run: go('/#calculadora') },
+      { id: 'calculadora', label: 'Estimador de escala', group: 'Navegar', icon: Calculator, run: go('/#calculadora') },
       { id: 'cases', label: 'Cases e clientes', group: 'Navegar', icon: Sparkles, run: go('/cases') },
       { id: 'setor-publico', label: 'Setor Público · ATAs', group: 'Navegar', icon: Landmark, run: go('/setor-publico') },
       { id: 'sobre', label: 'Sobre a Hypercloud', group: 'Navegar', icon: Lightbulb, run: go('/sobre') },
