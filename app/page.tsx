@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -68,6 +67,9 @@ const heroStats = [
 export default function HomePage() {
   return (
     <>
+      {/* TRUST STRIP — credenciais Google em destaque, no topo ============ */}
+      <TrustStrip />
+
       {/* HERO ============================================================= */}
       <section className="relative overflow-hidden border-b border-slate-200/70 bg-hero-glow">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.06)_1px,transparent_1px)] bg-[size:88px_88px] [mask-image:radial-gradient(ellipse_72%_62%_at_50%_35%,black,transparent)]" />
@@ -229,42 +231,6 @@ export default function HomePage() {
                 Premier Google Cloud Partner
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TRUST STRIP ====================================================== */}
-      <TrustStrip />
-
-      {/* PARCEIROS ======================================================== */}
-      <section id="parceiros" className="border-b border-slate-200/70 bg-white py-20 sm:py-24">
-        <div className="container-shell">
-          <SectionHeader
-            eyebrow="Parcerias e credenciais"
-            title="Reconhecimento oficial no ecossistema Google."
-            description="Badges reais da Hypercloud para reforçar autoridade comercial na venda de Google Workspace, Google Workspace with Gemini, Google Cloud e soluções para Setor Público."
-            centered
-          />
-          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            {[
-              'google-clound_select-Tecnology_partner.jpeg',
-              'google-clound_select-services-partner.jpeg',
-              'google-workspace_premier-Co-sell-service_partner.jpeg',
-              'google-workspace_select_tecnology_partner.jpeg'
-            ].map((file) => (
-              <div
-                key={file}
-                className="flex min-h-[164px] items-center justify-center rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-slate-300 hover:shadow-medium"
-              >
-                <Image
-                  src={`/logo/logos partner/${file}`}
-                  alt={file}
-                  width={280}
-                  height={120}
-                  className="h-auto max-h-24 w-auto object-contain"
-                />
-              </div>
-            ))}
           </div>
         </div>
       </section>

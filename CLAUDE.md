@@ -21,7 +21,7 @@ Next.js 14 App Router site (TypeScript strict, React 18) for **Hypercloud** — 
 ### Routing & rendering
 - `app/` — App Router. Public marketing pages render as RSC; only files marked `'use client'` (e.g. `Navbar`, `ProductCard`, `ComparisonTable`, `PortalLoginForm`) ship JS.
 - `app/solucoes/[slug]/page.tsx` is statically generated via `generateStaticParams` from `constants/solutions.ts`. Adding a new solution = appending a `SolutionContent` to that file (no new route file needed).
-- `app/page.tsx` orchestrates the home: hero → `TrustStrip` → parceiros → solucoes (`ProductCard`) → comparador (`ComparisonTable`) → `SpecialistCta`.
+- `app/page.tsx` orchestrates the home: `TrustStrip` (Google partner badges, promoted above the fold) → hero → solucoes (`ProductCard`) → comparador (`ComparisonTable`) → `SpecialistCta`. The TrustStrip sits **above** the hero on purpose — first thing a visitor sees is the Google partnership credentials. Don't move it back below or duplicate the badges in a separate "parceiros" section.
 
 ### Auth (NextAuth)
 - `lib/auth.ts` — `authOptions` exports two providers: `GoogleProvider` (env `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET`) and a hardcoded `CredentialsProvider` matching `PORTAL_USER_EMAIL`/`PORTAL_USER_PASSWORD`. JWT session strategy. Sign-in page is `/portal-do-cliente`.
@@ -44,7 +44,7 @@ Next.js 14 App Router site (TypeScript strict, React 18) for **Hypercloud** — 
 ### Static content sources
 - `constants/plans.ts` — comparison data consumed by `ComparisonTable` (categories, plans with `compare.*` rows). Adding a plan auto-appears in the comparator.
 - `constants/solutions.ts` — content for every `/solucoes/[slug]` page. Must include `metadata` (Next metadata object), `title`, `bullets`, etc.
-- Partner badges live in `public/logo/logos partner/` and are referenced by filename string in `app/page.tsx`, `app/setor-publico/page.tsx`, and `components/TrustStrip.tsx`.
+- Partner badges live in `public/logo/logos partner/` and are referenced by filename string in `components/TrustStrip.tsx` (home, full-color row above the hero) and `app/setor-publico/page.tsx`.
 
 ### Tone of voice (applied across copy)
 The brand voice is direct, B2B/B2G adult, no emojis, no "transformação mágica" hype. Headlines emphasize verifiable differentiators (Premier Partner, certifications, ATAs). When editing copy, match this register — see `01-documento-estrategico.md` for the canonical guidelines and the rewritten "Sobre" page text.

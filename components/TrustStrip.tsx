@@ -20,48 +20,34 @@ const partnerLogos = [
 ];
 
 export function TrustStrip() {
-  const loop = [...partnerLogos, ...partnerLogos, ...partnerLogos];
-
   return (
     <section
       aria-label="Credenciais oficiais Google"
       className="border-b border-slate-200/70 bg-white"
     >
-      <div className="container-shell flex flex-col gap-6 py-10 lg:flex-row lg:items-center lg:gap-10">
-        <div className="shrink-0 lg:max-w-[220px]">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-            Confiança comprovada
-          </p>
-          <p className="mt-2 text-sm font-semibold text-slate-800">
-            Credenciais oficiais Google
+      <div className="container-shell flex flex-col items-center gap-5 py-6 sm:py-7 lg:flex-row lg:justify-between lg:gap-10">
+        <div className="flex items-center gap-3 lg:shrink-0">
+          <span className="inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-700 sm:text-xs">
+            Premier Google Cloud Partner
           </p>
         </div>
 
-        <div
-          className="relative flex-1 overflow-hidden"
-          style={{
-            maskImage:
-              'linear-gradient(to right, transparent, black 8%, black 92%, transparent)',
-            WebkitMaskImage:
-              'linear-gradient(to right, transparent, black 8%, black 92%, transparent)'
-          }}
-        >
-          <div className="marquee-track flex w-max items-center gap-12 will-change-transform">
-            {loop.map((logo, index) => (
-              <div
-                key={`${logo.file}-${index}`}
-                className="flex h-14 w-[160px] shrink-0 items-center justify-center"
-              >
-                <Image
-                  src={`/logo/logos partner/${logo.file}`}
-                  alt={logo.alt}
-                  width={160}
-                  height={56}
-                  className="h-full w-auto object-contain opacity-70 grayscale transition duration-300 hover:opacity-100 hover:grayscale-0"
-                />
-              </div>
-            ))}
-          </div>
+        <div className="flex w-full flex-wrap items-center justify-center gap-x-8 gap-y-4 sm:gap-x-12 lg:w-auto lg:flex-1 lg:justify-end">
+          {partnerLogos.map((logo) => (
+            <div
+              key={logo.file}
+              className="flex h-12 w-[140px] shrink-0 items-center justify-center sm:h-14 sm:w-[160px]"
+            >
+              <Image
+                src={`/logo/logos partner/${logo.file}`}
+                alt={logo.alt}
+                width={180}
+                height={64}
+                className="h-full w-auto object-contain"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>
