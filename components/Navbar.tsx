@@ -10,7 +10,7 @@ const links = [
   { href: '/#solucoes', label: 'Soluções' },
   { href: '/#comparador', label: 'Comparar Planos' },
   { href: '/setor-publico', label: 'Setor Público' },
-  { href: '/#parceiros', label: 'Parceiros Google' },
+  { href: '/sobre', label: 'Sobre' },
   { href: '/suporte', label: 'Suporte' }
 ];
 

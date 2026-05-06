@@ -114,6 +114,11 @@ export function Footer() {
           </h3>
           <ul className="space-y-3 text-[13px] text-slate-600">
             <li>
+              <Link href="/sobre" className="transition hover:text-brand-600">
+                Sobre a Hypercloud
+              </Link>
+            </li>
+            <li>
               <Link href="/setor-publico" className="transition hover:text-brand-600">
                 Setor Público · ATAs
               </Link>
