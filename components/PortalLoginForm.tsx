@@ -41,69 +41,69 @@ export function PortalLoginForm() {
         type="button"
         onClick={onGoogleLogin}
         disabled={googleLoading}
-        className="flex w-full items-center justify-center gap-3 rounded-md border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-brand-200 hover:text-brand-600 disabled:cursor-not-allowed disabled:opacity-70"
+        className="flex w-full items-center justify-center gap-3 rounded-md border border-border bg-surface-card px-5 py-3 text-sm font-bold text-text transition hover:border-brand-500/40 hover:text-text-strong disabled:cursor-not-allowed disabled:opacity-70"
       >
-        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-slate-100 text-[11px] font-bold text-slate-700">G</span>
-        {googleLoading ? 'Redirecionando...' : 'Entrar com Google'}
+        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-surface-muted text-[11px] font-extrabold text-text-strong">G</span>
+        {googleLoading ? 'Redirecionando…' : 'Entrar com Google'}
       </button>
 
-      <div className="relative py-1 text-center text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-        <span className="relative z-10 bg-white px-3">ou use suas credenciais</span>
-        <div className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-slate-200" />
+      <div className="relative py-1 text-center text-xs font-bold uppercase tracking-[0.16em] text-text-subtle">
+        <span className="relative z-10 bg-surface-card px-3">ou use suas credenciais</span>
+        <div className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-border" />
       </div>
 
       <form onSubmit={onSubmit} className="space-y-4">
         <div>
-          <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">
+          <label htmlFor="email" className="mb-2 block text-sm font-medium text-text">
             E-mail corporativo
           </label>
-          <div className="flex items-center rounded-2xl border border-slate-200 bg-white px-4 py-3">
-            <Mail className="mr-3 h-4 w-4 text-slate-400" />
+          <div className="flex items-center rounded-2xl border border-border bg-surface-soft px-4 py-3 transition focus-within:border-brand-500/50 focus-within:shadow-[0_0_0_3px_rgba(249,115,22,0.12)]">
+            <Mail className="mr-3 h-4 w-4 text-text-subtle" />
             <input
               id="email"
               type="email"
               placeholder="voce@empresa.com"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
+              className="w-full bg-transparent text-sm text-text-strong outline-none placeholder:text-text-subtle"
               required
             />
           </div>
         </div>
         <div>
-          <label htmlFor="password" className="mb-2 block text-sm font-medium text-slate-700">
+          <label htmlFor="password" className="mb-2 block text-sm font-medium text-text">
             Senha
           </label>
-          <div className="flex items-center rounded-2xl border border-slate-200 bg-white px-4 py-3">
-            <LockKeyhole className="mr-3 h-4 w-4 text-slate-400" />
+          <div className="flex items-center rounded-2xl border border-border bg-surface-soft px-4 py-3 transition focus-within:border-brand-500/50 focus-within:shadow-[0_0_0_3px_rgba(249,115,22,0.12)]">
+            <LockKeyhole className="mr-3 h-4 w-4 text-text-subtle" />
             <input
               id="password"
               type="password"
               placeholder="Sua senha"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
+              className="w-full bg-transparent text-sm text-text-strong outline-none placeholder:text-text-subtle"
               required
             />
           </div>
         </div>
 
-        {error ? <p className="text-sm text-red-600">{error}</p> : null}
+        {error ? <p className="text-sm text-red-400">{error}</p> : null}
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-md bg-brand-gradient px-5 py-3 text-sm font-semibold text-white shadow-brand transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-70"
+          className="w-full rounded-md bg-brand-gradient px-5 py-3 text-sm font-bold text-white shadow-brand transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-70"
         >
-          {loading ? 'Entrando...' : 'Entrar no Portal'}
+          {loading ? 'Entrando…' : 'Entrar no Portal'}
         </button>
       </form>
 
-      <div className="mt-5 flex flex-col gap-3 text-sm text-slate-600">
-        <Link href="mailto:suporte@hypercloud.com.br?subject=Esqueci%20minha%20senha" className="hover:text-brand-600">
+      <div className="mt-5 flex flex-col gap-3 text-sm text-text-muted">
+        <Link href="mailto:suporte@hypercloud.com.br?subject=Esqueci%20minha%20senha" className="hover:text-brand-400">
           Esqueci minha senha
         </Link>
-        <Link href="/suporte" className="hover:text-brand-600">
+        <Link href="/suporte" className="hover:text-brand-400">
           Abrir chamado sem login
         </Link>
       </div>

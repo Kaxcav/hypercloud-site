@@ -4,49 +4,51 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import {
   ArrowRight,
+  ArrowUpRight,
+  BadgeCheck,
+  Calendar,
   CheckCircle2,
   Clock,
+  ExternalLink,
   FileText,
-  HeadphonesIcon,
+  Headphones,
+  HelpCircle,
   LifeBuoy,
+  Loader2,
   ShieldCheck,
   Sparkles,
   TrendingUp
 } from 'lucide-react';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { authOptions } from '@/lib/auth';
+import {
+  dashboardLicenses,
+  dashboardTickets,
+  dashboardTimeline,
+  dashboardUsage
+} from '@/constants/dashboard-mock';
+import { cn } from '@/components/ui';
 
 export const metadata: Metadata = {
   title: 'Dashboard do Cliente',
   description: 'Área autenticada do Portal do Cliente Hypercloud.'
 };
 
-const quickStats = [
-  { label: 'Chamados abertos', value: '0', icon: LifeBuoy, tone: 'text-sky-600 bg-sky-50' },
-  { label: 'Em acompanhamento', value: '0', icon: Clock, tone: 'text-amber-600 bg-amber-50' },
-  { label: 'Resolvidos', value: '—', icon: CheckCircle2, tone: 'text-emerald-600 bg-emerald-50' }
-];
-
-const quickActions = [
-  {
-    icon: HeadphonesIcon,
-    title: 'Abrir um chamado',
-    description: 'Solicite suporte técnico, comercial ou administrativo.',
-    href: '/suporte'
-  },
-  {
-    icon: FileText,
-    title: 'Documentos e ATAs',
-    description: 'Acesse documentos públicos e materiais institucionais.',
-    href: '/setor-publico'
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Compliance',
-    description: 'Programa de Integridade, Código de Ética e Canal de Ouvidoria.',
-    href: '/setor-publico'
-  }
-];
+const ticketStatusStyle: Record<string, string> = {
+  aberto: 'border-amber-500/40 bg-amber-500/10 text-amber-400',
+  'em-andamento': 'border-sky-500/40 bg-sky-500/10 text-sky-400',
+  resolvido: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-400'
+};
+const ticketStatusLabel: Record<string, string> = {
+  aberto: 'Aberto',
+  'em-andamento': 'Em andamento',
+  resolvido: 'Resolvido'
+};
+const priorityStyle: Record<string, string> = {
+  alta: 'text-red-400',
+  media: 'text-amber-400',
+  baixa: 'text-text-subtle'
+};
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
@@ -56,113 +58,66 @@ export default async function DashboardPage() {
   }
 
   const userName = session.user?.name ?? 'Cliente Hypercloud';
+  const firstName = userName.split(' ')[0];
+  const totalLicenses = dashboardLicenses.reduce((sum, l) => sum + l.count, 0);
+  const openTickets = dashboardTickets.filter((t) => t.status !== 'resolvido').length;
+  const storageUsedPct = Math.round((dashboardUsage.storageUsedTb / dashboardUsage.storageQuotaTb) * 100);
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-slate-200/70 bg-hero-glow">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.05)_1px,transparent_1px)] bg-[size:88px_88px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,black,transparent)]" />
-
-        <div className="container-shell relative grid items-start gap-12 py-14 sm:py-16 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16 lg:py-20">
+      {/* HERO */}
+      <section className="relative overflow-hidden border-b border-border bg-hero-glow">
+        <div className="absolute inset-0 bg-grid pointer-events-none" />
+        <div className="container-shell relative grid items-start gap-12 py-12 sm:py-14 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:gap-16 lg:py-16">
           <div>
-            <Breadcrumbs
-              items={[
-                { label: 'Portal do Cliente', href: '/portal-do-cliente' },
-                { label: 'Dashboard' }
-              ]}
-            />
+            <Breadcrumbs items={[{ label: 'Portal do Cliente', href: '/portal-do-cliente' }, { label: 'Dashboard' }]} />
 
-            <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-brand-200/80 bg-white/90 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-700 shadow-sm backdrop-blur">
-              <Sparkles className="h-3 w-3" />
+            <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
               Sessão autenticada
             </span>
 
-            <h1 className="mt-5 text-balance text-[34px] font-extrabold leading-[1.08] tracking-tight text-slate-900 sm:text-[44px] lg:text-[52px] lg:leading-[1.05]">
+            <h1 className="mt-5 text-balance text-[34px] font-extrabold leading-[1.06] tracking-tight text-text-strong sm:text-[44px] lg:text-[52px] lg:leading-[1.05]">
               Bem-vindo de volta,{' '}
-              <span className="bg-brand-gradient bg-clip-text text-transparent">
-                {userName.split(' ')[0]}
-              </span>
-              .
+              <span className="font-serif italic font-normal text-gradient-brand">{firstName}</span>.
             </h1>
 
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg sm:leading-8">
-              Sua área central para acompanhar chamados, acessar documentos e
-              centralizar o relacionamento com a Hypercloud. Esta área evoluirá
-              com tickets, integrações e indicadores de uso.
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-text-muted sm:text-lg sm:leading-7">
+              Sua área central — chamados, licenças, integrações Google e relacionamento com a Hypercloud. Mockup ilustrativo;
+              substituir por integração real quando a API estiver disponível.
             </p>
 
-            <dl className="mt-9 grid grid-cols-3 gap-4">
-              {quickStats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm"
-                >
-                  <span
-                    className={`inline-flex h-9 w-9 items-center justify-center rounded-lg ${stat.tone}`}
-                  >
-                    <stat.icon className="h-4 w-4" />
-                  </span>
-                  <dt className="mt-3 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">
-                    {stat.label}
-                  </dt>
-                  <dd className="mt-1 text-2xl font-extrabold tracking-tight text-slate-900">
-                    {stat.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            <div className="mt-8 grid grid-cols-3 gap-3">
+              <StatCard label="Licenças ativas" value={String(totalLicenses)} icon={BadgeCheck} accent="emerald" />
+              <StatCard label="Chamados abertos" value={String(openTickets)} icon={LifeBuoy} accent="amber" />
+              <StatCard label="Uso storage" value={`${storageUsedPct}%`} icon={TrendingUp} accent="brand" />
+            </div>
           </div>
 
+          {/* status card */}
           <div className="relative">
-            <div className="absolute -inset-6 -z-10 rounded-[40px] bg-[radial-gradient(circle_at_30%_20%,rgba(249,115,22,0.16),transparent_55%),radial-gradient(circle_at_70%_80%,rgba(251,146,60,0.12),transparent_60%)] blur-2xl" />
-
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-premium sm:p-7">
+            <div className="pointer-events-none absolute -inset-6 -z-10 rounded-[40px] bg-[radial-gradient(circle_at_30%_20%,rgba(249,115,22,0.16),transparent_55%),radial-gradient(circle_at_70%_80%,rgba(251,146,60,0.12),transparent_60%)] blur-2xl" />
+            <div className="rounded-2xl border border-border bg-surface-card p-6 shadow-premium sm:p-7">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-                    Status da conta
-                  </p>
-                  <h2 className="mt-2 text-xl font-extrabold tracking-tight text-slate-900">
-                    Tudo em ordem
-                  </h2>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-400">Status da conta</p>
+                  <h2 className="mt-2 text-xl font-extrabold tracking-tight text-text-strong">Tudo em ordem</h2>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-700">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-400">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                   Ativa
                 </span>
               </div>
 
               <div className="mt-6 space-y-2.5">
-                <div className="flex items-center gap-3 rounded-xl border border-slate-200/70 bg-slate-50/60 px-3.5 py-3">
-                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                    <TrendingUp className="h-4 w-4" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-[13px] font-bold text-slate-900">
-                      Conta Hypercloud
-                    </p>
-                    <p className="mt-0.5 text-[12px] leading-snug text-slate-600">
-                      Acompanhamento ativo · Sem pendências.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 rounded-xl border border-slate-200/70 bg-slate-50/60 px-3.5 py-3">
-                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
-                    <ShieldCheck className="h-4 w-4" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-[13px] font-bold text-slate-900">
-                      Sessão segura
-                    </p>
-                    <p className="mt-0.5 text-[12px] leading-snug text-slate-600">
-                      Autenticação validada com sucesso.
-                    </p>
-                  </div>
-                </div>
+                <RowItem icon={ShieldCheck} title="Sessão segura" desc="Autenticação validada com sucesso." color="emerald" />
+                <RowItem icon={TrendingUp} title="Conta Hypercloud" desc="Acompanhamento ativo · sem pendências." color="brand" />
+                <RowItem icon={Calendar} title="Próxima renovação" desc="Workspace Plus em 12 set 2026." color="amber" />
               </div>
 
               <Link
                 href="/suporte"
-                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand-gradient px-5 py-3 text-[13px] font-semibold text-white shadow-brand transition hover:opacity-95"
+                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand-gradient px-5 py-3 text-[13px] font-bold text-white shadow-brand transition hover:opacity-95"
               >
                 Abrir chamado
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -172,42 +127,317 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      <section className="bg-slate-50 py-16 sm:py-20">
+      {/* LICENSES + USAGE */}
+      <section className="bg-surface-soft py-14">
+        <div className="container-shell grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-2 rounded-2xl border border-border bg-surface-card p-6 shadow-soft sm:p-7">
+            <div className="mb-5 flex items-center justify-between">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-400">Licenças</p>
+                <h3 className="mt-1.5 text-lg font-bold tracking-tight text-text-strong">Produtos ativos</h3>
+              </div>
+              <Link href="/sobre" className="text-[12px] font-bold text-text-muted transition hover:text-brand-400">
+                Histórico
+              </Link>
+            </div>
+            <ul className="space-y-2">
+              {dashboardLicenses.map((lic) => (
+                <li
+                  key={lic.product}
+                  className="flex items-center justify-between gap-4 rounded-xl border border-border bg-surface-soft px-4 py-3.5"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500/10 text-brand-400">
+                      <Sparkles className="h-4 w-4" />
+                    </span>
+                    <div>
+                      <p className="text-[13.5px] font-bold text-text-strong">{lic.product}</p>
+                      <p className="mt-0.5 text-[12px] text-text-muted">
+                        Renova em {new Date(lic.renewsAt).toLocaleDateString('pt-BR')}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <p className="text-[15px] font-extrabold tabular-nums text-text-strong">{lic.count}</p>
+                    <span
+                      className={cn(
+                        'rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em]',
+                        lic.status === 'ativa'
+                          ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-400'
+                          : 'border-amber-500/40 bg-amber-500/10 text-amber-400'
+                      )}
+                    >
+                      {lic.status === 'ativa' ? 'Ativa' : 'Em piloto'}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* USAGE */}
+          <div className="rounded-2xl border border-border bg-surface-card p-6 shadow-soft sm:p-7">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-400">Uso este mês</p>
+            <div className="mt-5 space-y-5">
+              <UsageBar label="Storage" value={dashboardUsage.storageUsedTb} max={dashboardUsage.storageQuotaTb} unit="TB" />
+              <div>
+                <p className="text-[12px] font-bold uppercase tracking-[0.14em] text-text-subtle">Meet</p>
+                <p className="mt-1.5 font-serif text-[36px] italic leading-none tracking-tight text-brand-400">
+                  {dashboardUsage.meetMinutesMonth.toLocaleString('pt-BR')}
+                </p>
+                <p className="mt-1 text-[12px] text-text-muted">minutos no mês</p>
+              </div>
+              <div>
+                <p className="text-[12px] font-bold uppercase tracking-[0.14em] text-text-subtle">Gemini</p>
+                <p className="mt-1.5 font-serif text-[36px] italic leading-none tracking-tight text-brand-400">
+                  {dashboardUsage.geminiUsesMonth.toLocaleString('pt-BR')}
+                </p>
+                <p className="mt-1 text-[12px] text-text-muted">interações com IA</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* TICKETS + TIMELINE */}
+      <section className="bg-surface-base py-14">
+        <div className="container-shell grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-2 rounded-2xl border border-border bg-surface-card p-6 shadow-soft sm:p-7">
+            <div className="mb-5 flex items-center justify-between">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-400">Chamados</p>
+                <h3 className="mt-1.5 text-lg font-bold tracking-tight text-text-strong">Atualizações recentes</h3>
+              </div>
+              <Link
+                href="/suporte"
+                className="inline-flex items-center gap-1 text-[12px] font-bold text-brand-400 transition hover:text-brand-300"
+              >
+                Abrir novo <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
+            <ul className="space-y-2">
+              {dashboardTickets.map((t) => (
+                <li
+                  key={t.id}
+                  className="flex flex-col gap-3 rounded-xl border border-border bg-surface-soft px-4 py-3.5 sm:flex-row sm:items-center"
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="font-mono text-[11px] font-bold text-text-subtle">{t.id}</p>
+                      <span className={cn('text-[11px] font-bold uppercase tracking-[0.14em]', priorityStyle[t.priority])}>
+                        {t.priority === 'alta' ? '● Alta' : t.priority === 'media' ? '● Média' : '○ Baixa'}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-[14px] font-bold text-text-strong">{t.title}</p>
+                    <p className="mt-0.5 text-[12px] text-text-muted">
+                      Atualizado em {new Date(t.updatedAt).toLocaleDateString('pt-BR')}
+                    </p>
+                  </div>
+                  <span
+                    className={cn(
+                      'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.16em]',
+                      ticketStatusStyle[t.status]
+                    )}
+                  >
+                    {t.status === 'aberto' ? <Clock className="h-3 w-3" /> :
+                      t.status === 'em-andamento' ? <Loader2 className="h-3 w-3 animate-spin" /> :
+                        <CheckCircle2 className="h-3 w-3" />}
+                    {ticketStatusLabel[t.status]}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* TIMELINE */}
+          <div className="rounded-2xl border border-border bg-surface-card p-6 shadow-soft sm:p-7">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-400">Linha do tempo</p>
+            <ul className="mt-5 space-y-4">
+              {dashboardTimeline.map((evt, idx) => (
+                <li key={`${evt.date}-${idx}`} className="relative pl-6">
+                  <span className="absolute left-0 top-1.5 inline-flex h-3 w-3 items-center justify-center rounded-full bg-brand-gradient" />
+                  {idx !== dashboardTimeline.length - 1 ? (
+                    <span className="absolute left-1.5 top-4 h-full w-px bg-border" aria-hidden />
+                  ) : null}
+                  <p className="text-[12px] font-bold text-text-subtle">
+                    {new Date(evt.date).toLocaleDateString('pt-BR')}
+                  </p>
+                  <p className="mt-0.5 text-[13.5px] text-text">{evt.label}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* QUICK ACTIONS */}
+      <section className="bg-surface-soft py-14">
         <div className="container-shell">
           <div className="mb-8">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-700">
-              Ações rápidas
-            </p>
-            <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-400">Atalhos rápidos</p>
+            <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-text-strong sm:text-3xl">
               Por onde você quer começar?
             </h2>
           </div>
 
           <div className="grid gap-5 md:grid-cols-3">
-            {quickActions.map((action) => (
-              <Link
-                key={action.title}
-                href={action.href}
-                className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-slate-300"
-              >
-                <div className="inline-flex w-fit rounded-xl bg-brand-50 p-2.5 text-brand-600">
-                  <action.icon className="h-5 w-5" />
-                </div>
-                <h3 className="mt-4 text-lg font-bold tracking-tight text-slate-900">
-                  {action.title}
-                </h3>
-                <p className="mt-3 flex-1 text-[13px] leading-relaxed text-slate-600">
-                  {action.description}
-                </p>
-                <span className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-brand-600">
-                  Acessar
-                  <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
-                </span>
-              </Link>
-            ))}
+            <ActionCard
+              icon={Headphones}
+              title="Abrir um chamado"
+              desc="Suporte técnico, comercial ou administrativo."
+              href="/suporte"
+            />
+            <ActionCard
+              icon={ExternalLink}
+              title="Admin Console Google"
+              desc="Acesso direto ao painel de admin Workspace."
+              href="https://admin.google.com"
+              external
+            />
+            <ActionCard
+              icon={FileText}
+              title="Documentos e ATAs"
+              desc="Documentos institucionais públicos."
+              href="/setor-publico"
+            />
+            <ActionCard
+              icon={ShieldCheck}
+              title="Compliance"
+              desc="Programa de Integridade e canal de ouvidoria."
+              href="/setor-publico"
+            />
+            <ActionCard
+              icon={HelpCircle}
+              title="Base de conhecimento"
+              desc="Tutoriais e respostas para dúvidas comuns."
+              href="/suporte"
+            />
+            <ActionCard
+              icon={Sparkles}
+              title="Solicitar Gemini"
+              desc="Ampliar licenças de Workspace with Gemini."
+              href="/solucoes/gemini-enterprise"
+            />
           </div>
         </div>
       </section>
     </>
+  );
+}
+
+function StatCard({
+  label,
+  value,
+  icon: Icon,
+  accent
+}: {
+  label: string;
+  value: string;
+  icon: React.ComponentType<{ className?: string }>;
+  accent: 'emerald' | 'amber' | 'brand';
+}) {
+  const accentColor =
+    accent === 'emerald'
+      ? 'text-emerald-400 bg-emerald-500/10'
+      : accent === 'amber'
+        ? 'text-amber-400 bg-amber-500/10'
+        : 'text-brand-400 bg-brand-500/10';
+
+  return (
+    <div className="rounded-2xl border border-border bg-surface-card p-4 shadow-soft">
+      <span className={cn('inline-flex h-9 w-9 items-center justify-center rounded-lg', accentColor)}>
+        <Icon className="h-4 w-4" />
+      </span>
+      <dt className="mt-3 text-[10.5px] font-bold uppercase tracking-[0.16em] text-text-subtle">{label}</dt>
+      <dd className="mt-1 font-serif text-[28px] italic leading-none tracking-tight text-text-strong">{value}</dd>
+    </div>
+  );
+}
+
+function RowItem({
+  icon: Icon,
+  title,
+  desc,
+  color
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  desc: string;
+  color: 'emerald' | 'brand' | 'amber';
+}) {
+  const c =
+    color === 'emerald'
+      ? 'text-emerald-400 bg-emerald-500/10'
+      : color === 'amber'
+        ? 'text-amber-400 bg-amber-500/10'
+        : 'text-brand-400 bg-brand-500/10';
+  return (
+    <div className="flex items-center gap-3 rounded-xl border border-border bg-surface-soft px-3.5 py-3">
+      <span className={cn('inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg', c)}>
+        <Icon className="h-4 w-4" />
+      </span>
+      <div className="min-w-0">
+        <p className="text-[13px] font-bold text-text-strong">{title}</p>
+        <p className="mt-0.5 text-[12px] leading-snug text-text-muted">{desc}</p>
+      </div>
+    </div>
+  );
+}
+
+function UsageBar({ label, value, max, unit }: { label: string; value: number; max: number; unit: string }) {
+  const pct = Math.round((value / max) * 100);
+  return (
+    <div>
+      <div className="flex items-baseline justify-between">
+        <p className="text-[12px] font-bold uppercase tracking-[0.14em] text-text-subtle">{label}</p>
+        <p className="text-[13.5px] font-bold text-text-strong">
+          {value}<span className="text-text-muted"> / {max} {unit}</span>
+        </p>
+      </div>
+      <div className="mt-2 h-2 overflow-hidden rounded-full bg-surface-muted">
+        <div
+          className="h-full rounded-full bg-brand-gradient"
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+      <p className="mt-1 text-[11px] text-text-subtle">{pct}% utilizado</p>
+    </div>
+  );
+}
+
+function ActionCard({
+  icon: Icon,
+  title,
+  desc,
+  href,
+  external
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  desc: string;
+  href: string;
+  external?: boolean;
+}) {
+  const Component = external ? 'a' : Link;
+  const linkProps = external ? { href, target: '_blank', rel: 'noreferrer' } : { href };
+  return (
+    <Component
+      {...(linkProps as any)}
+      className="group flex flex-col rounded-2xl border border-border bg-surface-card p-6 shadow-soft transition hover:-translate-y-1 hover:border-brand-500/30"
+    >
+      <div className="inline-flex w-fit rounded-xl bg-brand-500/10 p-2.5 text-brand-400">
+        <Icon className="h-5 w-5" />
+      </div>
+      <h3 className="mt-4 text-lg font-bold tracking-tight text-text-strong">{title}</h3>
+      <p className="mt-3 flex-1 text-[13px] leading-relaxed text-text-muted">{desc}</p>
+      <span className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-bold text-brand-400">
+        Acessar
+        {external ? (
+          <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        ) : (
+          <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+        )}
+      </span>
+    </Component>
   );
 }

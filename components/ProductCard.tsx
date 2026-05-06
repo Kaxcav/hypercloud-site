@@ -1,62 +1,80 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/components/ui';
+
+type Tone = 'blue' | 'green' | 'purple' | 'yellow';
 
 type ProductCardProps = {
   title: string;
   description: string;
   href: string;
   badge: string;
-  tone?: 'blue' | 'green' | 'purple' | 'yellow';
+  iconNode: React.ReactNode;
+  tone?: Tone;
 };
 
-const toneStyles: Record<NonNullable<ProductCardProps['tone']>, { ring: string; badge: string; link: string }> = {
+const toneStyles: Record<Tone, { glow: string; iconBg: string; iconColor: string; badge: string }> = {
   blue: {
-    ring: 'group-hover:border-sky-200 group-hover:shadow-[0_18px_48px_rgba(66,133,244,0.12)]',
-    badge: 'bg-sky-50 text-sky-700',
-    link: 'text-sky-600 group-hover:text-sky-700'
+    glow: 'before:bg-[radial-gradient(circle_at_30%_-10%,rgba(56,189,248,0.16),transparent_60%)]',
+    iconBg: 'bg-sky-500/10',
+    iconColor: 'text-sky-400',
+    badge: 'border-sky-500/30 bg-sky-500/10 text-sky-400'
   },
   green: {
-    ring: 'group-hover:border-emerald-200 group-hover:shadow-[0_18px_48px_rgba(52,168,83,0.12)]',
-    badge: 'bg-emerald-50 text-emerald-700',
-    link: 'text-emerald-600 group-hover:text-emerald-700'
+    glow: 'before:bg-[radial-gradient(circle_at_30%_-10%,rgba(52,211,153,0.16),transparent_60%)]',
+    iconBg: 'bg-emerald-500/10',
+    iconColor: 'text-emerald-400',
+    badge: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400'
   },
   purple: {
-    ring: 'group-hover:border-violet-200 group-hover:shadow-[0_18px_48px_rgba(160,80,255,0.12)]',
-    badge: 'bg-violet-50 text-violet-700',
-    link: 'text-violet-600 group-hover:text-violet-700'
+    glow: 'before:bg-[radial-gradient(circle_at_30%_-10%,rgba(167,139,250,0.18),transparent_60%)]',
+    iconBg: 'bg-violet-500/10',
+    iconColor: 'text-violet-400',
+    badge: 'border-violet-500/30 bg-violet-500/10 text-violet-400'
   },
   yellow: {
-    ring: 'group-hover:border-amber-200 group-hover:shadow-[0_18px_48px_rgba(251,188,5,0.12)]',
-    badge: 'bg-amber-50 text-amber-700',
-    link: 'text-amber-700 group-hover:text-amber-800'
+    glow: 'before:bg-[radial-gradient(circle_at_30%_-10%,rgba(251,191,36,0.18),transparent_60%)]',
+    iconBg: 'bg-amber-500/10',
+    iconColor: 'text-amber-400',
+    badge: 'border-amber-500/30 bg-amber-500/10 text-amber-400'
   }
 };
 
-export function ProductCard({ title, description, href, badge, tone = 'blue' }: ProductCardProps) {
+export function ProductCard({ title, description, href, badge, iconNode, tone = 'blue' }: ProductCardProps) {
   const styles = toneStyles[tone];
+  const reduced = useReducedMotion();
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduced ? false : { opacity: 0, y: 18 }}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.45 }}
+      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        'group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-slate-300',
-        styles.ring
+        'group relative isolate flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface-card p-7 shadow-soft transition duration-300 hover:-translate-y-1 hover:border-brand-500/30',
+        'before:pointer-events-none before:absolute before:inset-0 before:opacity-0 before:transition before:duration-500 before:content-[""] hover:before:opacity-100',
+        styles.glow
       )}
     >
-      <span className={cn('inline-flex rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em]', styles.badge)}>
-        {badge}
-      </span>
-      <h3 className="mt-5 text-xl font-bold tracking-tight text-slate-900">{title}</h3>
-      <p className="mt-3 flex-1 text-[14px] leading-relaxed text-slate-600">{description}</p>
-      <Link href={href} className={cn('mt-6 inline-flex items-center gap-2 text-[13px] font-semibold transition', styles.link)}>
-        Saiba mais <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+      <div className="relative z-10 flex items-start justify-between gap-4">
+        <span className={cn('inline-flex h-12 w-12 items-center justify-center rounded-xl', styles.iconBg, styles.iconColor)}>
+          {iconNode}
+        </span>
+        <span className={cn('inline-flex rounded-full border px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.16em]', styles.badge)}>
+          {badge}
+        </span>
+      </div>
+      <h3 className="relative z-10 mt-6 text-xl font-bold tracking-tight text-text-strong">{title}</h3>
+      <p className="relative z-10 mt-3 flex-1 text-[14px] leading-relaxed text-text-muted">{description}</p>
+      <Link
+        href={href}
+        className="relative z-10 mt-6 inline-flex items-center gap-2 text-[13px] font-bold text-brand-400 transition hover:text-brand-300"
+      >
+        Saiba mais
+        <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
       </Link>
     </motion.article>
   );
