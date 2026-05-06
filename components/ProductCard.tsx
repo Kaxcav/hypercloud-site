@@ -46,17 +46,17 @@ export function ProductCard({ title, description, href, badge, tone = 'blue' }: 
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.45 }}
       className={cn(
-        'group rounded-[28px] border border-slate-200/60 bg-white p-8 transition hover:-translate-y-1',
+        'group flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-slate-300',
         styles.ring
       )}
     >
       <span className={cn('inline-flex rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em]', styles.badge)}>
         {badge}
       </span>
-      <h3 className="mt-5 text-2xl font-extrabold tracking-tighter text-slate-900">{title}</h3>
-      <p className="mt-4 text-base leading-relaxed text-slate-600">{description}</p>
-      <Link href={href} className={cn('mt-6 inline-flex items-center gap-2 text-sm font-semibold transition', styles.link)}>
-        Saiba mais <ArrowRight className="h-4 w-4" />
+      <h3 className="mt-5 text-xl font-bold tracking-tight text-slate-900">{title}</h3>
+      <p className="mt-3 flex-1 text-[14px] leading-relaxed text-slate-600">{description}</p>
+      <Link href={href} className={cn('mt-6 inline-flex items-center gap-2 text-[13px] font-semibold transition', styles.link)}>
+        Saiba mais <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
       </Link>
     </motion.article>
   );

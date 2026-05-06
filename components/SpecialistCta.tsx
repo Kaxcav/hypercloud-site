@@ -15,7 +15,7 @@ export function SpecialistCta({
   return (
     <section id={id} className="border-t border-slate-200/60 bg-white py-20 sm:py-24 lg:py-28">
       <div className="container-shell max-w-5xl">
-        <div className="rounded-[28px] border border-slate-200/60 bg-slate-50 p-6 sm:p-8 lg:p-10">
+        <div className="rounded-2xl border border-slate-200/60 bg-slate-50 p-6 sm:p-8 lg:p-10">
           <span className="inline-flex rounded-full border border-brand-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">
             Falar com um especialista
           </span>

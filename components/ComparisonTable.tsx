@@ -40,7 +40,7 @@ export function ComparisonTable() {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-[28px] border border-slate-200/60 bg-white p-5 sm:p-6">
+      <div className="rounded-2xl border border-slate-200/60 bg-white p-5 sm:p-6">
         <div className="grid gap-6 xl:grid-cols-[1.1fr_1fr_auto] xl:items-center">
           <div>
             <h3 className="text-lg font-bold text-slate-900">Comparador Pro</h3>
@@ -83,7 +83,7 @@ export function ComparisonTable() {
           return (
             <article
               key={plan.id}
-              className={`rounded-[28px] border bg-white p-5 transition sm:p-6 ${
+              className={`rounded-2xl border bg-white p-5 transition sm:p-6 ${
                 active ? 'border-brand-300 shadow-brand' : 'border-slate-200/60'
               } ${featured ? 'bg-orange-50/50 border-brand-200' : ''}`}
             >
@@ -107,7 +107,7 @@ export function ComparisonTable() {
         })}
       </div>
 
-      <div className="overflow-x-auto rounded-[28px] border border-slate-200/60 bg-white">
+      <div className="overflow-x-auto rounded-2xl border border-slate-200/60 bg-white">
         {selectedPlans.length === 0 ? (
           <div className="p-8 text-center text-sm text-slate-600">Selecione pelo menos um plano para iniciar a comparação.</div>
         ) : (
