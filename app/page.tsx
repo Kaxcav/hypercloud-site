@@ -12,6 +12,9 @@ import { TrustStrip } from '@/components/TrustStrip';
 import { Hero } from '@/components/Hero';
 import { InvestmentEstimator } from '@/components/InvestmentEstimator';
 import { Cases } from '@/components/Cases';
+import { WhyHypercloud } from '@/components/WhyHypercloud';
+import { Process } from '@/components/Process';
+import { Faq } from '@/components/Faq';
 import { Stagger, StaggerItem } from '@/components/MotionWrapper';
 
 const products = [
@@ -87,9 +90,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      <WhyHypercloud />
+
       <Cases />
 
-      <section id="comparador-section" className="bg-surface-base py-20 sm:py-24 lg:py-28">
+      <section id="comparador-section" className="bg-surface-soft py-20 sm:py-24 lg:py-28">
         <div className="container-shell">
           <SectionHeader
             eyebrow="Comparador interativo"
@@ -100,7 +105,11 @@ export default function HomePage() {
         </div>
       </section>
 
+      <Process />
+
       <InvestmentEstimator />
+
+      <Faq />
 
       <SpecialistCta />
     </>
