@@ -68,27 +68,31 @@
     linear-gradient(90deg, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
 }
 
-/* fallback se data-theme não estiver setado ainda */
+/* fallback se data-theme não estiver setado ainda — default é light */
 :root:not([data-theme]) {
-  color-scheme: dark;
-  --surface-base: #050507;
-  --surface-soft: #0A0A0D;
-  --surface-card: #13131A;
-  --surface-muted: #1A1A23;
-  --border-subtle: rgba(255, 255, 255, 0.04);
-  --border-default: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
-  --text-strong: #ffffff;
-  --text-default: #E4E4E8;
-  --text-muted: #94A3B8;
+  color-scheme: light;
+  --surface-base: #FAFAF7;
+  --surface-soft: #FFFFFF;
+  --surface-card: #FFFFFF;
+  --surface-muted: #F5F5F0;
+  --border-subtle: rgba(15, 23, 42, 0.05);
+  --border-default: rgba(15, 23, 42, 0.10);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --text-strong: #0A0A0D;
+  --text-default: #1F2937;
+  --text-muted: #475569;
   --text-subtle: #64748B;
-  --shadow-soft: 0 14px 40px rgba(0, 0, 0, 0.45);
-  --shadow-medium: 0 24px 60px rgba(0, 0, 0, 0.55);
-  --shadow-premium: 0 40px 100px rgba(0, 0, 0, 0.6);
-  --shadow-brand: 0 18px 48px rgba(249, 115, 22, 0.32);
-  --shadow-glow: 0 0 60px rgba(249, 115, 22, 0.18);
-  --hero-glow: radial-gradient(circle at 75% 15%, rgba(249, 115, 22, 0.18), transparent 45%);
-  --grid-pattern: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  --shadow-soft: 0 14px 40px rgba(15, 23, 42, 0.08);
+  --shadow-medium: 0 18px 52px rgba(15, 23, 42, 0.10);
+  --shadow-premium: 0 24px 80px rgba(15, 23, 42, 0.12);
+  --shadow-brand: 0 18px 48px rgba(249, 115, 22, 0.18);
+  --shadow-glow: 0 0 50px rgba(249, 115, 22, 0.14);
+  --hero-glow:
+    radial-gradient(circle at 80% 10%, rgba(249, 115, 22, 0.16), transparent 40%),
+    radial-gradient(circle at 15% 85%, rgba(251, 146, 60, 0.10), transparent 45%);
+  --grid-pattern:
+    linear-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
 }
 
 html {

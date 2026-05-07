@@ -47,9 +47,9 @@ export const metadata: Metadata = {
 
 const themeInitScript = `(function(){try{
   var s=localStorage.getItem('hypercloud-theme');
-  var t=(s==='dark'||s==='light')?s:'dark';
+  var t=(s==='dark'||s==='light')?s:'light';
   document.documentElement.setAttribute('data-theme',t);
-}catch(e){document.documentElement.setAttribute('data-theme','dark')}})();`;
+}catch(e){document.documentElement.setAttribute('data-theme','light')}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

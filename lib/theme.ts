@@ -4,12 +4,12 @@ export type ThemePreference = Theme | 'system';
 export const THEME_STORAGE_KEY = 'hypercloud-theme';
 
 export function resolveSystemTheme(): Theme {
-  if (typeof window === 'undefined') return 'dark';
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  if (typeof window === 'undefined') return 'light';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
 export function readStoredPreference(): ThemePreference {
-  if (typeof window === 'undefined') return 'dark';
+  if (typeof window === 'undefined') return 'light';
   try {
     const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
     if (stored === 'dark' || stored === 'light' || stored === 'system') {
@@ -18,7 +18,7 @@ export function readStoredPreference(): ThemePreference {
   } catch {
     /* localStorage indisponível */
   }
-  return 'dark';
+  return 'light';
 }
 
 export function applyTheme(theme: Theme) {
