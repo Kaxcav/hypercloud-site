@@ -1,8 +1,8 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
-import { useEffect, useId, useState } from 'react';
+import { Controller, useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
+import { useEffect, useId, useRef, useState } from 'react';
 import { ArrowRight, Building2, BrainCircuit, Check, Cloud, Loader2, Mail, Phone, Sparkles, User2, Workflow, X } from 'lucide-react';
 import {
   companySizeOptions,
@@ -27,17 +27,30 @@ const interestIcon: Record<(typeof interestOptions)[number]['value'], React.Comp
   appsheet: Workflow
 };
 
+function formatPhoneBR(value: string) {
+  const digits = value.replace(/\D/g, '').slice(0, 11);
+  if (digits.length === 0) return '';
+  if (digits.length <= 2) return `(${digits}`;
+  if (digits.length === 3) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2, 3)} ${digits.slice(3)}`;
+  if (digits.length <= 10) {
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+  }
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 3)} ${digits.slice(3, 7)}-${digits.slice(7)}`;
+}
+
 export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) {
   const titleId = useId();
   const [step, setStep] = useState(0);
-  const [submitState, setSubmitState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [submitState, setSubmitState] = useState<'idle' | 'sending' | 'success' | 'error' | 'rate-limited'>('idle');
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   const form = useForm<LeadFormValues>({
     resolver: zodResolver(leadFormSchema) as Resolver<LeadFormValues>,
     defaultValues: leadDefaults as LeadFormValues,
     mode: 'onTouched'
   });
-  const { register, handleSubmit, watch, setValue, trigger, reset, formState } = form;
+  const { register, handleSubmit, watch, setValue, trigger, reset, control, formState } = form;
 
   useEffect(() => {
     if (!open) return;
@@ -48,14 +61,48 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
 
   useEffect(() => {
     if (!open) return;
-    function onKey(event: KeyboardEvent) {
-      if (event.key === 'Escape') onClose();
+    const previousFocus = document.activeElement as HTMLElement | null;
+
+    function getFocusables() {
+      const container = dialogRef.current;
+      if (!container) return [] as HTMLElement[];
+      const nodes = container.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]'
+      );
+      return Array.from(nodes).filter(
+        (el) => !el.hasAttribute('disabled') && el.getAttribute('tabindex') !== '-1'
+      );
     }
+
+    function onKey(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (event.key === 'Tab') {
+        const focusables = getFocusables();
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement;
+        if (event.shiftKey && active === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && active === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
     window.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
     return () => {
       window.removeEventListener('keydown', onKey);
       document.body.style.overflow = '';
+      if (previousFocus && document.contains(previousFocus)) {
+        previousFocus.focus();
+      }
     };
   }, [open, onClose]);
 
@@ -89,7 +136,14 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values)
       });
-      if (!res.ok) throw new Error('request-failed');
+      if (res.status === 429) {
+        setSubmitState('rate-limited');
+        return;
+      }
+      if (!res.ok) {
+        setSubmitState('error');
+        return;
+      }
       setSubmitState('success');
     } catch (error) {
       console.error('[lead] submit error', error);
@@ -111,7 +165,7 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
         onClick={onClose}
         aria-hidden
       />
-      <div className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-border bg-surface-card shadow-premium">
+      <div ref={dialogRef} className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-border bg-surface-card shadow-premium">
         {/* glow decorativo */}
         <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-brand-500/30 blur-3xl" aria-hidden />
         <div className="pointer-events-none absolute -left-24 -bottom-24 h-64 w-64 rounded-full bg-brand-400/20 blur-3xl" aria-hidden />
@@ -187,6 +241,7 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
                   <Field label="Nome da empresa" error={formState.errors.company?.message}>
                     <input
                       autoFocus
+                      autoComplete="organization"
                       placeholder="Ex.: Indústria Acme"
                       {...register('company')}
                       className="form-input"
@@ -194,6 +249,9 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
                   </Field>
                   <Field label="Porte" error={formState.errors.size?.message}>
                     <select {...register('size')} className="form-input">
+                      <option value="" disabled>
+                        Selecione o porte
+                      </option>
                       {companySizeOptions.map((opt) => (
                         <option key={opt.value} value={opt.value}>
                           {opt.label}
@@ -203,6 +261,9 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
                   </Field>
                   <Field label="Setor" error={formState.errors.sector?.message}>
                     <select {...register('sector')} className="form-input">
+                      <option value="" disabled>
+                        Selecione o setor
+                      </option>
                       {sectorOptions.map((opt) => (
                         <option key={opt.value} value={opt.value}>
                           {opt.label}
@@ -240,9 +301,12 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
                       })}
                     </div>
                   </Field>
-                  <Field label="Contexto (opcional)" hint="Conte rapidamente o cenário, restrições ou prazo">
+                  <Field
+                    label="Contexto (opcional)"
+                    hint="Conte rapidamente o cenário, prazos, restrições ou qualquer observação para o pré-atendimento."
+                  >
                     <textarea
-                      rows={3}
+                      rows={4}
                       placeholder="Ex.: Estamos avaliando migrar 320 caixas do Microsoft 365 para Workspace até Q3."
                       {...register('context')}
                       className="form-input resize-none"
@@ -256,30 +320,55 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
                   <Field label="Seu nome" error={formState.errors.name?.message}>
                     <div className="form-input-wrapper">
                       <User2 className="h-4 w-4 text-text-subtle" />
-                      <input placeholder="Como podemos te chamar?" {...register('name')} className="form-input-bare" />
+                      <input
+                        autoComplete="name"
+                        placeholder="Como podemos te chamar?"
+                        {...register('name')}
+                        className="form-input-bare"
+                      />
                     </div>
                   </Field>
                   <Field label="E-mail corporativo" error={formState.errors.email?.message}>
                     <div className="form-input-wrapper">
                       <Mail className="h-4 w-4 text-text-subtle" />
-                      <input type="email" placeholder="voce@empresa.com" {...register('email')} className="form-input-bare" />
+                      <input
+                        type="email"
+                        inputMode="email"
+                        autoComplete="email"
+                        placeholder="voce@empresa.com"
+                        {...register('email')}
+                        className="form-input-bare"
+                      />
                     </div>
                   </Field>
                   <Field label="Telefone / WhatsApp" error={formState.errors.phone?.message}>
                     <div className="form-input-wrapper">
                       <Phone className="h-4 w-4 text-text-subtle" />
-                      <input placeholder="(11) 9 9999-9999" {...register('phone')} className="form-input-bare" />
+                      <Controller
+                        control={control}
+                        name="phone"
+                        render={({ field }) => (
+                          <input
+                            type="tel"
+                            inputMode="tel"
+                            autoComplete="tel"
+                            placeholder="(11) 9 9999-9999"
+                            className="form-input-bare"
+                            ref={field.ref}
+                            name={field.name}
+                            onBlur={field.onBlur}
+                            value={field.value ?? ''}
+                            onChange={(e) => field.onChange(formatPhoneBR(e.target.value))}
+                          />
+                        )}
+                      />
                     </div>
                   </Field>
-                  <Field label="Algo mais? (opcional)">
-                    <textarea
-                      rows={2}
-                      placeholder="Outras pessoas envolvidas, prazos específicos, etc."
-                      {...register('notes')}
-                      className="form-input resize-none"
-                    />
-                  </Field>
-                  {submitState === 'error' ? (
+                  {submitState === 'rate-limited' ? (
+                    <p className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-[12px] text-amber-400">
+                      Muitas tentativas em pouco tempo. Aguarde um minuto e tente novamente.
+                    </p>
+                  ) : submitState === 'error' ? (
                     <p className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-[12px] text-red-400">
                       Não conseguimos enviar agora. Tente novamente em instantes.
                     </p>

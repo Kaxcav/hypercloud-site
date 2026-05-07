@@ -89,8 +89,7 @@ function formatLeadEmail(lead: ReturnType<typeof leadFormSchema.parse>) {
     `Setor: ${lead.sector}`,
     `Interesses: ${lead.interests.join(', ')}`,
     `Contato: ${lead.name} <${lead.email}> · ${lead.phone}`,
-    lead.context ? `Contexto: ${lead.context}` : null,
-    lead.notes ? `Observações: ${lead.notes}` : null
+    lead.context ? `Contexto: ${lead.context}` : null
   ]
     .filter(Boolean)
     .join('\n');

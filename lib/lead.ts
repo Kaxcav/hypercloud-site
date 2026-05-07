@@ -24,16 +24,22 @@ export const interestOptions = [
 export const leadFormSchema = z.object({
   // step 1
   company: z.string().trim().min(2, 'Informe o nome da empresa'),
-  size: z.enum(['1-10', '11-50', '51-200', '200+']),
-  sector: z.enum(['privado', 'publico', 'educacao', 'saude']),
+  size: z.enum(['1-10', '11-50', '51-200', '200+'], {
+    message: 'Selecione o porte da empresa'
+  }),
+  sector: z.enum(['privado', 'publico', 'educacao', 'saude'], {
+    message: 'Selecione o setor'
+  }),
   // step 2
   interests: z.array(z.enum(['workspace', 'gemini', 'cloud', 'appsheet'])).min(1, 'Selecione pelo menos uma solução'),
   context: z.string().trim().max(500).optional().or(z.literal('')),
   // step 3
   name: z.string().trim().min(2, 'Informe seu nome'),
   email: z.string().trim().email('E-mail inválido'),
-  phone: z.string().trim().min(8, 'Informe um telefone válido'),
-  notes: z.string().trim().max(500).optional().or(z.literal('')),
+  phone: z
+    .string()
+    .trim()
+    .refine((v) => v.replace(/\D/g, '').length >= 10, 'Informe um telefone válido'),
   // honeypot
   website: z.string().max(0).optional().or(z.literal(''))
 });
@@ -42,13 +48,12 @@ export type LeadFormValues = z.infer<typeof leadFormSchema>;
 
 export const leadDefaults: Partial<LeadFormValues> = {
   company: '',
-  size: '11-50',
-  sector: 'privado',
+  size: '' as LeadFormValues['size'],
+  sector: '' as LeadFormValues['sector'],
   interests: [],
   context: '',
   name: '',
   email: '',
   phone: '',
-  notes: '',
   website: ''
 };
