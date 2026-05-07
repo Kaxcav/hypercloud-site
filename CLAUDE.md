@@ -12,6 +12,8 @@ npm run lint             # next lint (ESLint via eslint-config-next)
 npx tsc --noEmit         # Type-check only (no emit; tsconfig already sets noEmit)
 ```
 
+The host shell is PowerShell on Windows — these npm/npx commands work unchanged, but use PowerShell syntax for anything else (`$env:VAR`, `;` chaining, etc.).
+
 There is no test suite configured.
 
 ## Architecture
@@ -37,14 +39,17 @@ Next.js 14 App Router site (TypeScript strict, React 18) for **Hypercloud** — 
 - `app/globals.css` defines `.container-shell` (max-w-7xl + responsive padding — use it on every section), `.text-balance`, and `.marquee-track` keyframe used by `TrustStrip`.
 - Component composition uses `cn()` from `components/ui.tsx` (`clsx` + `tailwind-merge`).
 - Card radius standard is `rounded-2xl` (16px) with `border-slate-200` + `shadow-sm`. Don't revert to the older `rounded-[28px]` style.
+- Icons are **`lucide-react`** everywhere — don't introduce a second icon set. Animations use **`framer-motion`** but it's currently only in `ProductCard.tsx`; keep motion subtle and matching that file's idiom rather than pulling in CSS-only animations or other libs.
 
 ### Header layout (non-obvious)
 `Navbar.tsx` mounts `TopBar.tsx` internally — they are not two siblings in `layout.tsx`. The TopBar is the utility strip (phone, email, quick links) shown only on `lg:`+; the main nav row is below it. Both share the sticky/blur container.
 
 ### Static content sources
-- `constants/plans.ts` — comparison data consumed by `ComparisonTable` (categories, plans with `compare.*` rows). Adding a plan auto-appears in the comparator.
+- `constants/plans.ts` — plans the comparator renders. Adding a plan auto-appears in `ComparisonTable`.
+- `constants/features.ts` — the feature matrix (`featureMatrix`, `comparisonPlanIds`, `recommendedPlanId`) the comparator reads alongside `plans.ts`. New rows in the comparator go here, not in `plans.ts`.
 - `constants/solutions.ts` — content for every `/solucoes/[slug]` page. Must include `metadata` (Next metadata object), `title`, `bullets`, etc.
 - Partner badges live in `public/logo/logos partner/` and are referenced by filename string in `components/TrustStrip.tsx` (home, full-color row above the hero) and `app/setor-publico/page.tsx`.
+- `app/layout.tsx` hardcodes `metadataBase: new URL('https://oi-production.up.railway.app')` — when editing OG/canonical metadata or moving to a new domain, update this too.
 
 ### Tone of voice (applied across copy)
 The brand voice is direct, B2B/B2G adult, no emojis, no "transformação mágica" hype. Headlines emphasize verifiable differentiators (Premier Partner, certifications, ATAs). When editing copy, match this register — see `01-documento-estrategico.md` for the canonical guidelines and the rewritten "Sobre" page text.

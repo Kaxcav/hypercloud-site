@@ -26,3 +26,6 @@ pnpm-debug.log*
 
 # brainstorming companion
 .superpowers/
+
+# typescript build cache
+tsconfig.tsbuildinfo
