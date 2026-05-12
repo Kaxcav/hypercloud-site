@@ -55,14 +55,14 @@ export function Hero() {
 
       <div className="container-shell relative py-20 sm:py-24 lg:py-32 xl:py-36">
         <div className="max-w-3xl">
-          <Reveal>
+          <Reveal immediate>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur-md">
               <PulseDot />
               Premier Google Cloud Partner · ATAs vigentes
             </span>
           </Reveal>
 
-          <Reveal delay={0.06}>
+          <Reveal immediate delay={0.06}>
             <h1 className="mt-7 text-balance text-[44px] font-extrabold leading-[1.0] tracking-[-0.045em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.25)] sm:text-[60px] lg:text-[80px] lg:leading-[0.95]">
               Cloud, IA e produtividade{' '}
               <span className="font-serif italic font-normal tracking-[-0.02em] text-white/95">
@@ -71,7 +71,7 @@ export function Hero() {
             </h1>
           </Reveal>
 
-          <Reveal delay={0.12}>
+          <Reveal immediate delay={0.12}>
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg sm:leading-8">
               A stack Google completa — Workspace, Gemini, Cloud e AppSheet —
               vendida e implementada por quem fala com seu CIO de igual pra igual,
@@ -79,7 +79,7 @@ export function Hero() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.18}>
+          <Reveal immediate delay={0.18}>
             <div className="mt-9 flex flex-wrap gap-3">
               <button
                 type="button"
@@ -107,7 +107,7 @@ export function Hero() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.24}>
+          <Reveal immediate delay={0.24}>
             <dl className="mt-14 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-6 border-t border-white/20 pt-8 sm:grid-cols-4">
               {heroStats.map((stat) => (
                 <div key={stat.label}>
@@ -122,7 +122,7 @@ export function Hero() {
             </dl>
           </Reveal>
 
-          <Reveal delay={0.3}>
+          <Reveal immediate delay={0.3}>
             <div className="mt-10 inline-flex items-center gap-3 rounded-full border border-white/20 bg-black/20 px-4 py-2 backdrop-blur-md">
               <ShieldCheck className="h-4 w-4 text-white" />
               <p className="text-[12px] font-medium text-white/90">
