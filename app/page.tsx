@@ -8,7 +8,7 @@ import { ComparisonExplorer } from '@/components/ComparisonExplorer';
 import { ProductCard } from '@/components/ProductCard';
 import { SectionHeader } from '@/components/SectionHeader';
 import { SpecialistCta } from '@/components/SpecialistCta';
-import { TrustStrip } from '@/components/TrustStrip';
+import { AtasStrip } from '@/components/AtasStrip';
 import { Hero } from '@/components/Hero';
 import { InvestmentEstimator } from '@/components/InvestmentEstimator';
 import { Cases } from '@/components/Cases';
@@ -59,8 +59,8 @@ const products = [
 export default function HomePage() {
   return (
     <>
-      <TrustStrip />
       <Hero />
+      <AtasStrip />
 
       <section id="solucoes" className="bg-surface-soft py-20 sm:py-24 lg:py-28">
         <div className="container-shell">
