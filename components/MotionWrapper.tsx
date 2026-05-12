@@ -5,31 +5,13 @@ import { motion, useReducedMotion, type HTMLMotionProps } from 'framer-motion';
 type RevealProps = HTMLMotionProps<'div'> & {
   delay?: number;
   y?: number;
-  /**
-   * Animate immediately on mount (use for above-the-fold content where
-   * whileInView's IntersectionObserver can fail to fire on initial load).
-   */
-  immediate?: boolean;
 };
 
-export function Reveal({ children, delay = 0, y = 14, immediate = false, ...props }: RevealProps) {
+export function Reveal({ children, delay = 0, y = 14, ...props }: RevealProps) {
   const reduced = useReducedMotion();
 
   if (reduced) {
     return <div>{children as React.ReactNode}</div>;
-  }
-
-  if (immediate) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, y }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, delay, ease: [0.16, 1, 0.3, 1] }}
-        {...props}
-      >
-        {children}
-      </motion.div>
-    );
   }
 
   return (
