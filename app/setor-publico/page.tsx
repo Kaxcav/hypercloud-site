@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import {
   Building2,
-  FileText,
   Gavel,
   Landmark,
   ScrollText,
@@ -13,6 +11,8 @@ import {
 import { InternalHero } from '@/components/InternalHero';
 import { SectionHeader } from '@/components/SectionHeader';
 import { SpecialistCta } from '@/components/SpecialistCta';
+import { AtasStrip } from '@/components/AtasStrip';
+import { Cases } from '@/components/Cases';
 import { Stagger, StaggerItem } from '@/components/MotionWrapper';
 
 export const metadata: Metadata = {
@@ -25,19 +25,6 @@ const badges = [
   'google-clound_select-services-partner.jpeg',
   'google-clound_select-Tecnology_partner.jpeg',
   'google-workspace_premier-Co-sell-service_partner.jpeg'
-];
-
-const atas = [
-  {
-    title: 'ARP CIMPAR — Software',
-    description: 'Ata disponível para consulta pública com foco em software e jornada institucional.',
-    href: 'https://hypercloud.com.br/atas/arp_cimpar-software.pdf'
-  },
-  {
-    title: 'CIASC-SC',
-    description: 'Documento institucional público para apoio à navegação e entendimento da atuação da Hypercloud.',
-    href: 'https://hypercloud.com.br/atas/ciasc-sc.pdf'
-  }
 ];
 
 const acquisitionPaths = [
@@ -123,6 +110,8 @@ export default function SetorPublicoPage() {
         }
       />
 
+      <AtasStrip />
+
       <section className="border-b border-border bg-surface-base py-20 sm:py-24">
         <div className="container-shell">
           <SectionHeader
@@ -147,38 +136,6 @@ export default function SetorPublicoPage() {
               </StaggerItem>
             ))}
           </Stagger>
-        </div>
-      </section>
-
-      <section className="border-b border-border bg-surface-soft py-20 sm:py-24">
-        <div className="container-shell">
-          <SectionHeader
-            eyebrow="ATAs e documentos"
-            title="ATAs públicas disponíveis para consulta."
-            description="Documentos publicados em bloco direto para facilitar o acesso institucional."
-          />
-          <div className="grid gap-5 md:grid-cols-2">
-            {atas.map((ata) => (
-              <article
-                key={ata.title}
-                className="flex h-full flex-col rounded-2xl border border-border bg-surface-card p-6 shadow-soft transition hover:-translate-y-1 hover:border-brand-500/30"
-              >
-                <div className="inline-flex w-fit rounded-xl bg-brand-500/10 p-2.5 text-brand-400">
-                  <FileText className="h-5 w-5" />
-                </div>
-                <h3 className="mt-4 text-lg font-bold tracking-tight text-text-strong">{ata.title}</h3>
-                <p className="mt-3 flex-1 text-[13px] leading-relaxed text-text-muted">{ata.description}</p>
-                <Link
-                  href={ata.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-5 inline-flex w-fit items-center gap-1.5 rounded-md border border-border bg-surface-card px-3.5 py-2 text-[13px] font-bold text-text transition hover:border-brand-500/40 hover:text-text-strong"
-                >
-                  Abrir PDF
-                </Link>
-              </article>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -208,6 +165,8 @@ export default function SetorPublicoPage() {
           </div>
         </div>
       </section>
+
+      <Cases />
 
       <SpecialistCta
         title="Fale com um especialista para Setor Público"
