@@ -18,6 +18,8 @@ import {
   type WorkspacePlanId
 } from '@/constants/workspace-plans';
 import { cn } from '@/components/ui';
+import { SectionHeader } from '@/components/SectionHeader';
+import { btnPrimary } from '@/components/buttons';
 
 const BLOCK_ORDER: FeatureBlock[] = ['Geral', 'Armaz.', 'Colab.', 'Comun.', 'Segur.', 'Compl.'];
 const BLOCK_LABEL: Record<FeatureBlock, string> = {
@@ -45,18 +47,12 @@ export function CompareAllTable() {
   })).filter((g) => g.rows.length > 0);
 
   return (
-    <div className="container-shell py-20 sm:py-24 lg:py-28">
-      <div className="mx-auto max-w-3xl text-center">
-        <p className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-text-muted">
-          Tabela completa
-        </p>
-        <h2 className="mt-3 text-balance text-3xl font-extrabold tracking-tight text-text-strong sm:text-4xl">
-          Compare todos os planos Workspace.
-        </h2>
-        <p className="mt-4 text-base leading-relaxed text-text-muted">
-          {workspaceFeatures.length} recursos · 8 SKUs · sem letrinha miúda.
-        </p>
-      </div>
+    <div className="container-shell py-20 sm:py-28 lg:py-32">
+      <SectionHeader
+        eyebrow="Tabela completa"
+        title="Compare todos os planos Workspace."
+        description={`${workspaceFeatures.length} recursos · 8 SKUs · sem letrinha miúda.`}
+      />
 
       {/* Mobile expand toggle */}
       <div className="mt-8 md:hidden">
@@ -148,7 +144,7 @@ export function CompareAllTable() {
         <button
           type="button"
           onClick={() => openLead('Compare — Workspace')}
-          className="inline-flex items-center gap-2 rounded-md bg-brand-gradient px-6 py-3 text-[13px] font-bold text-white shadow-brand transition hover:opacity-95"
+          className={btnPrimary('lg')}
         >
           Ainda em dúvida? Falar com um especialista
         </button>
