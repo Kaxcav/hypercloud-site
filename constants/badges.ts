@@ -10,12 +10,18 @@ export type Badge = {
 };
 
 export const badges: Badge[] = [
-  // Premier vem primeiro — tier mais alto da Hypercloud
+  // Premier e Specialization vêm primeiro — credenciais mais altas
   {
     file: '/logo/badges/tier_gws_cosell_and_service_premier.png',
     alt: 'Google Workspace Premier Co-Sell & Service Partner',
     label: 'Premier Co-Sell · Workspace',
     family: 'google-workspace'
+  },
+  {
+    file: '/logo/badges/gc_specialization_work_transformation_enterprise.png',
+    alt: 'Google Cloud Specialization — Work Transformation, Enterprise',
+    label: 'Specialization · Work Transformation',
+    family: 'google-cloud'
   },
   {
     file: '/logo/badges/tier_gcp_technology_select.png',
