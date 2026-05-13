@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowUpRight, ScrollText, ShieldCheck } from 'lucide-react';
+import { btnTertiary } from '@/components/buttons';
 
 const atas = [
   {
@@ -52,7 +53,7 @@ export function AtasStrip() {
                     href={ata.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center justify-between gap-4 rounded-xl border border-border bg-surface-soft px-4 py-3.5 transition hover:-translate-y-0.5 hover:border-brand-500/40 hover:bg-surface-card hover:shadow-medium"
+                    className="group flex items-center justify-between gap-4 rounded-xl border border-border bg-surface-soft px-4 py-3.5 transition hover:-translate-y-1 hover:border-brand-500/40 hover:bg-surface-card hover:shadow-medium"
                   >
                     <div className="min-w-0">
                       <p className="text-[12px] font-mono font-bold uppercase tracking-[0.12em] text-brand-600">
@@ -68,10 +69,7 @@ export function AtasStrip() {
               ))}
             </ul>
 
-            <Link
-              href="/setor-publico"
-              className="mt-4 inline-flex items-center gap-1.5 text-[12.5px] font-bold text-brand-600 transition hover:text-brand-700"
-            >
+            <Link href="/setor-publico" className={btnTertiary('mt-4')}>
               Ver todas as ATAs e caminhos de aquisição
               <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
