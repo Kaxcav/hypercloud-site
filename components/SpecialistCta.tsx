@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowRight, MessageCircle, Phone } from 'lucide-react';
+import { btnPrimary, btnSecondary } from '@/components/buttons';
 import { useLeadDialog } from '@/components/LeadDialogProvider';
 
 type SpecialistCtaProps = {
@@ -43,7 +44,7 @@ export function SpecialistCta({
                 <button
                   type="button"
                   onClick={() => openLead()}
-                  className="inline-flex items-center gap-2 rounded-md bg-brand-gradient px-6 py-3.5 text-sm font-bold text-white shadow-brand transition hover:opacity-95"
+                  className={btnPrimary('lg')}
                 >
                   Iniciar conversa
                   <ArrowRight className="h-4 w-4" />
@@ -52,7 +53,7 @@ export function SpecialistCta({
                   href="https://wa.me/5531992391683?text=Olá,%20quero%20falar%20com%20um%20especialista%20da%20Hypercloud."
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-md border border-border bg-surface-card px-5 py-3.5 text-sm font-bold text-text transition hover:border-brand-500/40 hover:text-text-strong"
+                  className={btnSecondary('lg')}
                 >
                   <MessageCircle className="h-4 w-4 text-brand-400" />
                   WhatsApp direto
