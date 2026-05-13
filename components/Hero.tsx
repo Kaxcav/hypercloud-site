@@ -51,8 +51,8 @@ export function Hero() {
       <div className="container-shell relative py-16 sm:py-20 lg:py-24">
         <div className="max-w-3xl">
           <motion.div
-            initial={reduced ? false : REVEAL.initial}
-            animate={reduced ? undefined : REVEAL.animate}
+            initial={REVEAL.initial}
+            animate={REVEAL.animate}
             transition={REVEAL.transition}
           >
             <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-white backdrop-blur-md">
@@ -62,8 +62,8 @@ export function Hero() {
           </motion.div>
 
           <motion.h1
-            initial={reduced ? false : REVEAL.initial}
-            animate={reduced ? undefined : REVEAL.animate}
+            initial={REVEAL.initial}
+            animate={REVEAL.animate}
             transition={{ ...REVEAL.transition, delay: 0.06 }}
             className="mt-6 text-balance text-[40px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.25)] sm:text-[52px] lg:text-[64px] lg:leading-[0.98]"
           >
@@ -75,8 +75,8 @@ export function Hero() {
           </motion.h1>
 
           <motion.p
-            initial={reduced ? false : REVEAL.initial}
-            animate={reduced ? undefined : REVEAL.animate}
+            initial={REVEAL.initial}
+            animate={REVEAL.animate}
             transition={{ ...REVEAL.transition, delay: 0.12 }}
             className="mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg sm:leading-8"
           >
@@ -84,8 +84,8 @@ export function Hero() {
           </motion.p>
 
           <motion.div
-            initial={reduced ? false : REVEAL.initial}
-            animate={reduced ? undefined : REVEAL.animate}
+            initial={REVEAL.initial}
+            animate={REVEAL.animate}
             transition={{ ...REVEAL.transition, delay: 0.18 }}
             className="mt-8 flex flex-wrap gap-3"
           >
