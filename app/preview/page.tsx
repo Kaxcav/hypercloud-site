@@ -1,6 +1,6 @@
 // app/preview/page.tsx
 import type { Metadata } from 'next';
-import { HeroV2 } from '@/components/HeroV2';
+import { Hero } from '@/components/Hero';
 import { BadgesShowcase } from '@/components/BadgesShowcase';
 import { PricingGrid } from '@/components/PricingGrid';
 import { CompareAllTable } from '@/components/CompareAllTable';
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function PreviewPage() {
   return (
     <>
-      <HeroV2 />
+      <Hero />
       <BadgesShowcase />
       <section id="pricing"><PricingGrid /></section>
       <section id="compare-all"><CompareAllTable /></section>
