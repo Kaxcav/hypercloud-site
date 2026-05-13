@@ -66,7 +66,7 @@ export function Footer() {
             <li><Link href="/solucoes/gemini-enterprise" className="transition hover:text-brand-400">Gemini Enterprise</Link></li>
             <li><Link href="/solucoes/google-cloud" className="transition hover:text-brand-400">Google Cloud</Link></li>
             <li><Link href="/solucoes/appsheet" className="transition hover:text-brand-400">AppSheet</Link></li>
-            <li><Link href="/#comparador" className="transition hover:text-brand-400">Comparar Planos</Link></li>
+            <li><Link href="/#compare-all" className="transition hover:text-brand-400">Comparar Planos</Link></li>
             <li><Link href="/cases" className="transition hover:text-brand-400">Cases e Clientes</Link></li>
           </ul>
         </div>

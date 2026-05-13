@@ -72,7 +72,7 @@ export default function SetorPublicoPage() {
         }
         description="Fornecedora de tecnologia para governos municipais, estaduais e federais com ATAs vigentes, programa de integridade formal e conhecimento profundo das exigências do setor público brasileiro."
         primaryCta={{ label: 'Falar com Especialista', href: '#falar-com-especialista' }}
-        secondaryCta={{ label: 'Comparar soluções', href: '/#comparador' }}
+        secondaryCta={{ label: 'Comparar soluções', href: '/#compare-all' }}
         meta={[
           { value: '15+', label: 'Estados e municípios' },
           { value: '8+', label: 'ATAs vigentes' },

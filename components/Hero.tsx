@@ -98,7 +98,7 @@ export function Hero() {
                 Ver ATAs vigentes
               </Link>
               <Link
-                href="#comparador"
+                href="#compare-all"
                 className="inline-flex items-center gap-2 rounded-md px-6 py-3.5 text-sm font-bold text-white/90 transition hover:text-white"
               >
                 Comparar planos

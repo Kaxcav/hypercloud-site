@@ -98,12 +98,12 @@ export default function SolutionPage({ params }: { params: { slug: string } }) {
   return (
     <>
       <InternalHero
-        breadcrumbs={[{ label: 'Soluções', href: '/#solucoes' }, { label: solution.eyebrow }]}
+        breadcrumbs={[{ label: 'Soluções', href: '/#pricing' }, { label: solution.eyebrow }]}
         eyebrow={solution.eyebrow}
         title={solution.title}
         description={solution.description}
         primaryCta={{ label: 'Falar com Especialista', href: '#falar-com-especialista' }}
-        secondaryCta={{ label: 'Comparar planos', href: '/#comparador' }}
+        secondaryCta={{ label: 'Comparar planos', href: '/#compare-all' }}
         visual={
           <div className="rounded-2xl border border-border bg-surface-card p-6 shadow-premium sm:p-7">
             <div className="flex items-start justify-between gap-4">
@@ -165,7 +165,7 @@ export default function SolutionPage({ params }: { params: { slug: string } }) {
 
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
-              href="/#comparador"
+              href="/#compare-all"
               className="inline-flex items-center gap-2 rounded-md bg-brand-gradient px-5 py-3 text-[13px] font-bold text-white shadow-brand transition hover:opacity-95"
             >
               Ver comparador

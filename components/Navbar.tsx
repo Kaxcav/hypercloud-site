@@ -12,8 +12,8 @@ import { useLeadDialog } from '@/components/LeadDialogProvider';
 import { cn } from '@/components/ui';
 
 const links = [
-  { href: '/#solucoes', label: 'Soluções' },
-  { href: '/#comparador', label: 'Comparar' },
+  { href: '/#pricing', label: 'Soluções' },
+  { href: '/#compare-all', label: 'Comparar' },
   { href: '/cases', label: 'Cases' },
   { href: '/setor-publico', label: 'Setor Público' },
   { href: '/sobre', label: 'Sobre' },
