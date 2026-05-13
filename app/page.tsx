@@ -11,6 +11,10 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <div
+        className="h-[3px] w-full bg-gradient-to-r from-google-blue via-google-red via-google-yellow to-google-green"
+        aria-hidden="true"
+      />
       <BadgesShowcase />
       <section id="pricing"><PricingGrid /></section>
       <section id="compare-all"><CompareAllTable /></section>

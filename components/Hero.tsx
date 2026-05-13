@@ -48,7 +48,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-grid opacity-20" />
       </motion.div>
 
-      <div className="container-shell relative py-16 sm:py-20 lg:py-24">
+      <div className="container-shell relative py-20 sm:py-28 lg:py-36">
         <div className="max-w-3xl">
           <motion.div
             initial={REVEAL.initial}
@@ -65,13 +65,15 @@ export function Hero() {
             initial={REVEAL.initial}
             animate={REVEAL.animate}
             transition={{ ...REVEAL.transition, delay: 0.06 }}
-            className="mt-6 text-balance text-[40px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.25)] sm:text-[52px] lg:text-[64px] lg:leading-[0.98]"
+            className="mt-7 text-balance text-[44px] font-extrabold leading-[0.96] tracking-[-0.045em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.25)] sm:text-[60px] lg:text-[80px]"
           >
             Google Workspace com{' '}
-            <span className="font-extrabold tracking-[-0.02em] text-white/95">
+            <span className="font-extrabold tracking-[-0.02em] text-white">
               preço público.
-            </span>{' '}
-            Cloud, IA e produtividade — contrato direto.
+            </span>
+            <span className="mt-4 block text-[26px] font-medium leading-[1.18] tracking-[-0.02em] text-white/85 sm:text-[34px] lg:text-[42px]">
+              Cloud, IA e produtividade — contrato direto.
+            </span>
           </motion.h1>
 
           <motion.p
