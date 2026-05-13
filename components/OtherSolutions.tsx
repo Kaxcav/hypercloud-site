@@ -8,6 +8,9 @@ import { geminiEditions } from '@/constants/gemini-editions';
 
 type Card = {
   icon: typeof Cloud;
+  /** Cor Google oficial do produto. */
+  iconBg: string;
+  iconColor: string;
   eyebrow: string;
   title: string;
   description: string;
@@ -23,6 +26,8 @@ export function OtherSolutions() {
   const cards: Card[] = [
     {
       icon: BrainCircuit,
+      iconBg: 'bg-google-blue/10',
+      iconColor: 'text-google-blue',
       eyebrow: 'IA aplicada',
       title: 'Gemini Enterprise',
       description:
@@ -34,6 +39,8 @@ export function OtherSolutions() {
     },
     {
       icon: Cloud,
+      iconBg: 'bg-google-green/10',
+      iconColor: 'text-google-green-dark',
       eyebrow: 'Infra & dados',
       title: 'Google Cloud',
       description:
@@ -42,6 +49,8 @@ export function OtherSolutions() {
     },
     {
       icon: Workflow,
+      iconBg: 'bg-google-yellow/15',
+      iconColor: 'text-amber-600',
       eyebrow: 'Automação no-code',
       title: 'AppSheet',
       description:
@@ -62,7 +71,7 @@ export function OtherSolutions() {
           </p>
           <h2 className="mt-3 text-balance text-3xl font-extrabold tracking-tight text-text-strong sm:text-4xl">
             Além do Workspace,{' '}
-            <span className="font-serif italic font-normal text-gradient-brand">
+            <span className="font-extrabold text-gradient-brand">
               também vendemos.
             </span>
           </h2>
@@ -80,7 +89,7 @@ export function OtherSolutions() {
                 key={card.title}
                 className="flex flex-col rounded-2xl border border-border bg-surface-card p-6 shadow-soft transition hover:-translate-y-0.5 hover:shadow-medium"
               >
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500/10 text-brand-600">
+                <span className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ${card.iconBg} ${card.iconColor}`}>
                   <Icon className="h-5 w-5" />
                 </span>
                 <p className="mt-4 text-[10.5px] font-bold uppercase tracking-[0.18em] text-text-subtle">

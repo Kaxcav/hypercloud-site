@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
+import { Roboto_Flex, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -7,25 +7,19 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import { LeadDialogProvider } from '@/components/LeadDialogProvider';
 import { CommandPaletteProvider } from '@/components/CommandPaletteProvider';
 
-const inter = Inter({
+// Roboto Flex (variável) é a fonte mais próxima de Google Sans / Product Sans
+// disponível no Google Fonts. Cobre tudo de UI a headlines.
+const robotoFlex = Roboto_Flex({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
-  weight: ['400', '500', '600', '700', '800', '900']
+  variable: '--font-google-sans',
+  axes: ['opsz']
 });
 
-const instrumentSerif = Instrument_Serif({
+const robotoMono = Roboto_Mono({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-instrument-serif',
-  weight: ['400'],
-  style: ['normal', 'italic']
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-jetbrains-mono',
+  variable: '--font-google-mono',
   weight: ['400', '500', '600']
 });
 
@@ -56,7 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
+      className={`${robotoFlex.variable} ${robotoMono.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />

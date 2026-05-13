@@ -43,7 +43,7 @@ export default function PortalDoClientePage() {
 
           <h1 className="mt-5 text-balance text-[34px] font-extrabold leading-[1.06] tracking-tight text-text-strong sm:text-[44px] lg:text-[52px] lg:leading-[1.05]">
             Portal do Cliente com acesso seguro, suporte e{' '}
-            <span className="font-serif italic font-normal text-gradient-brand">acompanhamento</span>.
+            <span className="font-extrabold text-gradient-brand">acompanhamento</span>.
           </h1>
 
           <p className="mt-5 text-base leading-relaxed text-text-muted sm:text-lg sm:leading-8">

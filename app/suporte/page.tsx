@@ -47,7 +47,7 @@ export default function SuportePage() {
             Suporte
           </span>
           <h1 className="mt-5 max-w-3xl text-balance text-[34px] font-extrabold leading-[1.06] tracking-tight text-text-strong sm:text-[44px] lg:text-[52px] lg:leading-[1.05]">
-            Quando precisar, você tem <span className="font-serif italic font-normal text-gradient-brand">gente preparada</span>.
+            Quando precisar, você tem <span className="font-extrabold text-gradient-brand">gente preparada</span>.
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg sm:leading-8">
             Atendimento brasileiro, consultivo, em português. Para clientes Workspace, Cloud, Gemini e AppSheet —

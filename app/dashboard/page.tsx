@@ -79,7 +79,7 @@ export default async function DashboardPage() {
 
             <h1 className="mt-5 text-balance text-[34px] font-extrabold leading-[1.06] tracking-tight text-text-strong sm:text-[44px] lg:text-[52px] lg:leading-[1.05]">
               Bem-vindo de volta,{' '}
-              <span className="font-serif italic font-normal text-gradient-brand">{firstName}</span>.
+              <span className="font-extrabold text-gradient-brand">{firstName}</span>.
             </h1>
 
             <p className="mt-4 max-w-xl text-base leading-relaxed text-text-muted sm:text-lg sm:leading-7">
@@ -182,14 +182,14 @@ export default async function DashboardPage() {
               <UsageBar label="Storage" value={dashboardUsage.storageUsedTb} max={dashboardUsage.storageQuotaTb} unit="TB" />
               <div>
                 <p className="text-[12px] font-bold uppercase tracking-[0.14em] text-text-subtle">Meet</p>
-                <p className="mt-1.5 font-serif text-[36px] italic leading-none tracking-tight text-brand-400">
+                <p className="mt-1.5 font-extrabold text-[36px] leading-none tracking-tight text-brand-400">
                   {dashboardUsage.meetMinutesMonth.toLocaleString('pt-BR')}
                 </p>
                 <p className="mt-1 text-[12px] text-text-muted">minutos no mês</p>
               </div>
               <div>
                 <p className="text-[12px] font-bold uppercase tracking-[0.14em] text-text-subtle">Gemini</p>
-                <p className="mt-1.5 font-serif text-[36px] italic leading-none tracking-tight text-brand-400">
+                <p className="mt-1.5 font-extrabold text-[36px] leading-none tracking-tight text-brand-400">
                   {dashboardUsage.geminiUsesMonth.toLocaleString('pt-BR')}
                 </p>
                 <p className="mt-1 text-[12px] text-text-muted">interações com IA</p>
@@ -349,7 +349,7 @@ function StatCard({
         <Icon className="h-4 w-4" />
       </span>
       <dt className="mt-3 text-[10.5px] font-bold uppercase tracking-[0.16em] text-text-subtle">{label}</dt>
-      <dd className="mt-1 font-serif text-[28px] italic leading-none tracking-tight text-text-strong">{value}</dd>
+      <dd className="mt-1 font-extrabold text-[28px] leading-none tracking-tight text-text-strong">{value}</dd>
     </div>
   );
 }

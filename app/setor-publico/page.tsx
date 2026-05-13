@@ -54,7 +54,7 @@ export default function SetorPublicoPage() {
         title={
           <>
             Modernização e credibilidade para{' '}
-            <span className="font-serif italic font-normal text-gradient-brand">governo e instituições</span>.
+            <span className="font-extrabold text-gradient-brand">governo e instituições</span>.
           </>
         }
         description="Fornecedora de tecnologia para governos municipais, estaduais e federais com ATAs vigentes, programa de integridade formal e conhecimento profundo das exigências do setor público brasileiro."

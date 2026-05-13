@@ -50,7 +50,7 @@ export function EndpointVsCeu() {
           </p>
           <h2 className="mt-3 text-balance text-3xl font-extrabold tracking-tight text-text-strong sm:text-4xl">
             Endpoint Management vs{' '}
-            <span className="font-serif italic font-normal text-gradient-brand">
+            <span className="font-extrabold text-gradient-brand">
               Chrome Enterprise Upgrade.
             </span>
           </h2>

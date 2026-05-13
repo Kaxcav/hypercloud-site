@@ -232,7 +232,7 @@ function Cell({ value }: { value: CellValue }) {
   if (value.kind === 'check') {
     return (
       <span aria-label="Incluído" className="inline-flex">
-        <Check className="h-4 w-4 text-emerald-500" />
+        <Check className="h-4 w-4 text-google-green" />
       </span>
     );
   }

@@ -68,7 +68,7 @@ export function Hero() {
             className="mt-6 text-balance text-[40px] font-extrabold leading-[1.02] tracking-[-0.04em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.25)] sm:text-[52px] lg:text-[64px] lg:leading-[0.98]"
           >
             Google Workspace com{' '}
-            <span className="font-serif italic font-normal tracking-[-0.02em] text-white/95">
+            <span className="font-extrabold tracking-[-0.02em] text-white/95">
               preço público.
             </span>{' '}
             Cloud, IA e produtividade — contrato direto.

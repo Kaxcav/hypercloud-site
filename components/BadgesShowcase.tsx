@@ -10,7 +10,13 @@ export function BadgesShowcase() {
     >
       <div className="container-shell py-12 sm:py-14 lg:py-16">
         <div className="flex items-center justify-center gap-2.5">
-          <span className="inline-flex h-1.5 w-1.5 animate-pulse rounded-full bg-brand-500" />
+          {/* Google 4-color dot row — assinatura visual sutil */}
+          <span className="flex items-center gap-1" aria-hidden="true">
+            <span className="h-1.5 w-1.5 rounded-full bg-google-blue" />
+            <span className="h-1.5 w-1.5 rounded-full bg-google-red" />
+            <span className="h-1.5 w-1.5 rounded-full bg-google-yellow" />
+            <span className="h-1.5 w-1.5 rounded-full bg-google-green" />
+          </span>
           <p className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-text-muted sm:text-[11px]">
             Premier Google Cloud Partner · Credenciais oficiais
           </p>

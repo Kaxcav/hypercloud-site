@@ -103,7 +103,7 @@ export function InternalHero({
                   <dt className="text-[10px] font-bold uppercase tracking-[0.16em] text-text-subtle sm:text-[11px]">
                     {item.label}
                   </dt>
-                  <dd className="mt-1.5 font-serif text-[34px] italic leading-none tracking-tight text-brand-400 sm:text-[40px]">
+                  <dd className="mt-1.5 font-extrabold text-[34px] leading-none tracking-tight text-brand-400 sm:text-[40px]">
                     {item.value}
                   </dd>
                 </div>

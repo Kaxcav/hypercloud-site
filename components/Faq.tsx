@@ -60,7 +60,7 @@ export function Faq() {
               eyebrow="Perguntas frequentes"
               title={
                 <>
-                  Direto ao <span className="font-serif italic font-normal text-gradient-brand">ponto</span>.
+                  Direto ao <span className="font-extrabold text-gradient-brand">ponto</span>.
                 </>
               }
               description="As 6 perguntas que aparecem em quase toda primeira conversa. Se a sua não tá aqui, fala com a gente."

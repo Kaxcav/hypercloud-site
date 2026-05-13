@@ -10,26 +10,30 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        // Google-feel: Roboto Flex stand-in para Google Sans / Product Sans.
         sans: [
-          'var(--font-inter)',
+          'var(--font-google-sans)',
+          'Google Sans',
+          'Product Sans',
+          'Roboto',
           'ui-sans-serif',
           'system-ui',
           '-apple-system',
           'Segoe UI',
-          'Roboto',
           'Helvetica Neue',
           'Arial',
           'sans-serif'
         ],
+        // serif aliased a sans — sem mais italic Instrument Serif. Compatibilidade.
         serif: [
-          'var(--font-instrument-serif)',
-          'Georgia',
-          'Cambria',
-          'Times New Roman',
-          'serif'
+          'var(--font-google-sans)',
+          'Google Sans',
+          'Roboto',
+          'sans-serif'
         ],
         mono: [
-          'var(--font-jetbrains-mono)',
+          'var(--font-google-mono)',
+          'Roboto Mono',
           'ui-monospace',
           'SFMono-Regular',
           'Menlo',
@@ -50,6 +54,15 @@ const config: Config = {
           700: '#c2410c',
           800: '#9a3412',
           900: '#7c2d12'
+        },
+        // Paleta oficial Google (logos, produtos, brand)
+        google: {
+          blue: '#4285F4',
+          'blue-dark': '#1A73E8',
+          red: '#EA4335',
+          yellow: '#FBBC04',
+          green: '#34A853',
+          'green-dark': '#188038'
         },
         ink: {
           0: '#050507',

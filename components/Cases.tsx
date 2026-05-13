@@ -53,7 +53,7 @@ export function Cases() {
                   </h3>
 
                   <div className="mt-5 rounded-xl border border-border bg-surface-soft p-4">
-                    <p className="font-serif text-[36px] italic leading-none tracking-tight text-brand-400">
+                    <p className="font-extrabold text-[36px] leading-none tracking-tight text-brand-400">
                       {caseItem.metric.value}
                     </p>
                     <p className="mt-1.5 text-[12.5px] font-medium text-text-muted">
@@ -101,7 +101,7 @@ export function Cases() {
               <dl className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                 {trackRecord.map((item) => (
                   <div key={item.label} className="rounded-2xl border border-border bg-surface-soft p-4 sm:p-5">
-                    <dd className="font-serif text-[36px] italic leading-none tracking-tight text-brand-400 sm:text-[44px]">
+                    <dd className="font-extrabold text-[36px] leading-none tracking-tight text-brand-400 sm:text-[44px]">
                       {item.value}
                     </dd>
                     <dt className="mt-2 text-[10.5px] font-bold uppercase tracking-[0.16em] text-text-subtle">

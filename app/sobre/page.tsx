@@ -67,7 +67,7 @@ export default function SobrePage() {
         title={
           <>
             Tecnologia estratégica,{' '}
-            <span className="font-serif italic font-normal text-gradient-brand">sem amarras</span>{' '}
+            <span className="font-extrabold text-gradient-brand">sem amarras</span>{' '}
             de fabricante.
           </>
         }

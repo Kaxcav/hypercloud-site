@@ -77,7 +77,7 @@ export default function CasesPage() {
                   </div>
 
                   <div className="mt-6 rounded-xl border border-border bg-surface-soft p-5">
-                    <p className="font-serif text-[44px] italic leading-none tracking-tight text-brand-400">
+                    <p className="font-extrabold text-[44px] leading-none tracking-tight text-brand-400">
                       {caseItem.metric.value}
                     </p>
                     <p className="mt-2 text-[13px] font-bold text-text">{caseItem.metric.label}</p>

@@ -40,7 +40,7 @@ export function AtasStrip() {
 
             <h2 className="mt-3 text-xl font-extrabold tracking-tight text-text-strong sm:text-2xl">
               Pronto para adesão imediata.{' '}
-              <span className="font-serif italic font-normal text-gradient-brand">
+              <span className="font-extrabold text-gradient-brand">
                 Sem nova licitação.
               </span>
             </h2>
