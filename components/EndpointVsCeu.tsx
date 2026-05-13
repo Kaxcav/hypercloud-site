@@ -2,6 +2,8 @@
 
 // components/EndpointVsCeu.tsx
 import { useLeadDialog } from '@/components/LeadDialogProvider';
+import { SectionHeader } from '@/components/SectionHeader';
+import { btnPrimary } from '@/components/buttons';
 import { Smartphone, Cpu } from 'lucide-react';
 
 const rows: { dim: string; endpoint: string; ceu: string }[] = [
@@ -43,26 +45,17 @@ export function EndpointVsCeu() {
       aria-label="Endpoint Management vs Chrome Enterprise Upgrade"
       className="border-y border-border bg-surface-soft"
     >
-      <div className="container-shell py-20 sm:py-24">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-text-muted">
-            Gestão de dispositivos
-          </p>
-          <h2 className="mt-3 text-balance text-3xl font-extrabold tracking-tight text-text-strong sm:text-4xl">
-            Endpoint Management vs{' '}
-            <span className="font-extrabold text-gradient-brand">
-              Chrome Enterprise Upgrade.
-            </span>
-          </h2>
-          <p className="mt-4 text-base leading-relaxed text-text-muted">
-            Comprar Workspace Enterprise Plus dá controle sobre{' '}
-            <span className="font-semibold text-text-strong">dados e usuários</span>{' '}
-            no Google. CEU é uma licença separada que controla o{' '}
-            <span className="font-semibold text-text-strong">dispositivo ChromeOS</span>{' '}
-            (hardware + sistema). Não são substitutos — são complementares em
-            cenários com fleet Chromebook.
-          </p>
-        </div>
+      <div className="container-shell py-20 sm:py-28 lg:py-32">
+        <SectionHeader
+          eyebrow="Gestão de dispositivos"
+          title={
+            <>
+              Endpoint Management vs{' '}
+              <span className="font-extrabold text-gradient-brand">Chrome Enterprise Upgrade.</span>
+            </>
+          }
+          description="Comprar Workspace Enterprise Plus dá controle sobre dados e usuários no Google. CEU controla o dispositivo ChromeOS (hardware + sistema). Não são substitutos — são complementares em cenários com fleet Chromebook."
+        />
 
         <div className="mt-10 grid gap-4 md:grid-cols-2">
           <ColumnCard
@@ -106,9 +99,9 @@ function ColumnCard({
   field: 'endpoint' | 'ceu';
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-surface-card p-6 shadow-soft">
+    <div className="group rounded-2xl border border-border bg-surface-card p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-medium">
       <div className="flex items-center gap-3 border-b border-border pb-4">
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500/10 text-brand-600">
+        <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500/10 text-brand-600 transition group-hover:rotate-6 group-hover:scale-110">
           <Icon className="h-5 w-5" />
         </span>
         <div>
@@ -139,7 +132,7 @@ function CTAButton() {
     <button
       type="button"
       onClick={() => openLead('Workspace + CEU')}
-      className="inline-flex items-center gap-2 rounded-md bg-brand-gradient px-5 py-2.5 text-[12.5px] font-bold text-white shadow-brand transition hover:opacity-95"
+      className={btnPrimary('md')}
     >
       Falar com Especialista
     </button>
