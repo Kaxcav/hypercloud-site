@@ -10,6 +10,7 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { useCommandPalette } from '@/components/CommandPaletteProvider';
 import { useLeadDialog } from '@/components/LeadDialogProvider';
 import { cn } from '@/components/ui';
+import { btnPrimary } from '@/components/buttons';
 
 const links = [
   { href: '/#pricing', label: 'Soluções' },
@@ -112,7 +113,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => openLead('Vamos entender seu cenário em três passos rápidos.')}
-            className="inline-flex items-center gap-2 rounded-md bg-brand-gradient px-4 py-2 text-[13px] font-bold text-white shadow-brand transition hover:opacity-95"
+            className={btnPrimary('md')}
           >
             Falar com Especialista
           </button>
@@ -168,7 +169,7 @@ export function Navbar() {
                   setOpen(false);
                   openLead();
                 }}
-                className="rounded-md bg-brand-gradient px-4 py-3 text-center text-sm font-bold text-white shadow-brand transition hover:opacity-95"
+                className={btnPrimary('md', 'w-full')}
               >
                 Falar com Especialista
               </button>
