@@ -145,7 +145,6 @@ export default function SetorPublicoPage() {
             eyebrow="Credenciais Google"
             title="Badges oficiais para sustentar autoridade institucional."
             description="A Hypercloud usa as credenciais reais do ecossistema Google para apoiar a jornada comercial e institucional no Setor Público."
-            centered
           />
           <div className="grid gap-5 md:grid-cols-3">
             {badges.map((file) => (

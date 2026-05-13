@@ -189,7 +189,6 @@ export default function SobrePage() {
             eyebrow="Setores que atendemos"
             title="Quatro verticais com jornada própria."
             description="Cada vertical recebe linguagem, cases e desenho de oferta apropriados à sua realidade — sem se misturar com as demais."
-            centered
           />
           <Stagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {sectors.map((sector) => (

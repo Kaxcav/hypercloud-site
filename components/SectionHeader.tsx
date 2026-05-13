@@ -2,21 +2,34 @@ type SectionHeaderProps = {
   eyebrow: string;
   title: React.ReactNode;
   description?: string;
-  centered?: boolean;
+  /** Default 'center'. */
+  align?: 'center' | 'left';
+  /** Default 'wide' (max-w-3xl). 'narrow' usa max-w-2xl. */
+  maxWidth?: 'narrow' | 'wide';
 };
 
-export function SectionHeader({ eyebrow, title, description, centered = false }: SectionHeaderProps) {
+export function SectionHeader({
+  eyebrow,
+  title,
+  description,
+  align = 'center',
+  maxWidth = 'wide'
+}: SectionHeaderProps) {
+  const widthClass = maxWidth === 'narrow' ? 'max-w-2xl' : 'max-w-3xl';
+  const alignClass = align === 'center' ? 'mx-auto text-center' : '';
+
   return (
-    <div className={centered ? 'mx-auto mb-14 max-w-3xl text-center' : 'mb-14 max-w-3xl'}>
-      <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-400">
-        <span className="h-1 w-1 rounded-full bg-brand-500" />
+    <div className={`mb-12 ${widthClass} ${alignClass}`}>
+      <p className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand-600">
         {eyebrow}
-      </span>
-      <h2 className="text-balance text-3xl font-extrabold tracking-tight text-text-strong sm:text-4xl lg:text-[44px] lg:leading-[1.1]">
+      </p>
+      <h2 className="mt-3 text-balance text-3xl font-extrabold tracking-tight text-text-strong sm:text-4xl lg:text-5xl">
         {title}
       </h2>
       {description ? (
-        <p className="mt-5 text-base leading-7 text-text-muted sm:text-lg sm:leading-8">{description}</p>
+        <p className="mt-4 text-base leading-relaxed text-text-muted sm:text-lg sm:leading-8">
+          {description}
+        </p>
       ) : null}
     </div>
   );
