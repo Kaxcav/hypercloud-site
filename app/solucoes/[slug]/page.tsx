@@ -17,7 +17,6 @@ import type { LucideIcon } from 'lucide-react';
 import { InternalHero } from '@/components/InternalHero';
 import { SectionHeader } from '@/components/SectionHeader';
 import { SpecialistCta } from '@/components/SpecialistCta';
-import { InvestmentEstimator } from '@/components/InvestmentEstimator';
 import { EndpointVsCeu } from '@/components/EndpointVsCeu';
 import { Stagger, StaggerItem } from '@/components/MotionWrapper';
 import { getSolutionBySlug, solutions } from '@/constants/solutions';
@@ -181,10 +180,6 @@ export default function SolutionPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </section>
-
-      {(solution.slug === 'google-workspace' || solution.slug === 'gemini-enterprise') ? (
-        <InvestmentEstimator id={`calculadora-${solution.slug}`} />
-      ) : null}
 
       <section className="border-b border-border bg-surface-soft py-20 sm:py-24">
         <div className="container-shell">
