@@ -1,10 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import { Minus, Plus } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { SectionHeader } from '@/components/SectionHeader';
 import { useLeadDialog } from '@/components/LeadDialogProvider';
-import { cn } from '@/components/ui';
+import { btnSecondary } from '@/components/buttons';
 
 type FaqItem = {
   question: string;
@@ -48,11 +47,10 @@ const items: FaqItem[] = [
 ];
 
 export function Faq() {
-  const [open, setOpen] = useState<number | null>(0);
   const { open: openLead } = useLeadDialog();
 
   return (
-    <section className="bg-surface-base py-20 sm:py-24 lg:py-28">
+    <section className="bg-surface-card py-20 sm:py-28 lg:py-32">
       <div className="container-shell">
         <div className="grid gap-12 lg:grid-cols-[.9fr_1.4fr] lg:gap-16">
           <div>
@@ -60,66 +58,38 @@ export function Faq() {
               eyebrow="Perguntas frequentes"
               title={
                 <>
-                  Direto ao <span className="font-extrabold text-gradient-brand">ponto</span>.
+                  Direto ao{' '}
+                  <span className="font-extrabold text-gradient-brand">ponto</span>.
                 </>
               }
               description="As 6 perguntas que aparecem em quase toda primeira conversa. Se a sua não tá aqui, fala com a gente."
+              align="left"
             />
             <button
               type="button"
               onClick={() => openLead()}
-              className="mt-2 inline-flex items-center gap-2 rounded-md border border-border bg-surface-card px-4 py-2.5 text-[13px] font-bold text-text transition hover:border-brand-500/40 hover:text-text-strong"
+              className={btnSecondary('md', 'mt-2')}
             >
               Não achou? Pergunta direto
             </button>
           </div>
 
           <ul className="space-y-3">
-            {items.map((item, i) => {
-              const isOpen = open === i;
-              return (
-                <li
-                  key={item.question}
-                  className={cn(
-                    'overflow-hidden rounded-2xl border bg-surface-card transition',
-                    isOpen ? 'border-brand-500/40 shadow-soft' : 'border-border hover:border-brand-500/20'
-                  )}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setOpen(isOpen ? null : i)}
-                    aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6 sm:py-5"
-                  >
+            {items.map((item) => (
+              <li key={item.question}>
+                <details className="group rounded-2xl border border-border bg-surface-card p-5 transition open:bg-surface-soft open:border-brand-500/40 hover:border-brand-500/30 sm:p-6">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
                     <span className="text-[14.5px] font-bold tracking-tight text-text-strong sm:text-[15.5px]">
                       {item.question}
                     </span>
-                    <span
-                      className={cn(
-                        'inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition',
-                        isOpen
-                          ? 'border-brand-500/40 bg-brand-500/10 text-brand-400'
-                          : 'border-border bg-surface-soft text-text-muted'
-                      )}
-                    >
-                      {isOpen ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-                    </span>
-                  </button>
-                  <div
-                    className={cn(
-                      'grid transition-all duration-300 ease-out',
-                      isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-                    )}
-                  >
-                    <div className="overflow-hidden">
-                      <p className="border-t border-border px-5 py-4 text-[13.5px] leading-relaxed text-text-muted sm:px-6 sm:py-5">
-                        {item.answer}
-                      </p>
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
+                    <ChevronDown className="h-5 w-5 shrink-0 text-text-muted transition group-open:rotate-180 group-open:text-brand-500" />
+                  </summary>
+                  <p className="mt-4 text-[13.5px] leading-relaxed text-text-muted sm:text-[14px]">
+                    {item.answer}
+                  </p>
+                </details>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
