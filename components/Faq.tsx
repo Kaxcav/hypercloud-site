@@ -13,34 +13,37 @@ type FaqItem = {
 
 const items: FaqItem[] = [
   {
-    question: 'Por que vocês não publicam preços?',
+    question: 'Os preços são finais?',
     answer:
-      'Porque preço de Workspace, Cloud ou AppSheet depende de N usuários, plano, comprometimento anual, descontos por ATA e configuração específica. Publicar preço fixo seria desonesto e quase sempre maior do que o que efetivamente fechamos. A cotação leva 1 dia útil.'
+      'Não — são valores de tabela. Há condições por volume, ATAs e contratos plurianuais. Cotação fechada na conversa.'
   },
   {
-    question: 'Vocês atendem fora de Minas Gerais?',
+    question: 'Vocês emitem nota? Como funciona o faturamento?',
     answer:
-      'Sim. Atendimento nacional. A operação é em Contagem (MG), mas implementações são feitas remotamente, presencial quando o projeto exige. Já temos clientes em mais de 15 estados.'
+      'Sim. Hypercloud é revendedora Premier Partner — faturamos direto. Boletos/NF-e mensais com gestor de conta.'
   },
   {
-    question: 'Como funciona a venda pra Setor Público?',
+    question: 'Conseguem fornecer para governo?',
     answer:
-      'Três caminhos: (1) adesão a ATAs nossas já homologadas, sem novo processo licitatório; (2) participação em pregões eletrônicos/presenciais com equipe dedicada; (3) contratação direta pelas hipóteses da Lei 14.133/21. Programa de Integridade publicado.'
+      'Sim. ATAs vigentes (ARP CIMPAR, CIASC-SC e outras). Veja /setor-publico para os caminhos formais de aquisição.'
   },
+  // ⚠ TODO: confirmar com comercial Hypercloud antes de production — prazos chutados
   {
-    question: 'Qual a diferença entre Workspace Plus e Enterprise?',
+    question: 'Quanto tempo leva para contratar?',
     answer:
-      'Plus já entrega Vault, DLP e Take notes do Gemini — cobre 90% das operações estruturadas. Enterprise é para quando você precisa de Cloud Identity Premium, S/MIME, Meet de até 1.000 ou armazenamento sob política institucional. O comparador interativo na home detalha cada item.'
+      'Setor privado: 24-72h após validação. Setor público: depende do veículo de aquisição (adesão a ATA, pregão, contratação direta).'
   },
+  // ⚠ TODO: confirmar com comercial Hypercloud antes de production — SLAs por tier
   {
-    question: 'Posso migrar do Microsoft 365 sem perder histórico?',
+    question: 'Suporte? SLA?',
     answer:
-      'Sim. Migração de e-mail, calendário, contatos e arquivos com retenção de timestamps e permissões originais. Conduzimos com ferramentas oficiais Google Workspace Migrate e ferramenta proprietária para casos com regras complexas de DLP/Vault.'
+      'Atendimento nacional, time dedicado. SLAs personalizáveis para Enterprise.'
   },
+  // ⚠ TODO: confirmar com comercial Hypercloud antes de production — usar numero real se quiser quantificar
   {
-    question: 'Quanto tempo leva uma implementação típica?',
+    question: 'Posso migrar de outro provedor (M365, Zoho, etc.)?',
     answer:
-      'Diagnóstico em 1-3 dias, proposta em 3-7 dias, implementação em 2-12 semanas dependendo do porte. Empresa de 50 pessoas com Workspace migra em 2-3 semanas. Operação Enterprise com 2 mil usuários, DLP, integração SSO leva 8-12.'
+      'Sim. Plano de migração consultivo já estruturado.'
   }
 ];
 
