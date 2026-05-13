@@ -18,6 +18,7 @@ import { InternalHero } from '@/components/InternalHero';
 import { SectionHeader } from '@/components/SectionHeader';
 import { SpecialistCta } from '@/components/SpecialistCta';
 import { InvestmentEstimator } from '@/components/InvestmentEstimator';
+import { EndpointVsCeu } from '@/components/EndpointVsCeu';
 import { Stagger, StaggerItem } from '@/components/MotionWrapper';
 import { getSolutionBySlug, solutions } from '@/constants/solutions';
 import { cn } from '@/components/ui';
@@ -207,6 +208,8 @@ export default function SolutionPage({ params }: { params: { slug: string } }) {
           </Stagger>
         </div>
       </section>
+
+      {solution.slug === 'google-workspace' ? <EndpointVsCeu /> : null}
 
       <SpecialistCta
         title={`Quer avançar com ${solution.eyebrow}?`}
