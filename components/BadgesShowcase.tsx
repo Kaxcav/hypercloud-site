@@ -1,6 +1,7 @@
 // components/BadgesShowcase.tsx
 import Image from 'next/image';
 import { badges } from '@/constants/badges';
+import { Stagger, StaggerItem } from '@/components/MotionWrapper';
 
 export function BadgesShowcase() {
   return (
@@ -22,27 +23,26 @@ export function BadgesShowcase() {
           </p>
         </div>
 
-        <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-7">
+        <Stagger className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-7">
           {badges.map((badge) => (
-            <div
-              key={badge.file}
-              className="group flex flex-col items-center justify-between gap-3 rounded-2xl border border-border bg-surface-soft p-4 transition hover:-translate-y-0.5 hover:border-brand-500/40 hover:bg-surface-card hover:shadow-medium"
-            >
-              <div className="flex h-16 items-center justify-center">
-                <Image
-                  src={badge.file}
-                  alt={badge.alt}
-                  width={140}
-                  height={64}
-                  className="max-h-[60px] w-auto object-contain"
-                />
+            <StaggerItem key={badge.file}>
+              <div className="group flex h-full flex-col items-center justify-between gap-3 rounded-2xl border border-border bg-surface-soft p-4 transition hover:-translate-y-1 hover:border-brand-500/40 hover:bg-surface-card hover:shadow-medium">
+                <div className="flex h-16 items-center justify-center">
+                  <Image
+                    src={badge.file}
+                    alt={badge.alt}
+                    width={140}
+                    height={64}
+                    className="max-h-[60px] w-auto object-contain"
+                  />
+                </div>
+                <p className="text-center text-[11.5px] font-bold leading-snug text-text-strong">
+                  {badge.label}
+                </p>
               </div>
-              <p className="text-center text-[11.5px] font-bold leading-snug text-text-strong">
-                {badge.label}
-              </p>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </Stagger>
 
         <p className="mt-7 text-center text-[12.5px] leading-relaxed text-text-muted">
           Hypercloud é uma das poucas no Brasil com{' '}
