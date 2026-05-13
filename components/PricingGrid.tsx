@@ -11,6 +11,8 @@ import {
   type WorkspaceTier
 } from '@/constants/workspace-plans';
 import { cn } from '@/components/ui';
+import { SectionHeader } from '@/components/SectionHeader';
+import { btnPrimary, btnSecondary } from '@/components/buttons';
 
 const tabs: { id: WorkspaceTier; label: string; hint: string }[] = [
   { id: 'frontline', label: 'Frontline', hint: 'Operação · suporte · campo' },
@@ -41,21 +43,17 @@ export function PricingGrid() {
 
   return (
     <div className="container-shell py-20 sm:py-24 lg:py-28">
-      <div className="mx-auto max-w-2xl text-center">
-        <p className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand-600">
-          Preços Google Workspace
-        </p>
-        <h2 className="mt-3 text-balance text-3xl font-extrabold tracking-tight text-text-strong sm:text-4xl lg:text-5xl">
-          Tabela aberta.{' '}
-          <span className="font-extrabold text-gradient-brand">
-            Cotação na conversa.
-          </span>
-        </h2>
-        <p className="mt-4 text-base leading-relaxed text-text-muted">
-          Valores de tabela em BRL por usuário/mês. Sujeitos a condições comerciais
-          e ATAs vigentes.
-        </p>
-      </div>
+      <SectionHeader
+        eyebrow="Preços Google Workspace"
+        title={
+          <>
+            Tabela aberta.{' '}
+            <span className="font-extrabold text-gradient-brand">Cotação na conversa.</span>
+          </>
+        }
+        description="Valores de tabela em BRL por usuário/mês. Sujeitos a condições comerciais e ATAs vigentes."
+        maxWidth="narrow"
+      />
 
       {/* Tabs */}
       <div
@@ -92,12 +90,7 @@ export function PricingGrid() {
       {/* Cards grid */}
       <div
         id={activeTier === 'frontline' ? 'pricing-frontline' : 'pricing-enterprise'}
-        className={cn(
-          'mt-10 grid gap-5',
-          activeTier === 'frontline'
-            ? 'sm:grid-cols-2 lg:grid-cols-3'
-            : 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
-        )}
+        className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
       >
         {visiblePlans.map((plan) => (
           <PricingCard key={plan.id} plan={plan} onContact={openLead} />
@@ -125,14 +118,14 @@ function PricingCard({
   return (
     <div
       className={cn(
-        'relative flex flex-col rounded-2xl border bg-surface-card p-6 transition',
+        'relative flex flex-col rounded-2xl border bg-surface-card p-7 transition',
         plan.recommended
-          ? 'border-brand-500/60 shadow-[0_24px_60px_-30px_rgba(249,115,22,0.5)] ring-1 ring-brand-500/30'
-          : 'border-border shadow-soft hover:-translate-y-0.5 hover:shadow-medium'
+          ? 'z-10 border-brand-500/60 shadow-[0_28px_60px_-30px_rgba(249,115,22,0.55)] ring-2 ring-brand-500/40 lg:scale-[1.04]'
+          : 'border-border shadow-soft hover:-translate-y-1 hover:shadow-medium'
       )}
     >
       {plan.recommended ? (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-gradient px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.16em] text-white shadow-brand">
+        <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-brand-gradient px-3.5 py-1 text-[10.5px] font-bold uppercase tracking-[0.16em] text-white shadow-brand">
           Recomendado
         </span>
       ) : null}
@@ -151,7 +144,9 @@ function PricingCard({
         <span className="text-[12.5px] font-medium text-text-muted">/usuário/mês</span>
       </div>
 
-      <p className="mt-3 text-[12.5px] leading-relaxed text-text-muted">
+      <div className="my-5 border-t border-border" />
+
+      <p className="text-[12.5px] leading-relaxed text-text-muted">
         {plan.audience}
       </p>
 
@@ -167,12 +162,7 @@ function PricingCard({
       <button
         type="button"
         onClick={() => onContact(`Pricing — ${plan.name}`)}
-        className={cn(
-          'mt-7 inline-flex items-center justify-center gap-2 rounded-md px-4 py-3 text-[13px] font-bold transition',
-          plan.recommended
-            ? 'bg-brand-gradient text-white shadow-brand hover:opacity-95'
-            : 'border border-border bg-surface-soft text-text-strong hover:border-brand-500/40'
-        )}
+        className={plan.recommended ? btnPrimary('md', 'mt-7 w-full') : btnSecondary('md', 'mt-7 w-full')}
       >
         {plan.cta}
       </button>
