@@ -63,7 +63,16 @@ export function Navbar() {
             alt="Hypercloud"
             width={220}
             height={56}
-            className="h-9 w-auto sm:h-10 lg:h-11 dark:brightness-0 dark:invert"
+            className="block h-9 w-auto sm:h-10 lg:h-11 dark:hidden"
+            priority
+          />
+          <Image
+            src="/logo/lg.hypercloud_vetor-branca.png"
+            alt=""
+            aria-hidden="true"
+            width={220}
+            height={56}
+            className="hidden h-9 w-auto sm:h-10 lg:h-11 dark:block"
             priority
           />
         </Link>

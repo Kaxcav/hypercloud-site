@@ -14,7 +14,15 @@ export function Footer() {
             alt="Hypercloud"
             width={220}
             height={56}
-            className="h-10 w-auto dark:brightness-0 dark:invert"
+            className="block h-10 w-auto dark:hidden"
+          />
+          <Image
+            src="/logo/lg.hypercloud_vetor-branca.png"
+            alt=""
+            aria-hidden="true"
+            width={220}
+            height={56}
+            className="hidden h-10 w-auto dark:block"
           />
           <p className="mt-5 max-w-sm text-[13px] leading-7 text-text-muted">
             Google Workspace, Workspace with Gemini, Google Cloud e AppSheet com foco em performance, autoridade e transformação digital para empresas e setor público.
