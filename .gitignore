@@ -28,8 +28,18 @@ pnpm-debug.log*
 .superpowers/
 
 # typescript build cache
-tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# build genérico
+/dist
 
 # assets brutos de design fora do build
 assets-fonte/
+
+# documentos internos — nunca versionar (repositório é PÚBLICO)
+CLAUDE.md
+PROMPT-GEMINI.md
+01-documento-estrategico.md
+skills-lock.json
+.claude/
 
