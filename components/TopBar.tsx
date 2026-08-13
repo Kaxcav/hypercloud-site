@@ -52,6 +52,7 @@ export function TopBar() {
             <Lock className="h-3 w-3" />
             Portal do Cliente
           </Link>
+          <span className="h-3 w-px bg-border" aria-hidden />
           <a
             href={company.social.linkedin}
             target="_blank"
