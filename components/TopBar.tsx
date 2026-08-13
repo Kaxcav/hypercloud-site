@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Mail, Phone, Lock, Linkedin } from 'lucide-react';
+import { EcosystemLinks } from '@/components/EcosystemLinks';
 import { company } from '@/constants/company';
 
 export function TopBar() {
@@ -28,6 +29,8 @@ export function TopBar() {
         </div>
 
         <div className="flex items-center gap-5">
+          <EcosystemLinks variant="topbar" />
+          <span className="h-3 w-px bg-border" aria-hidden />
           <Link
             href="/setor-publico"
             className="text-[11px] font-semibold uppercase tracking-[0.14em] text-text-subtle transition hover:text-brand-400"

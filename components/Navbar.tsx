@@ -9,6 +9,7 @@ import { TopBar } from '@/components/TopBar';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useCommandPalette } from '@/components/CommandPaletteProvider';
 import { useLeadDialog } from '@/components/LeadDialogProvider';
+import { EcosystemLinks } from '@/components/EcosystemLinks';
 import { cn } from '@/components/ui';
 import { btnPrimary } from '@/components/ui/buttons';
 
@@ -106,6 +107,8 @@ export function Navbar() {
         </nav>
 
         <div className="ml-auto hidden items-center gap-2 lg:flex">
+          <EcosystemLinks variant="navbar" className="hidden xl:flex" />
+
           <button
             type="button"
             onClick={openCmd}
@@ -172,6 +175,7 @@ export function Navbar() {
                 <Lock className="h-4 w-4" />
                 Portal do Cliente
               </Link>
+              <EcosystemLinks variant="mobile" onNavigate={() => setOpen(false)} />
               <button
                 type="button"
                 onClick={() => {
