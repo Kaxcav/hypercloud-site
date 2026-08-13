@@ -29,3 +29,7 @@ pnpm-debug.log*
 
 # typescript build cache
 tsconfig.tsbuildinfo
+
+# assets brutos de design fora do build
+assets-fonte/
+

@@ -1,8 +1,9 @@
 'use client';
 
 import { ArrowRight, MessageCircle, Phone } from 'lucide-react';
-import { btnPrimary, btnSecondary } from '@/components/buttons';
 import { useLeadDialog } from '@/components/LeadDialogProvider';
+import { company } from '@/constants/company';
+import { Button } from '@/components/ui/button';
 
 type SpecialistCtaProps = {
   id?: string;
@@ -41,23 +42,29 @@ export function SpecialistCta({
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3">
-                <button
+                <Button
                   type="button"
-                  onClick={() => openLead()}
-                  className={btnPrimary('lg')}
+                  variant="brand"
+                  size="lg"
+                  onClick={() => openLead('SpecialistCta')}
                 >
                   Iniciar conversa
                   <ArrowRight className="h-4 w-4" />
-                </button>
-                <a
-                  href="https://wa.me/5531992391683?text=Olá,%20quero%20falar%20com%20um%20especialista%20da%20Hypercloud."
-                  target="_blank"
-                  rel="noreferrer"
-                  className={btnSecondary('lg')}
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  asChild
                 >
-                  <MessageCircle className="h-4 w-4 text-brand-400" />
-                  WhatsApp direto
-                </a>
+                  <a
+                    href={`${company.whatsapp.href}?text=Olá,%20quero%20falar%20com%20um%20especialista%20da%20Hypercloud.`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <MessageCircle className="h-4 w-4 text-brand-400" />
+                    WhatsApp direto
+                  </a>
+                </Button>
               </div>
             </div>
 
@@ -80,7 +87,7 @@ export function SpecialistCta({
               <li className="!mt-5 flex items-center gap-2.5 rounded-xl border border-border bg-surface-card px-3.5 py-2.5">
                 <Phone className="h-3.5 w-3.5 text-brand-400" />
                 <p className="text-[12.5px] text-text-muted">
-                  Prefere ligar? <span className="font-bold text-text-strong">(31) 4042-4483</span>
+                  Prefere ligar? <a href={company.phone.href} className="font-bold text-text-strong hover:underline">{company.phone.display}</a>
                 </p>
               </li>
             </ul>

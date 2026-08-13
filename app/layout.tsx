@@ -6,9 +6,11 @@ import { Footer } from '@/components/Footer';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { LeadDialogProvider } from '@/components/LeadDialogProvider';
 import { CommandPaletteProvider } from '@/components/CommandPaletteProvider';
+import { FloatingWhatsapp } from '@/components/FloatingWhatsapp';
+import { MobileCtaBar } from '@/components/MobileCtaBar';
+import { StructuredData } from '@/components/StructuredData';
+import { Analytics } from '@/components/Analytics';
 
-// Roboto Flex (variável) é a fonte mais próxima de Google Sans / Product Sans
-// disponível no Google Fonts. Cobre tudo de UI a headlines.
 const robotoFlex = Roboto_Flex({
   subsets: ['latin'],
   display: 'swap',
@@ -23,19 +25,28 @@ const robotoMono = Roboto_Mono({
   weight: ['400', '500', '600']
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.hypercloud.com.br';
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://oi-production.up.railway.app'),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: 'Hypercloud — Google Workspace, Gemini, GCP e AppSheet',
+    default: 'Hypercloud — Premier Google Cloud Partner',
     template: '%s | Hypercloud'
   },
   description:
     'Soluções Google para empresas e Setor Público: Google Workspace, Google Cloud, Gemini Enterprise e AppSheet com credenciais oficiais e atendimento consultivo.',
   openGraph: {
-    title: 'Hypercloud — Google Workspace, Gemini, GCP e AppSheet',
+    title: 'Hypercloud — Premier Google Cloud Partner',
     description:
-      'Soluções Google para empresas e Setor Público com foco em conversão, credibilidade e transformação digital.',
-    type: 'website'
+      'Google Workspace, Gemini, Cloud e AppSheet com autoridade, credenciais oficiais e ATAs vigentes.',
+    type: 'website',
+    url: siteUrl,
+    siteName: 'Hypercloud',
+    locale: 'pt_BR'
+  },
+  robots: {
+    index: true,
+    follow: true
   }
 };
 
@@ -54,8 +65,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <StructuredData />
       </head>
-      <body className="min-h-screen bg-surface-base font-sans text-text antialiased">
+      <body className="min-h-screen bg-surface-base font-sans text-text antialiased pb-16 md:pb-0">
+        <Analytics />
         <ThemeProvider>
           <LeadDialogProvider>
             <CommandPaletteProvider>
@@ -63,6 +76,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Navbar />
                 <main className="flex-1">{children}</main>
                 <Footer />
+                <FloatingWhatsapp />
+                <MobileCtaBar />
               </div>
             </CommandPaletteProvider>
           </LeadDialogProvider>

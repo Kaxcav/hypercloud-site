@@ -40,8 +40,20 @@ export const leadFormSchema = z.object({
     .string()
     .trim()
     .refine((v) => v.replace(/\D/g, '').length >= 10, 'Informe um telefone válido'),
-  // honeypot
-  website: z.string().max(0).optional().or(z.literal(''))
+  consent: z.literal(true, {
+    message: 'Você precisa autorizar o contato para enviar o pedido'
+  }),
+  // honeypot (afrouxado para aceitar string e filtrar no servidor)
+  website: z.string().optional(),
+  // atribuição de marketing e navegação (opcionais)
+  utm_source: z.string().optional(),
+  utm_medium: z.string().optional(),
+  utm_campaign: z.string().optional(),
+  utm_term: z.string().optional(),
+  utm_content: z.string().optional(),
+  gclid: z.string().optional(),
+  referrer: z.string().optional(),
+  landingPage: z.string().optional()
 });
 
 export type LeadFormValues = z.infer<typeof leadFormSchema>;
@@ -55,5 +67,15 @@ export const leadDefaults: Partial<LeadFormValues> = {
   name: '',
   email: '',
   phone: '',
-  website: ''
+  consent: true,
+  website: '',
+  utm_source: '',
+  utm_medium: '',
+  utm_campaign: '',
+  utm_term: '',
+  utm_content: '',
+  gclid: '',
+  referrer: '',
+  landingPage: ''
 };
+

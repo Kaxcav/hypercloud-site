@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Mail, Phone, Lock, Linkedin } from 'lucide-react';
+import { company } from '@/constants/company';
 
 export function TopBar() {
   return (
@@ -7,22 +8,22 @@ export function TopBar() {
       <div className="container-shell flex h-9 items-center justify-between text-[12px] font-medium text-text-muted">
         <div className="flex items-center gap-6">
           <a
-            href="tel:3140424483"
+            href={company.phone.href}
             className="inline-flex items-center gap-2 transition hover:text-brand-400"
           >
             <Phone className="h-3.5 w-3.5" />
-            (31) 4042-4483
+            {company.phone.display}
           </a>
           <a
-            href="mailto:contato@hypercloud.com.br"
+            href={`mailto:${company.emails.contato}`}
             className="inline-flex items-center gap-2 transition hover:text-brand-400"
           >
             <Mail className="h-3.5 w-3.5" />
-            contato@hypercloud.com.br
+            {company.emails.contato}
           </a>
           <span className="hidden items-center gap-2 text-text-subtle xl:inline-flex">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            Atendimento nacional · Contagem · MG
+            {company.address.coverage} · {company.address.city} · {company.address.state}
           </span>
         </div>
 
@@ -49,7 +50,7 @@ export function TopBar() {
             Portal do Cliente
           </Link>
           <a
-            href="https://www.linkedin.com/"
+            href={company.social.linkedin}
             target="_blank"
             rel="noreferrer"
             aria-label="LinkedIn"

@@ -1,7 +1,7 @@
 // app/page.tsx
 import { Hero } from '@/components/Hero';
 import { BadgesShowcase } from '@/components/BadgesShowcase';
-import { PricingGrid } from '@/components/PricingGrid';
+import { PlansGrid } from '@/components/PlansGrid';
 import { CompareAllTable } from '@/components/CompareAllTable';
 import { OtherSolutions } from '@/components/OtherSolutions';
 import { Faq } from '@/components/Faq';
@@ -16,7 +16,7 @@ export default function HomePage() {
         aria-hidden="true"
       />
       <BadgesShowcase />
-      <section id="pricing"><PricingGrid /></section>
+      <PlansGrid />
       <section id="compare-all"><CompareAllTable /></section>
       <OtherSolutions />
       <Faq />

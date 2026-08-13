@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Linkedin, Instagram, Facebook } from 'lucide-react';
+import { company } from '@/constants/company';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -31,27 +32,27 @@ export function Footer() {
           <ul className="mt-6 space-y-3 text-[13px] text-text-muted">
             <li className="flex items-start gap-3">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-text-subtle" />
-              <span>Contagem · MG · Atendimento nacional</span>
+              <span>{company.address.city} · {company.address.state} · {company.address.coverage}</span>
             </li>
             <li className="flex items-start gap-3">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-text-subtle" />
-              <a href="tel:3140424483" className="transition hover:text-text-strong">
-                (31) 4042-4483
+              <a href={company.phone.href} className="transition hover:text-text-strong">
+                {company.phone.display}
               </a>
             </li>
             <li className="flex items-start gap-3">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-text-subtle" />
-              <a href="mailto:contato@hypercloud.com.br" className="transition hover:text-text-strong">
-                contato@hypercloud.com.br
+              <a href={`mailto:${company.emails.contato}`} className="transition hover:text-text-strong">
+                {company.emails.contato}
               </a>
             </li>
           </ul>
 
           <div className="mt-6 flex items-center gap-3">
             {[
-              { href: 'https://www.linkedin.com/', label: 'LinkedIn', Icon: Linkedin },
-              { href: 'https://www.instagram.com/', label: 'Instagram', Icon: Instagram },
-              { href: 'https://www.facebook.com/', label: 'Facebook', Icon: Facebook }
+              { href: company.social.linkedin, label: 'LinkedIn', Icon: Linkedin },
+              { href: company.social.instagram, label: 'Instagram', Icon: Instagram },
+              { href: company.social.facebook, label: 'Facebook', Icon: Facebook }
             ].map(({ href, label, Icon }) => (
               <a
                 key={label}
@@ -74,9 +75,9 @@ export function Footer() {
             <li><Link href="/solucoes/gemini-enterprise" className="transition hover:text-text-strong">Gemini Enterprise</Link></li>
             <li><Link href="/solucoes/google-cloud" className="transition hover:text-text-strong">Google Cloud</Link></li>
             <li><Link href="/solucoes/appsheet" className="transition hover:text-text-strong">AppSheet</Link></li>
-            <li><Link href="/#pricing" className="transition hover:text-text-strong">Preços</Link></li>
+            <li><Link href="/#planos" className="transition hover:text-text-strong">Planos</Link></li>
             <li><Link href="/#compare-all" className="transition hover:text-text-strong">Comparar Planos</Link></li>
-            <li><Link href="/cases" className="transition hover:text-text-strong">Cases e Clientes</Link></li>
+            <li><Link href="/cases" className="transition hover:text-text-strong">Cases e Credenciais</Link></li>
           </ul>
         </div>
 
@@ -87,8 +88,8 @@ export function Footer() {
             <li><Link href="/setor-publico" className="transition hover:text-text-strong">Setor Público · ATAs</Link></li>
             <li><Link href="/portal-do-cliente" className="transition hover:text-text-strong">Portal do Cliente</Link></li>
             <li><Link href="/suporte" className="transition hover:text-text-strong">Suporte e Chamados</Link></li>
-            <li><a href="mailto:comercial@hypercloud.com.br" className="transition hover:text-text-strong">comercial@hypercloud.com.br</a></li>
-            <li><a href="mailto:licitacoes@hypercloud.com.br" className="transition hover:text-text-strong">licitacoes@hypercloud.com.br</a></li>
+            <li><a href={`mailto:${company.emails.comercial}`} className="transition hover:text-text-strong">{company.emails.comercial}</a></li>
+            <li><a href={`mailto:${company.emails.licitacoes}`} className="transition hover:text-text-strong">{company.emails.licitacoes}</a></li>
           </ul>
         </div>
 
@@ -98,8 +99,8 @@ export function Footer() {
             <li><Link href="/setor-publico" className="transition hover:text-text-strong">Programa de Integridade</Link></li>
             <li><Link href="/setor-publico" className="transition hover:text-text-strong">Código de Ética</Link></li>
             <li><Link href="/setor-publico" className="transition hover:text-text-strong">Canal de Ouvidoria</Link></li>
-            <li><Link href="/" className="transition hover:text-text-strong">Política de Privacidade</Link></li>
-            <li><Link href="/" className="transition hover:text-text-strong">Termos de Uso</Link></li>
+            <li><Link href="/politica-de-privacidade" className="transition hover:text-text-strong">Política de Privacidade</Link></li>
+            <li><Link href="/termos-de-uso" className="transition hover:text-text-strong">Termos de Uso</Link></li>
           </ul>
         </div>
       </div>
@@ -114,11 +115,10 @@ export function Footer() {
               <span className="h-1.5 w-1.5 rounded-full bg-google-yellow" />
               <span className="h-1.5 w-1.5 rounded-full bg-google-green" />
             </span>
-            <span>© {year} Hypercloud · Premier Google Cloud Partner</span>
+            <span>© {year} {company.legalName} · Premier Google Cloud Partner</span>
           </p>
           <p className="flex items-center gap-2">
-            {/* TODO: confirmar CNPJ com administrativo Hypercloud */}
-            <span>CNPJ XX.XXX.XXX/0001-XX</span>
+            <span>CNPJ {company.cnpj}</span>
             <span className="hidden sm:inline">·</span>
             <span>Feito no Brasil</span>
           </p>
@@ -127,3 +127,4 @@ export function Footer() {
     </footer>
   );
 }
+

@@ -98,7 +98,7 @@ export default function SolutionPage({ params }: { params: { slug: string } }) {
   return (
     <>
       <InternalHero
-        breadcrumbs={[{ label: 'Soluções', href: '/#pricing' }, { label: solution.eyebrow }]}
+        breadcrumbs={[{ label: 'Planos', href: '/#planos' }, { label: solution.eyebrow }]}
         eyebrow={solution.eyebrow}
         title={solution.title}
         description={solution.description}

@@ -73,7 +73,7 @@ export default function SobrePage() {
         }
         description="Consultoria brasileira especializada em projetos de TI para empresas, governo e instituições de ensino e saúde. Premier Partner do Google e independência sobre todas as principais plataformas de nuvem."
         primaryCta={{ label: 'Falar com Especialista', href: '#falar-com-especialista' }}
-        secondaryCta={{ label: 'Ver planos', href: '/#pricing' }}
+        secondaryCta={{ label: 'Ver planos', href: '/#planos' }}
         meta={[
           { value: '10+', label: 'Anos de operação' },
           { value: '200+', label: 'Clientes ativos' },

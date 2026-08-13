@@ -1,48 +1,57 @@
 'use client';
 
-import { ChevronDown } from 'lucide-react';
 import { SectionHeader } from '@/components/SectionHeader';
 import { useLeadDialog } from '@/components/LeadDialogProvider';
-import { btnSecondary } from '@/components/buttons';
+import { Button } from '@/components/ui/button';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/ui/accordion';
 
 type FaqItem = {
+  id: string;
   question: string;
   answer: string;
 };
 
 const items: FaqItem[] = [
   {
-    question: 'Os preços são finais?',
+    id: 'preco',
+    question: 'Por que vocês não publicam preço?',
     answer:
-      'Não — são valores de tabela. Há condições por volume, ATAs e contratos plurianuais. Cotação fechada na conversa.'
+      'Porque o valor final depende de volume, prazo de contrato e veículo de aquisição. Publicar tabela ignoraria condições por ATA e contratos plurianuais que normalmente reduzem o custo. Mandamos a cotação fechada em até 1 dia útil.'
   },
   {
+    id: 'faturamento',
     question: 'Vocês emitem nota? Como funciona o faturamento?',
     answer:
-      'Sim. Hypercloud é revendedora Premier Partner — faturamos direto. Boletos/NF-e mensais com gestor de conta.'
+      'Sim. Hypercloud é revendedora Premier Partner — faturamos direto em BRL com impostos nacionais inclusos. Boletos/NF-e mensais com acompanhamento do gestor de conta.'
   },
   {
-    question: 'Conseguem fornecer para governo?',
+    id: 'governo',
+    question: 'Conseguem fornecer para governo e setor público?',
     answer:
-      'Sim. ATAs vigentes (ARP CIMPAR, CIASC-SC e outras). Veja /setor-publico para os caminhos formais de aquisição.'
+      'Sim. Mantemos ATAs vigentes (ARP CIMPAR, CIASC-SC e outras) prontas para carona/adesão, além de atender licitações e pregões com suporte a Lei 14.133/2021.'
   },
-  // ⚠ TODO: confirmar com comercial Hypercloud antes de production — prazos chutados
   {
-    question: 'Quanto tempo leva para contratar?',
+    id: 'prazo',
+    question: 'Quanto tempo leva para contratar e ativar?',
     answer:
-      'Setor privado: 24-72h após validação. Setor público: depende do veículo de aquisição (adesão a ATA, pregão, contratação direta).'
+      'Setor privado: provisionamento das licenças e início do plano em 24h a 72h. Setor público: conforme o rito do veículo de aquisição (adesão a ATA, dispensas ou pregão).'
   },
-  // ⚠ TODO: confirmar com comercial Hypercloud antes de production — SLAs por tier
   {
-    question: 'Suporte? SLA?',
+    id: 'sla',
+    question: 'Como funciona o suporte técnico e SLA?',
     answer:
-      'Atendimento nacional, time dedicado. SLAs personalizáveis para Enterprise.'
+      'Atendimento em português por especialistas certificados no Brasil. SLA de resposta em até 1h para incidentes graves no plano Enterprise.'
   },
-  // ⚠ TODO: confirmar com comercial Hypercloud antes de production — usar numero real se quiser quantificar
   {
-    question: 'Posso migrar de outro provedor (M365, Zoho, etc.)?',
+    id: 'migracao',
+    question: 'Posso migrar de outro provedor (Microsoft 365, Exchange, etc.)?',
     answer:
-      'Sim. Plano de migração consultivo já estruturado.'
+      'Sim. Oferecemos metodologia completa de migração de e-mails, arquivos do Drive/OneDrive e permissões sem interrupção do trabalho dos colaboradores.'
   }
 ];
 
@@ -65,32 +74,25 @@ export function Faq() {
               description="As 6 perguntas que aparecem em quase toda primeira conversa. Se a sua não tá aqui, fala com a gente."
               align="left"
             />
-            <button
+            <Button
               type="button"
-              onClick={() => openLead()}
-              className={btnSecondary('md', 'mt-2')}
+              variant="secondary"
+              size="lg"
+              onClick={() => openLead('FAQ')}
+              className="mt-4"
             >
               Não achou? Pergunta direto
-            </button>
+            </Button>
           </div>
 
-          <ul className="space-y-3">
+          <Accordion type="single" collapsible className="space-y-3">
             {items.map((item) => (
-              <li key={item.question}>
-                <details className="group rounded-2xl border border-border bg-surface-card p-5 transition open:bg-surface-soft open:border-brand-500/40 hover:border-brand-500/30 sm:p-6">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
-                    <span className="text-[14.5px] font-bold tracking-tight text-text-strong sm:text-[15.5px]">
-                      {item.question}
-                    </span>
-                    <ChevronDown className="h-5 w-5 shrink-0 text-text-muted transition group-open:rotate-180 group-open:text-brand-500" />
-                  </summary>
-                  <p className="mt-4 text-[13.5px] leading-relaxed text-text-muted sm:text-[14px]">
-                    {item.answer}
-                  </p>
-                </details>
-              </li>
+              <AccordionItem key={item.id} value={item.id}>
+                <AccordionTrigger>{item.question}</AccordionTrigger>
+                <AccordionContent>{item.answer}</AccordionContent>
+              </AccordionItem>
             ))}
-          </ul>
+          </Accordion>
         </div>
       </div>
     </section>

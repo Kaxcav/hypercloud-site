@@ -3,6 +3,7 @@ import { ArrowRight, Building2, Clock, Headphones, LifeBuoy, MessageCircle, Shie
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { SectionHeader } from '@/components/SectionHeader';
 import { SpecialistCta } from '@/components/SpecialistCta';
+import { company } from '@/constants/company';
 
 export const metadata: Metadata = {
   title: 'Suporte',
@@ -55,7 +56,7 @@ export default function SuportePage() {
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <a
-              href="https://wa.me/5531992391683?text=Olá,%20preciso%20de%20suporte"
+              href={`${company.whatsapp.href}?text=Olá,%20preciso%20de%20suporte`}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-md bg-brand-gradient px-5 py-3 text-sm font-bold text-white shadow-brand transition hover:opacity-95"
@@ -64,10 +65,10 @@ export default function SuportePage() {
               WhatsApp do Suporte
             </a>
             <a
-              href="mailto:suporte@hypercloud.com.br"
+              href={`mailto:${company.emails.suporte}`}
               className="inline-flex items-center gap-2 rounded-md border border-border bg-surface-card px-5 py-3 text-sm font-bold text-text shadow-soft transition hover:border-brand-500/40 hover:text-text-strong"
             >
-              suporte@hypercloud.com.br
+              {company.emails.suporte}
             </a>
           </div>
         </div>

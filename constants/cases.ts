@@ -1,59 +1,50 @@
-export type CaseStudy = {
+export type GoogleCredential = {
   id: string;
-  client: string;
-  vertical: string;
-  metric: { value: string; label: string };
-  challenge: string;
-  outcome: string;
-  product: 'workspace' | 'gemini' | 'cloud' | 'appsheet' | 'multi';
-  /** Marca conteúdo placeholder até o cliente fornecer dados reais */
-  placeholder?: boolean;
+  badgeKey: string;
+  title: string;
+  category: 'Specialization' | 'Expertise' | 'Partner Tier';
+  description: string;
+  guarantee: string;
 };
 
-/**
- * NOTA — Conteúdo abaixo é placeholder ilustrativo.
- * Substituir por cases reais com nome do cliente, métrica e link público autorizado.
- */
-export const cases: CaseStudy[] = [
+export const googleCredentials: GoogleCredential[] = [
   {
-    id: 'industria-acme',
-    client: 'Indústria Acme',
-    vertical: 'Indústria · 1.200 colaboradores',
-    metric: { value: '38%', label: 'Redução de tempo em reuniões' },
-    challenge: 'Reuniões longas e dispersas, difíceis de acompanhar entre fábrica e administrativo.',
-    outcome: 'Adoção do Take Notes for Me (Gemini no Meet) com atas automáticas e itens de ação distribuídos via Drive.',
-    product: 'gemini',
-    placeholder: true
+    id: 'premier-partner',
+    badgeKey: 'premier-partner',
+    title: 'Google Cloud Premier Partner',
+    category: 'Partner Tier',
+    description: 'Nível máximo de parceria com a Google Cloud no Brasil, exigindo volume de negócios auditado e corpo técnico altamente certificado.',
+    guarantee: 'Acesso direto a engajamento de engenharia da Google e condições contratuais diferenciadas.'
   },
   {
-    id: 'cidade-digital',
-    client: 'Prefeitura · Cidade Digital',
-    vertical: 'Setor Público · 4.800 servidores',
-    metric: { value: '6 meses', label: 'Migração concluída' },
-    challenge: 'Modernizar a infraestrutura de e-mail e colaboração com aderência à Nova Lei de Licitações.',
-    outcome: 'Adesão à ATA com migração completa para Workspace Enterprise + Vault e DLP, dentro do prazo legal.',
-    product: 'workspace',
-    placeholder: true
+    id: 'work-transformation',
+    badgeKey: 'work-transformation-ent',
+    title: 'Work Transformation - Enterprise',
+    category: 'Specialization',
+    description: 'Especialização técnica formal concedida após auditoria de casos complexos de migração e arquitetura de colaboração em grande escala.',
+    guarantee: 'Metodologia homologada pela Google para migração de dados sem interrupção operacional.'
   },
   {
-    id: 'rede-saude',
-    client: 'Rede Hospitalar Norte',
-    vertical: 'Saúde · 2.300 colaboradores',
-    metric: { value: '4×', label: 'Velocidade em automações operacionais' },
-    challenge: 'Processos manuais de admissão de paciente, ronda de enfermagem e checklist de equipamento.',
-    outcome: 'AppSheet integrado ao Workspace para apps internos sem código, com governança centralizada.',
-    product: 'appsheet',
-    placeholder: true
+    id: 'google-cloud-sell',
+    badgeKey: 'sell-expert',
+    title: 'Google Cloud Sell & Service Expert',
+    category: 'Expertise',
+    description: 'Capacitação completa para comercialização, faturamento nacional (BRL) e gestão continuada de ambiente Google Cloud.',
+    guarantee: 'Faturamento direto em reais com suporte e faturamento customizado para empresas e governo.'
+  },
+  {
+    id: 'appsheet-certified',
+    badgeKey: 'appsheet-certified',
+    title: 'AppSheet Certified Professional',
+    category: 'Expertise',
+    description: 'Certificação em desenvolvimento e governança de aplicações no-code/low-code integradas ao Workspace e GCP.',
+    guarantee: 'Criação de aplicativos de processo com governança de dados e controle de acesso enterprise.'
   }
 ];
 
-export const clientLogos = [
-  { name: 'Cliente A', placeholder: true },
-  { name: 'Cliente B', placeholder: true },
-  { name: 'Cliente C', placeholder: true },
-  { name: 'Cliente D', placeholder: true },
-  { name: 'Cliente E', placeholder: true },
-  { name: 'Cliente F', placeholder: true },
-  { name: 'Cliente G', placeholder: true },
-  { name: 'Cliente H', placeholder: true }
-];
+export const trackRecord = [
+  { value: 'Premier', label: 'Partner Google Cloud' },
+  { value: '100%', label: 'Faturamento em BRL / Impostos Nacionais' },
+  { value: 'ATAs', label: 'Vigentes para Adesão Pública' },
+  { value: '10+', label: 'Anos de atuação no mercado de TI' }
+] as const;

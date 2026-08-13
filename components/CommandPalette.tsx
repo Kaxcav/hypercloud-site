@@ -59,9 +59,11 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
     }
     return [
       { id: 'home', label: 'Início', group: 'Navegar', icon: Home, keywords: 'home', run: go('/') },
-      { id: 'comparador', label: 'Comparar planos', group: 'Navegar', icon: Layers, run: go('/#compare-all') },
-      { id: 'calculadora', label: 'Estimador de escala', group: 'Navegar', icon: Calculator, run: go('/#calculadora') },
-      { id: 'cases', label: 'Cases e clientes', group: 'Navegar', icon: Sparkles, run: go('/cases') },
+      { id: 'planos', label: 'Planos Google Workspace', group: 'Navegar', icon: Building2, keywords: 'preços planos workspace', run: go('/#planos') },
+      { id: 'comparador', label: 'Comparar recursos e edições', group: 'Navegar', icon: Layers, run: go('/#compare-all') },
+      { id: 'calculadora', label: 'Calculadora M365 → Workspace', group: 'Navegar', icon: Calculator, run: go('/calculadora') },
+      { id: 'diagnostico', label: 'Diagnóstico Gratuito', group: 'Navegar', icon: Sparkles, run: go('/diagnostico') },
+      { id: 'cases', label: 'Cases e Credenciais', group: 'Navegar', icon: Sparkles, run: go('/cases') },
       { id: 'setor-publico', label: 'Setor Público · ATAs', group: 'Navegar', icon: Landmark, run: go('/setor-publico') },
       { id: 'sobre', label: 'Sobre a Hypercloud', group: 'Navegar', icon: Lightbulb, run: go('/sobre') },
       { id: 'suporte', label: 'Suporte e chamados', group: 'Navegar', icon: Headphones, run: go('/suporte') },

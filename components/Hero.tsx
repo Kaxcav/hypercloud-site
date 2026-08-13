@@ -65,14 +65,11 @@ export function Hero() {
             initial={REVEAL.initial}
             animate={REVEAL.animate}
             transition={{ ...REVEAL.transition, delay: 0.06 }}
-            className="mt-7 text-balance text-[44px] font-extrabold leading-[0.96] tracking-[-0.045em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.25)] sm:text-[60px] lg:text-[80px]"
+            className="mt-7 text-balance text-[40px] font-extrabold leading-[0.98] tracking-[-0.04em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.25)] sm:text-[56px] lg:text-[72px]"
           >
-            Google Workspace com{' '}
+            Google Workspace, Cloud e IA{' '}
             <span className="font-extrabold tracking-[-0.02em] text-white">
-              preço público.
-            </span>
-            <span className="mt-4 block text-[26px] font-medium leading-[1.18] tracking-[-0.02em] text-white/85 sm:text-[34px] lg:text-[42px]">
-              Cloud, IA e produtividade — contrato direto.
+              implantados por quem a Google credenciou.
             </span>
           </motion.h1>
 
@@ -80,9 +77,9 @@ export function Hero() {
             initial={REVEAL.initial}
             animate={REVEAL.animate}
             transition={{ ...REVEAL.transition, delay: 0.12 }}
-            className="mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg sm:leading-8"
+            className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg sm:leading-8"
           >
-            Veja os planos, compare e fale com um especialista. Sem funil enrolado.
+            Contrato direto com Premier Partner, ATAs vigentes para setor público e migração conduzida por time de engenharia certificado.
           </motion.p>
 
           <motion.div
@@ -91,20 +88,20 @@ export function Hero() {
             transition={{ ...REVEAL.transition, delay: 0.18 }}
             className="mt-8 flex flex-wrap gap-3"
           >
-            <Link
-              href="#pricing"
-              className="inline-flex items-center gap-2 rounded-md bg-white px-6 py-3.5 text-sm font-bold text-brand-700 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.45)] transition hover:bg-white/95"
-            >
-              Ver planos
-              <ArrowRight className="h-4 w-4" />
-            </Link>
             <button
               type="button"
-              onClick={() => openLead()}
+              onClick={() => openLead('Hero — CTA Principal')}
+              className="inline-flex items-center gap-2 rounded-md bg-white px-6 py-3.5 text-sm font-bold text-brand-700 shadow-[0_18px_40px_-12px_rgba(0,0,0,0.45)] transition hover:bg-white/95"
+            >
+              Falar com especialista
+              <ArrowRight className="h-4 w-4" />
+            </button>
+            <Link
+              href="#planos"
               className="inline-flex items-center gap-2 rounded-md border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-md transition hover:bg-white/15"
             >
-              Falar com Especialista
-            </button>
+              Ver planos
+            </Link>
           </motion.div>
         </div>
       </div>

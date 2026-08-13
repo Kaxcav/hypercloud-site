@@ -13,7 +13,6 @@ import {
 } from '@/constants/workspace-features';
 import {
   workspacePlans,
-  formatPlanPrice,
   type WorkspacePlan,
   type WorkspacePlanId
 } from '@/constants/workspace-plans';
@@ -102,7 +101,7 @@ export function CompareAllTable() {
                 scope="row"
                 className="sticky left-0 z-10 bg-surface-soft/40 px-4 py-3 text-[12px] font-semibold text-text-muted"
               >
-                Valor de tabela
+                Perfil recomendado
               </th>
               {workspacePlanOrder.map((planId) => {
                 const plan = planMap.get(planId);
@@ -112,14 +111,11 @@ export function CompareAllTable() {
                   <td
                     key={planId}
                     className={cn(
-                      'px-3 py-3 text-center text-[13px] font-bold text-text-strong',
+                      'px-3 py-3 text-center text-[11px] font-semibold text-brand-500',
                       isMobileVisible ? '' : 'hidden md:table-cell'
                     )}
                   >
-                    {formatPlanPrice(plan.pricePerUser)}
-                    <span className="block text-[10.5px] font-normal text-text-subtle">
-                      /usuário/mês
-                    </span>
+                    {plan.suitability}
                   </td>
                 );
               })}

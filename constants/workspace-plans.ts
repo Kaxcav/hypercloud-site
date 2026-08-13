@@ -18,15 +18,15 @@ export type WorkspacePlan = {
   name: string;
   /** Nome curto para o card, ex: "Starter" */
   shortName: string;
-  /** Preço por usuário por mês em BRL. */
-  pricePerUser: number;
+  /** Selo de adequação comercial / técnica */
+  suitability: string;
   /** 1 frase descrevendo público-alvo. */
   audience: string;
   /** Marca o plano com selo "Recomendado". Por design, EXATAMENTE 1 plano no array tem true. */
   recommended: boolean;
   /** 4-5 bullets que aparecem no card. */
   highlights: string[];
-  /** Texto do botão. Default "Falar com Especialista". */
+  /** Texto do botão. Default "Receber cotação". */
   cta: string;
 };
 
@@ -36,7 +36,7 @@ export const workspacePlans: WorkspacePlan[] = [
     tier: 'frontline',
     name: 'Frontline Starter',
     shortName: 'Starter',
-    pricePerUser: 30,
+    suitability: 'Ideal para 10-100 usuários operacionais',
     audience: 'Operação de frontline com necessidade básica de Gmail e colaboração.',
     recommended: false,
     highlights: [
@@ -46,14 +46,14 @@ export const workspacePlans: WorkspacePlan[] = [
       'Meet até 100 participantes',
       'MDM básico e avançado'
     ],
-    cta: 'Falar com Especialista'
+    cta: 'Receber cotação'
   },
   {
     id: 'wks-fl-std',
     tier: 'frontline',
     name: 'Frontline Standard',
     shortName: 'Standard',
-    pricePerUser: 70,
+    suitability: 'Governança intermediária e auditoria',
     audience: 'Frontline com governança intermediária e identidade reforçada.',
     recommended: false,
     highlights: [
@@ -63,14 +63,14 @@ export const workspacePlans: WorkspacePlan[] = [
       'Cloud Identity Premium',
       'AppSheet incluso'
     ],
-    cta: 'Falar com Especialista'
+    cta: 'Receber cotação'
   },
   {
     id: 'wks-fl-plus',
     tier: 'frontline',
     name: 'Frontline Plus',
     shortName: 'Plus',
-    pricePerUser: 93,
+    suitability: 'Segurança e prevenção de vazamentos DLP',
     audience: 'Frontline com governança avançada, DLP e Central de Segurança.',
     recommended: false,
     highlights: [
@@ -80,14 +80,14 @@ export const workspacePlans: WorkspacePlan[] = [
       'Criptografia S/MIME',
       'Vault + Cloud Identity Premium'
     ],
-    cta: 'Falar com Especialista'
+    cta: 'Receber cotação'
   },
   {
     id: 'wks-ent-essentials',
     tier: 'enterprise',
     name: 'Enterprise Essentials',
     shortName: 'Essentials',
-    pricePerUser: 58,
+    suitability: 'Complemento para quem usa Exchange / M365',
     audience: 'Empresa que já tem e-mail próprio e quer Drive, Docs e Meet com mais espaço.',
     recommended: false,
     highlights: [
@@ -97,14 +97,14 @@ export const workspacePlans: WorkspacePlan[] = [
       'Meet até 150 + gravação',
       'AppSheet incluso'
     ],
-    cta: 'Falar com Especialista'
+    cta: 'Receber cotação'
   },
   {
     id: 'wks-ent-essentials-plus',
     tier: 'enterprise',
     name: 'Enterprise Essentials Plus',
     shortName: 'Essentials Plus',
-    pricePerUser: 116,
+    suitability: 'Alta escala em videoconferência e governança',
     audience: 'Essentials com governança enterprise e Meet em larga escala.',
     recommended: false,
     highlights: [
@@ -114,14 +114,14 @@ export const workspacePlans: WorkspacePlan[] = [
       'Vault + DLP + Cloud Identity Premium',
       'Regiões de Dados (Data Locality)'
     ],
-    cta: 'Falar com Especialista'
+    cta: 'Receber cotação'
   },
   {
     id: 'wks-ent-starter',
     tier: 'enterprise',
     name: 'Enterprise Starter',
     shortName: 'Starter',
-    pricePerUser: 63.9,
+    suitability: 'Ideal para 20-200 usuários em crescimento',
     audience: 'Entrada Enterprise com Gmail e Drives compartilhados.',
     recommended: false,
     highlights: [
@@ -131,14 +131,14 @@ export const workspacePlans: WorkspacePlan[] = [
       'Meet até 250 + gravação',
       'MDM avançado'
     ],
-    cta: 'Falar com Especialista'
+    cta: 'Receber cotação'
   },
   {
     id: 'wks-ent-std',
     tier: 'enterprise',
     name: 'Enterprise Standard',
     shortName: 'Standard',
-    pricePerUser: 156.2,
+    suitability: 'Mais escolhido por médias e grandes empresas',
     audience: 'Enterprise consolidado com governança avançada e capacidade reforçada.',
     recommended: true,
     highlights: [
@@ -148,14 +148,14 @@ export const workspacePlans: WorkspacePlan[] = [
       'Vault + DLP + Central de Segurança',
       'Regiões de Dados'
     ],
-    cta: 'Falar com Especialista'
+    cta: 'Receber cotação'
   },
   {
     id: 'wks-ent-plus',
     tier: 'enterprise',
     name: 'Enterprise Plus',
     shortName: 'Plus',
-    pricePerUser: 203,
+    suitability: 'Requer conformidade técnica rigorosa e S/MIME',
     audience: 'Maior tier — compliance e criptografia ponta a ponta.',
     recommended: false,
     highlights: [
@@ -165,14 +165,6 @@ export const workspacePlans: WorkspacePlan[] = [
       'Criptografia S/MIME e CSE',
       'Central de Segurança completa'
     ],
-    cta: 'Falar com Especialista'
+    cta: 'Receber cotação'
   }
 ];
-
-/** Helper: formata pricePerUser para "R$ 30" ou "R$ 156,20" (com vírgula decimal pt-BR). */
-export function formatPlanPrice(price: number): string {
-  const integer = Math.trunc(price);
-  const decimal = Math.round((price - integer) * 100);
-  if (decimal === 0) return `R$ ${integer}`;
-  return `R$ ${integer},${decimal.toString().padStart(2, '0')}`;
-}

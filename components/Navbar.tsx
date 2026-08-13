@@ -13,7 +13,7 @@ import { cn } from '@/components/ui';
 import { btnPrimary } from '@/components/buttons';
 
 const links = [
-  { href: '/#pricing', label: 'Soluções' },
+  { href: '/#planos', label: 'Planos' },
   { href: '/#compare-all', label: 'Comparar' },
   { href: '/cases', label: 'Cases' },
   { href: '/setor-publico', label: 'Setor Público' },
@@ -30,7 +30,7 @@ export function Navbar() {
   const { open: openLead } = useLeadDialog();
 
   useEffect(() => {
-    setIsMac(/Mac/i.test(navigator.platform));
+    setIsMac(typeof window !== 'undefined' && /Mac|iPod|iPhone|iPad/i.test(navigator.userAgent));
     function onScroll() {
       setScrolled(window.scrollY > 6);
     }

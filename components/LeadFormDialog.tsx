@@ -2,8 +2,9 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
-import { useEffect, useId, useRef, useState } from 'react';
-import { ArrowRight, Building2, BrainCircuit, Check, Cloud, Loader2, Mail, Phone, Sparkles, User2, Workflow, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowRight, Building2, BrainCircuit, Check, Cloud, Loader2, Mail, Phone, Sparkles, User2, Workflow } from 'lucide-react';
+import Link from 'next/link';
 import {
   companySizeOptions,
   interestOptions,
@@ -13,6 +14,15 @@ import {
   type LeadFormValues
 } from '@/lib/lead';
 import { cn } from '@/components/ui';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 
 type LeadFormDialogProps = {
   open: boolean;
@@ -40,10 +50,8 @@ function formatPhoneBR(value: string) {
 }
 
 export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) {
-  const titleId = useId();
   const [step, setStep] = useState(0);
   const [submitState, setSubmitState] = useState<'idle' | 'sending' | 'success' | 'error' | 'rate-limited'>('idle');
-  const dialogRef = useRef<HTMLDivElement>(null);
 
   const form = useForm<LeadFormValues>({
     resolver: zodResolver(leadFormSchema) as Resolver<LeadFormValues>,
@@ -59,54 +67,8 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
     reset(leadDefaults as LeadFormValues);
   }, [open, reset]);
 
-  useEffect(() => {
-    if (!open) return;
-    const previousFocus = document.activeElement as HTMLElement | null;
-
-    function getFocusables() {
-      const container = dialogRef.current;
-      if (!container) return [] as HTMLElement[];
-      const nodes = container.querySelectorAll<HTMLElement>(
-        'button, [href], input, select, textarea, [tabindex]'
-      );
-      return Array.from(nodes).filter(
-        (el) => !el.hasAttribute('disabled') && el.getAttribute('tabindex') !== '-1'
-      );
-    }
-
-    function onKey(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        onClose();
-        return;
-      }
-      if (event.key === 'Tab') {
-        const focusables = getFocusables();
-        if (focusables.length === 0) return;
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-        const active = document.activeElement;
-        if (event.shiftKey && active === first) {
-          event.preventDefault();
-          last.focus();
-        } else if (!event.shiftKey && active === last) {
-          event.preventDefault();
-          first.focus();
-        }
-      }
-    }
-
-    window.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-      if (previousFocus && document.contains(previousFocus)) {
-        previousFocus.focus();
-      }
-    };
-  }, [open, onClose]);
-
   const interests = watch('interests');
+  const consentValue = watch('consent');
 
   function toggleInterest(value: (typeof interestOptions)[number]['value']) {
     const current = new Set(interests ?? []);
@@ -130,11 +92,27 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
 
   const onSubmit: SubmitHandler<LeadFormValues> = async (values) => {
     setSubmitState('sending');
+    let attribution = {};
+    try {
+      const stored = sessionStorage.getItem('hypercloud_attribution');
+      if (stored) {
+        attribution = JSON.parse(stored);
+      }
+    } catch {
+      // Ignora erro de storage
+    }
+
+    const fullPayload = {
+      ...values,
+      ...attribution,
+      context: context ? `[Gatilho: ${context}] ${values.context || ''}`.trim() : values.context
+    };
+
     try {
       const res = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values)
+        body: JSON.stringify(fullPayload)
       });
       if (res.status === 429) {
         setSubmitState('rate-limited');
@@ -151,81 +129,60 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
     }
   };
 
-  if (!open) return null;
-
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={titleId}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
-    >
-      <div
-        className="absolute inset-0 bg-ink-0/70 backdrop-blur-sm"
-        onClick={onClose}
-        aria-hidden
-      />
-      <div ref={dialogRef} className="relative w-full max-w-xl overflow-hidden rounded-3xl border border-border bg-surface-card shadow-premium">
+    <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
+      <DialogContent>
         {/* glow decorativo */}
         <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-brand-500/30 blur-3xl" aria-hidden />
         <div className="pointer-events-none absolute -left-24 -bottom-24 h-64 w-64 rounded-full bg-brand-400/20 blur-3xl" aria-hidden />
 
-        <button
-          type="button"
-          aria-label="Fechar"
-          onClick={onClose}
-          className="absolute right-4 top-4 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface-soft text-text-muted transition hover:text-text"
-        >
-          <X className="h-4 w-4" />
-        </button>
-
         {/* header */}
-        <div className="relative px-6 pt-7 sm:px-8 sm:pt-8">
-          <span className="inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-brand-400">
+        <DialogHeader>
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] text-brand-400 w-fit">
             <Sparkles className="h-3 w-3" />
             Falar com especialista
           </span>
-          <h2 id={titleId} className="mt-4 text-2xl font-bold tracking-tight text-text-strong sm:text-[26px]">
+          <DialogTitle className="mt-2">
             {submitState === 'success' ? 'Pedido recebido.' : 'Vamos começar uma conversa.'}
-          </h2>
-          <p className="mt-2 text-[14px] leading-relaxed text-text-muted">
+          </DialogTitle>
+          <DialogDescription>
             {submitState === 'success'
               ? 'Um especialista da Hypercloud responde em até 1 dia útil.'
               : context ?? 'Três passos para a gente entender seu cenário e responder com a pessoa certa.'}
-          </p>
+          </DialogDescription>
+        </DialogHeader>
 
-          {submitState !== 'success' ? (
-            <ol className="mt-6 flex items-center gap-2">
-              {[0, 1, 2].map((i) => (
-                <li key={i} className="flex flex-1 items-center">
+        {submitState !== 'success' ? (
+          <ol className="flex items-center gap-2 my-2">
+            {[0, 1, 2].map((i) => (
+              <li key={i} className="flex flex-1 items-center">
+                <span
+                  className={cn(
+                    'inline-flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-bold transition',
+                    i < step
+                      ? 'bg-brand-gradient text-white shadow-brand'
+                      : i === step
+                        ? 'border border-brand-500/40 bg-surface-card text-brand-400'
+                        : 'border border-border bg-surface-card text-text-subtle'
+                  )}
+                >
+                  {i < step ? <Check className="h-3.5 w-3.5" /> : i + 1}
+                </span>
+                {i < 2 ? (
                   <span
                     className={cn(
-                      'inline-flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-bold transition',
-                      i < step
-                        ? 'bg-brand-gradient text-white shadow-brand'
-                        : i === step
-                          ? 'border border-brand-500/40 bg-surface-card text-brand-400'
-                          : 'border border-border bg-surface-card text-text-subtle'
+                      'mx-2 h-px flex-1 transition',
+                      i < step ? 'bg-brand-500' : 'bg-border'
                     )}
-                  >
-                    {i < step ? <Check className="h-3.5 w-3.5" /> : i + 1}
-                  </span>
-                  {i < 2 ? (
-                    <span
-                      className={cn(
-                        'mx-2 h-px flex-1 transition',
-                        i < step ? 'bg-brand-500' : 'bg-border'
-                      )}
-                    />
-                  ) : null}
-                </li>
-              ))}
-            </ol>
-          ) : null}
-        </div>
+                  />
+                ) : null}
+              </li>
+            ))}
+          </ol>
+        ) : null}
 
         {/* body */}
-        <form onSubmit={handleSubmit(onSubmit)} className="relative px-6 pb-7 pt-6 sm:px-8 sm:pb-8">
+        <form onSubmit={handleSubmit(onSubmit)} className="relative space-y-4">
           {submitState === 'success' ? (
             <SuccessState onClose={onClose} />
           ) : (
@@ -303,11 +260,11 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
                   </Field>
                   <Field
                     label="Contexto (opcional)"
-                    hint="Conte rapidamente o cenário, prazos, restrições ou qualquer observação para o pré-atendimento."
+                    hint="Conte rapidamente o cenário, prazos ou observações."
                   >
                     <textarea
-                      rows={4}
-                      placeholder="Ex.: Estamos avaliando migrar 320 caixas do Microsoft 365 para Workspace até Q3."
+                      rows={3}
+                      placeholder="Ex.: Estamos avaliando migrar 320 caixas para Workspace até Q3."
                       {...register('context')}
                       className="form-input resize-none"
                     />
@@ -364,6 +321,38 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
                       />
                     </div>
                   </Field>
+
+                  {/* Radix / shadcn Checkbox */}
+                  <div className="pt-2">
+                    <label className="flex items-start gap-3 cursor-pointer select-none">
+                      <Checkbox
+                        checked={consentValue === true}
+                        onCheckedChange={(checked) => {
+                          setValue('consent', checked === true ? true : (false as any), {
+                            shouldValidate: true
+                          });
+                        }}
+                        className="mt-0.5"
+                      />
+                      <span className="text-[12px] leading-relaxed text-text-muted">
+                        Autorizo o contato da Hypercloud e o tratamento dos meus dados conforme a{' '}
+                        <Link
+                          href="/politica-de-privacidade"
+                          target="_blank"
+                          className="font-medium text-brand-500 underline hover:text-brand-400"
+                        >
+                          Política de Privacidade
+                        </Link>
+                        .
+                      </span>
+                    </label>
+                    {formState.errors.consent ? (
+                      <span className="mt-1 block text-[12px] font-medium text-red-400">
+                        {formState.errors.consent.message}
+                      </span>
+                    ) : null}
+                  </div>
+
                   {submitState === 'rate-limited' ? (
                     <p className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-[12px] text-amber-400">
                       Muitas tentativas em pouco tempo. Aguarde um minuto e tente novamente.
@@ -377,15 +366,15 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
               ) : null}
 
               {/* footer */}
-              <div className="mt-6 flex items-center justify-between gap-3">
+              <div className="mt-6 flex items-center justify-between gap-3 pt-2">
                 {step > 0 ? (
-                  <button
+                  <Button
                     type="button"
+                    variant="outline"
                     onClick={() => setStep((s) => s - 1)}
-                    className="rounded-lg border border-border bg-surface-soft px-4 py-2.5 text-[13px] font-semibold text-text transition hover:text-text-strong"
                   >
                     Voltar
-                  </button>
+                  </Button>
                 ) : (
                   <span className="text-[12px] text-text-subtle">
                     Passo {step + 1} de 3
@@ -393,19 +382,15 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
                 )}
 
                 {step < 2 ? (
-                  <button
-                    type="button"
-                    onClick={handleNext}
-                    className="inline-flex items-center gap-2 rounded-lg bg-brand-gradient px-5 py-2.5 text-[13px] font-bold text-white shadow-brand transition hover:opacity-95"
-                  >
+                  <Button type="button" variant="brand" onClick={handleNext}>
                     Próximo
                     <ArrowRight className="h-3.5 w-3.5" />
-                  </button>
+                  </Button>
                 ) : (
-                  <button
+                  <Button
                     type="submit"
+                    variant="brand"
                     disabled={submitState === 'sending'}
-                    className="inline-flex items-center gap-2 rounded-lg bg-brand-gradient px-5 py-2.5 text-[13px] font-bold text-white shadow-brand transition hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-70"
                   >
                     {submitState === 'sending' ? (
                       <>
@@ -417,15 +402,14 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
                         <ArrowRight className="h-3.5 w-3.5" />
                       </>
                     )}
-                  </button>
+                  </Button>
                 )}
               </div>
             </>
           )}
         </form>
-      </div>
+      </DialogContent>
 
-      {/* form input styles */}
       <style jsx global>{`
         .form-input,
         .form-input-bare {
@@ -463,7 +447,7 @@ export function LeadFormDialog({ open, context, onClose }: LeadFormDialogProps) 
           transition: border-color 150ms, box-shadow 150ms;
         }
       `}</style>
-    </div>
+    </Dialog>
   );
 }
 
@@ -496,7 +480,7 @@ function Field({
 
 function SuccessState({ onClose }: { onClose: () => void }) {
   return (
-    <div className="text-center">
+    <div className="text-center py-4">
       <div className="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-brand-gradient text-white shadow-brand">
         <Check className="h-6 w-6" strokeWidth={3} />
       </div>
@@ -504,13 +488,14 @@ function SuccessState({ onClose }: { onClose: () => void }) {
       <p className="mx-auto mt-2 max-w-sm text-[14px] leading-relaxed text-text-muted">
         Um especialista da Hypercloud entra em contato em até 1 dia útil pelo canal que você indicou.
       </p>
-      <button
+      <Button
         type="button"
+        variant="brand"
         onClick={onClose}
-        className="mt-6 inline-flex items-center gap-2 rounded-lg bg-brand-gradient px-5 py-2.5 text-[13px] font-bold text-white shadow-brand transition hover:opacity-95"
+        className="mt-6"
       >
         Continuar navegando
-      </button>
+      </Button>
     </div>
   );
 }
