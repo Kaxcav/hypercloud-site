@@ -1,9 +1,9 @@
-// components/buttons.ts
+// components/ui/buttons.ts
 // Helpers de classe Tailwind para os 3 variantes de botão usados no site.
 // Não é um componente React — só constantes de classe pra evitar inconsistências
 // entre os ~15 CTAs inline espalhados.
 
-import { cn } from './ui';
+import { cn } from '@/components/ui';
 
 const BASE = 'inline-flex items-center justify-center gap-2 rounded-md font-bold transition';
 

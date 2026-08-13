@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowUpRight, ScrollText, ShieldCheck } from 'lucide-react';
-import { btnTertiary } from '@/components/buttons';
+import { btnTertiary } from '@/components/ui/buttons';
 
 const atas = [
   {

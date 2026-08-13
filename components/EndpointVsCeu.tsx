@@ -3,7 +3,7 @@
 // components/EndpointVsCeu.tsx
 import { useLeadDialog } from '@/components/LeadDialogProvider';
 import { SectionHeader } from '@/components/SectionHeader';
-import { btnPrimary } from '@/components/buttons';
+import { btnPrimary } from '@/components/ui/buttons';
 import { Smartphone, Cpu } from 'lucide-react';
 
 const rows: { dim: string; endpoint: string; ceu: string }[] = [

@@ -10,7 +10,7 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { useCommandPalette } from '@/components/CommandPaletteProvider';
 import { useLeadDialog } from '@/components/LeadDialogProvider';
 import { cn } from '@/components/ui';
-import { btnPrimary } from '@/components/buttons';
+import { btnPrimary } from '@/components/ui/buttons';
 
 const links = [
   { href: '/#planos', label: 'Planos' },

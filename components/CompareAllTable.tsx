@@ -18,7 +18,7 @@ import {
 } from '@/constants/workspace-plans';
 import { cn } from '@/components/ui';
 import { SectionHeader } from '@/components/SectionHeader';
-import { btnPrimary } from '@/components/buttons';
+import { btnPrimary } from '@/components/ui/buttons';
 
 const BLOCK_ORDER: FeatureBlock[] = ['Geral', 'Armaz.', 'Colab.', 'Comun.', 'Segur.', 'Compl.'];
 const BLOCK_LABEL: Record<FeatureBlock, string> = {

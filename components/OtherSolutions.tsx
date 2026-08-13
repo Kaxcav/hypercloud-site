@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, BrainCircuit, Cloud, Workflow } from 'lucide-react';
 import { useLeadDialog } from '@/components/LeadDialogProvider';
 import { SectionHeader } from '@/components/SectionHeader';
-import { btnPrimary, btnTertiary } from '@/components/buttons';
+import { btnPrimary, btnTertiary } from '@/components/ui/buttons';
 import { Stagger, StaggerItem } from '@/components/MotionWrapper';
 import { geminiEditions } from '@/constants/gemini-editions';
 
