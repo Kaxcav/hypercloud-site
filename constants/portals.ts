@@ -14,8 +14,8 @@ export interface Portal {
 }
 
 export const portalUrls: Record<PortalKey, string> = {
-  hsm: process.env.NEXT_PUBLIC_HSM_URL ?? 'http://localhost:5173',
-  hlm: process.env.NEXT_PUBLIC_HLM_URL ?? 'http://localhost:3001'
+  hsm: process.env.NEXT_PUBLIC_HSM_URL ?? 'https://hypercloud-support-manager-138940668047.southamerica-east1.run.app',
+  hlm: process.env.NEXT_PUBLIC_HLM_URL ?? 'https://hypercloud-license-manager-138940668047.us-central1.run.app'
 };
 
 export const portals: readonly Portal[] = [
