@@ -3,6 +3,7 @@ import { Headphones, KeyRound, LifeBuoy, LockKeyhole, ShieldCheck, Sparkles, typ
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { PortalLoginForm } from '@/components/PortalLoginForm';
 import { SectionHeader } from '@/components/SectionHeader';
+import { HsmHubCard } from '@/components/HsmHubCard';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { btnPrimary } from '@/components/ui/buttons';
@@ -132,45 +133,44 @@ export default function PortalDoClientePage() {
           />
 
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
-            {hubPortals.map((portal) => (
-              <Card
-                key={portal.key}
-                className="glass flex flex-col rounded-2xl shadow-premium transition hover:-translate-y-1 hover:border-brand-500/30"
-              >
-                <CardHeader>
-                  <div className="mb-2 inline-flex w-fit rounded-xl bg-brand-gradient-soft p-3 text-brand-500">
-                    <portal.icon className="h-6 w-6" />
-                  </div>
-                  <CardTitle className="text-balance">{portal.title}</CardTitle>
-                  <CardDescription>{portal.description}</CardDescription>
-                </CardHeader>
+            <HsmHubCard />
 
-                <CardContent className="mt-auto">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Badge variant="secondary">
-                      <ShieldCheck className="h-3 w-3" />
-                      Acesso seguro
-                    </Badge>
-                    <Badge variant="secondary">
-                      <Headphones className="h-3 w-3" />
-                      Suporte dedicado
-                    </Badge>
-                  </div>
-                </CardContent>
+            <Card className="glass flex flex-col rounded-2xl shadow-premium transition hover:-translate-y-1 hover:border-brand-500/30">
+              <CardHeader>
+                <div className="mb-2 inline-flex w-fit rounded-xl bg-brand-gradient-soft p-3 text-brand-500">
+                  <KeyRound className="h-6 w-6" />
+                </div>
+                <CardTitle className="text-balance">Gestão de Licenças & Subscrições (HLM)</CardTitle>
+                <CardDescription>
+                  Gerencie suas licenças ativas, acompanhe renovações do Google Workspace, limites de usuários e faturamento.
+                </CardDescription>
+              </CardHeader>
 
-                <CardFooter>
-                  <a
-                    href={portal.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={btnPrimary('lg', 'w-full sm:w-auto active:scale-[0.98]')}
-                  >
-                    <portal.icon className="h-4 w-4" />
-                    {portal.cta}
-                  </a>
-                </CardFooter>
-              </Card>
-            ))}
+              <CardContent className="mt-auto">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge variant="secondary">
+                    <ShieldCheck className="h-3 w-3" />
+                    Acesso seguro
+                  </Badge>
+                  <Badge variant="secondary">
+                    <Headphones className="h-3 w-3" />
+                    Suporte dedicado
+                  </Badge>
+                </div>
+              </CardContent>
+
+              <CardFooter>
+                <a
+                  href={portalUrls.hlm}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={btnPrimary('lg', 'w-full sm:w-auto active:scale-[0.98]')}
+                >
+                  <KeyRound className="h-4 w-4" />
+                  Gerenciar Licenças HLM
+                </a>
+              </CardFooter>
+            </Card>
           </div>
         </div>
       </section>
