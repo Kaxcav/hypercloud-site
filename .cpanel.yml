@@ -20,17 +20,20 @@ deployment:
     - export ENVFILE=/home/hypercom/.hypercloud.env
     - export PM2_HOME=/home/hypercom/.pm2
     - export PATH=/usr/local/bin:/usr/bin:/bin
-    - export NODE_ENV=production
     # A porta e lida por server.js via process.env.PORT. NAO mudar sem ajustar
     # o proxy.conf do Apache. A 3000 pertence a OUTRA conta deste servidor.
     - export PORT=3005
+    # NAO exportar NODE_ENV=production aqui: isso faz o `npm ci` pular as
+    # devDependencies, e o build do Next PRECISA delas (tailwindcss, postcss,
+    # typescript). Sem typescript os aliases "@/*" do tsconfig nem resolvem.
+    # O runtime ja recebe NODE_ENV=production do proprio PM2.
 
     # 1) Ambiente de build (NEXT_PUBLIC_* sao embutidos em tempo de build)
     - /bin/cp -f $ENVFILE .env.local
     - /bin/chmod 600 .env.local
 
-    # 2) Dependencias + build no clone
-    - /usr/bin/npm ci --no-audit --no-fund
+    # 2) Dependencias + build no clone (--include=dev e explicito de proposito)
+    - /usr/bin/npm ci --include=dev --no-audit --no-fund
     - /usr/bin/npm run build
 
     # 3) Publicacao: codigo + .next + node_modules, preservando o .env.local do destino
