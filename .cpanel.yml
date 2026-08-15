@@ -1,0 +1,44 @@
+---
+# Deploy do cPanel Git Version Control -> Hypercloud (hypercloud.com.br)
+#
+# Como funciona neste servidor:
+#   clone do Git ... /home/hypercom/repositories/hypercloud-site  (onde estas tasks rodam)
+#   app servido .... /home/hypercom/hypercloud-site               (DEPLOYPATH)
+#   processo ....... PM2 "hypercloud-site" -> server.js na porta 3005
+#   entrada HTTP ... Apache ProxyPass / -> http://127.0.0.1:3005/
+#                    (/etc/apache2/conf.d/userdata/{std,ssl}/2_4/hypercom/hypercloud.com.br/proxy.conf)
+#
+# O build acontece DENTRO do clone: o site continua no ar durante o build e
+# so troca de versao no rsync + restart (janela de indisponibilidade de segundos).
+#
+# Segredos NAO moram aqui nem no repositorio (que e publico). O arquivo de
+# ambiente canonico fica em /home/hypercom/.hypercloud.env (chmod 600) e e
+# copiado como .env.local no build e no destino.
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/hypercom/hypercloud-site
+    - export ENVFILE=/home/hypercom/.hypercloud.env
+    - export PM2_HOME=/home/hypercom/.pm2
+    - export PATH=/usr/local/bin:/usr/bin:/bin
+    - export NODE_ENV=production
+    # A porta e lida por server.js via process.env.PORT. NAO mudar sem ajustar
+    # o proxy.conf do Apache. A 3000 pertence a OUTRA conta deste servidor.
+    - export PORT=3005
+
+    # 1) Ambiente de build (NEXT_PUBLIC_* sao embutidos em tempo de build)
+    - /bin/cp -f $ENVFILE .env.local
+    - /bin/chmod 600 .env.local
+
+    # 2) Dependencias + build no clone
+    - /usr/bin/npm ci --no-audit --no-fund
+    - /usr/bin/npm run build
+
+    # 3) Publicacao: codigo + .next + node_modules, preservando o .env.local do destino
+    - /usr/bin/rsync -a --delete --exclude=.git --exclude=.env --exclude=.env.local --exclude=.env.production ./ $DEPLOYPATH/
+    - /bin/cp -f $ENVFILE $DEPLOYPATH/.env.local
+    - /bin/chmod 600 $DEPLOYPATH/.env.local
+
+    # 4) Restart do PM2 (ou start, se o processo ainda nao existir).
+    #    Sem --update-env de proposito: preserva o env ja salvo do processo.
+    - /usr/bin/pm2 restart hypercloud-site --silent || (cd $DEPLOYPATH && /usr/bin/pm2 start server.js --name hypercloud-site)
+    - /usr/bin/pm2 save --force
