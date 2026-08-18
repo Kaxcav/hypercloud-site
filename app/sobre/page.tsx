@@ -113,7 +113,7 @@ export default function SobrePage() {
         }
       />
 
-      <section className="border-b border-border bg-surface-base py-20 sm:py-24">
+      <section id="diferenciais" className="border-b border-border bg-surface-base py-20 sm:py-24">
         <div className="container-shell">
           <SectionHeader
             eyebrow="O que nos diferencia"
