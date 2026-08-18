@@ -106,6 +106,14 @@ export function Footer() {
       </div>
 
       <div className="border-t border-border">
+        <div className="container-shell py-8 text-center text-[13px] leading-relaxed text-text-muted md:text-left">
+          <p>
+            <strong className="font-medium text-text-strong">Nosso Compromisso com Sua Empresa:</strong> "Se identificarmos que uma solução mais simples ou mais barata atende perfeitamente sua demanda, nós seremos os primeiros a te recomendar essa opção."
+          </p>
+        </div>
+      </div>
+
+      <div className="border-t border-border">
         <div className="container-shell flex flex-col items-start justify-between gap-3 py-5 text-[12px] text-text-subtle sm:flex-row sm:items-center">
           <p className="flex items-center gap-2">
             {/* Google 4-color dot row — assinatura visual */}
