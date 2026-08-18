@@ -79,3 +79,89 @@ export const leadDefaults: Partial<LeadFormValues> = {
   landingPage: ''
 };
 
+/* ============================================================
+   CAPTURA CURTA — quiz de 2 passos e calculadora FinOps
+   ============================================================
+   O dialog completo continua governado por `leadFormSchema`. As duas
+   superficies curtas pedem menos campos (nao perguntam empresa nem setor),
+   entao ganham schema proprio em vez de afrouxar o schema principal.
+   A rota aceita os dois via `anyLeadSchema`. */
+
+export const objectiveOptions = [
+  { value: 'finops', label: 'Reduzir custos (FinOps)' },
+  { value: 'migracao', label: 'Migrar sem parar a operacao' },
+  { value: 'ia', label: 'Implementar IA (Gemini)' },
+  { value: 'outro', label: 'Outro' }
+] as const;
+
+export const userRangeOptions = [
+  { value: 'ate-20', label: 'Ate 20' },
+  { value: '21-100', label: '21 a 100' },
+  { value: '101-500', label: '101 a 500' },
+  { value: '500-plus', label: 'Mais de 500' }
+] as const;
+
+export const monthlySpendOptions = [
+  { value: 'ate-5k', label: 'Ate R$ 5 mil', midpoint: 5000 },
+  { value: '5k-15k', label: 'R$ 5 mil a R$ 15 mil', midpoint: 15000 },
+  { value: '15k-50k', label: 'R$ 15 mil a R$ 50 mil', midpoint: 50000 },
+  { value: '50k-plus', label: 'Mais de R$ 50 mil', midpoint: 80000 }
+] as const;
+
+export const providerOptions = [
+  { value: 'google-cloud', label: 'Google Cloud' },
+  { value: 'aws', label: 'AWS' },
+  { value: 'azure', label: 'Azure' },
+  { value: 'google-workspace', label: 'Google Workspace' },
+  { value: 'outro', label: 'Outro' }
+] as const;
+
+export const quickLeadSchema = z.object({
+  origin: z.enum(['quiz', 'calculadora']),
+  objective: z.enum(['finops', 'migracao', 'ia', 'outro']).optional(),
+  userRange: z.enum(['ate-20', '21-100', '101-500', '500-plus']).optional(),
+  monthlySpend: z.enum(['ate-5k', '5k-15k', '15k-50k', '50k-plus']).optional(),
+  provider: z.enum(['google-cloud', 'aws', 'azure', 'google-workspace', 'outro']).optional(),
+  /** Estimativa exibida ao usuario, em BRL/ano. Registrada para conferencia. */
+  estimatedAnnualSaving: z.number().nonnegative().optional(),
+  name: z.string().trim().min(2, 'Informe seu nome'),
+  email: z.string().trim().email('E-mail invalido'),
+  phone: z
+    .string()
+    .trim()
+    .refine((v) => v.replace(/\D/g, '').length >= 10, 'Informe um WhatsApp valido'),
+  consent: z.literal(true, {
+    message: 'Voce precisa autorizar o contato para enviar o pedido'
+  }),
+  website: z.string().optional(),
+  utm_source: z.string().optional(),
+  utm_medium: z.string().optional(),
+  utm_campaign: z.string().optional(),
+  utm_term: z.string().optional(),
+  utm_content: z.string().optional(),
+  gclid: z.string().optional(),
+  referrer: z.string().optional(),
+  landingPage: z.string().optional()
+});
+
+export type QuickLeadValues = z.infer<typeof quickLeadSchema>;
+
+/** Aceita tanto o dialog completo quanto as capturas curtas. */
+export const anyLeadSchema = z.union([leadFormSchema, quickLeadSchema]);
+export type AnyLeadValues = z.infer<typeof anyLeadSchema>;
+
+export const quickLeadDefaults: Partial<QuickLeadValues> = {
+  name: '',
+  email: '',
+  phone: '',
+  consent: true,
+  website: '',
+  utm_source: '',
+  utm_medium: '',
+  utm_campaign: '',
+  utm_term: '',
+  utm_content: '',
+  gclid: '',
+  referrer: '',
+  landingPage: ''
+};

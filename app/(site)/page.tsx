@@ -1,12 +1,17 @@
-// app/page.tsx
+// app/(site)/page.tsx
 import { Hero } from '@/components/Hero';
 import { BadgesShowcase } from '@/components/BadgesShowcase';
+import { SolutionsSection } from '@/components/SolutionsSection';
+import { FinOpsCalculator } from '@/components/FinOpsCalculator';
+import { QuoteQuiz } from '@/components/QuoteQuiz';
 import { PlansGrid } from '@/components/PlansGrid';
 import { CompareAllTable } from '@/components/CompareAllTable';
-import { OtherSolutions } from '@/components/OtherSolutions';
 import { Faq } from '@/components/Faq';
 import { SpecialistCta } from '@/components/SpecialistCta';
 
+// Ordem da home segue o funil comercial: promessa de resultado, prova,
+// a dor de custo primeiro (FinOps), a estimativa, o diagnóstico curto, e só
+// então catálogo e comparativo para quem quer descer ao detalhe.
 export default function HomePage() {
   return (
     <>
@@ -16,9 +21,13 @@ export default function HomePage() {
         aria-hidden="true"
       />
       <BadgesShowcase />
+      <SolutionsSection />
+      <FinOpsCalculator />
+      <QuoteQuiz />
       <PlansGrid />
-      <section id="compare-all"><CompareAllTable /></section>
-      <OtherSolutions />
+      <section id="compare-all">
+        <CompareAllTable />
+      </section>
       <Faq />
       <SpecialistCta />
     </>
