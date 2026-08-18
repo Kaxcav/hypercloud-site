@@ -204,7 +204,8 @@ aside,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track {
+  .marquee-track,
+  .animate-pulse-ring {
     animation: none;
   }
 }

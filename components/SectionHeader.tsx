@@ -1,5 +1,9 @@
 type SectionHeaderProps = {
-  eyebrow: string;
+  /**
+   * Opcional de propósito: seções novas deixam o heading falar sozinho.
+   * Continua aceito para não quebrar as seções que já o usam.
+   */
+  eyebrow?: string;
   title: React.ReactNode;
   description?: string;
   /** Default 'center'. */
@@ -20,10 +24,16 @@ export function SectionHeader({
 
   return (
     <div className={`mb-12 ${widthClass} ${alignClass}`}>
-      <p className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand-600">
-        {eyebrow}
-      </p>
-      <h2 className="mt-3 text-balance text-3xl font-extrabold tracking-tight text-text-strong sm:text-4xl lg:text-5xl">
+      {eyebrow ? (
+        <p className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand-600">
+          {eyebrow}
+        </p>
+      ) : null}
+      <h2
+        className={`text-balance text-3xl font-extrabold tracking-tight text-text-strong sm:text-4xl lg:text-5xl ${
+          eyebrow ? 'mt-3' : ''
+        }`}
+      >
         {title}
       </h2>
       {description ? (
