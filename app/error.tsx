@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
 
@@ -16,8 +17,27 @@ export default function Error({
   }, [error]);
 
   return (
-    <main className="flex min-h-[60vh] flex-col items-center justify-center py-20 text-center">
+    // Fora dos route groups, como o not-found: sem Navbar/Footer, autossuficiente.
+    <main className="flex min-h-screen flex-col items-center justify-center py-20 text-center">
       <div className="container-shell max-w-md">
+        <Link href="/" aria-label="Hypercloud" className="mb-10 inline-block">
+          <Image
+            src="/logo/lg.hypercloud_horizontal.png"
+            alt="Hypercloud"
+            width={220}
+            height={56}
+            className="mx-auto block h-9 w-auto dark:hidden"
+          />
+          <Image
+            src="/logo/lg.hypercloud_vetor-branca.png"
+            alt=""
+            aria-hidden="true"
+            width={220}
+            height={56}
+            className="mx-auto hidden h-9 w-auto dark:block"
+          />
+        </Link>
+
         <div className="mx-auto inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/10 text-red-500">
           <AlertTriangle className="h-7 w-7" />
         </div>

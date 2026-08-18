@@ -6,8 +6,9 @@ import { Stagger, StaggerItem } from '@/components/MotionWrapper';
 export function BadgesShowcase() {
   return (
     <section
+      id="por-que"
       aria-label="Credenciais Google e parceiros"
-      className="border-b border-border bg-surface-card"
+      className="scroll-mt-24 border-b border-border bg-surface-card"
     >
       <div className="container-shell py-12 sm:py-14 lg:py-16">
         <div className="flex items-center justify-center gap-2.5">

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import {
+  AlertTriangle,
   ArrowRight,
   ArrowUpRight,
   BadgeCheck,
@@ -72,10 +73,18 @@ export default async function DashboardPage() {
           <div>
             <Breadcrumbs items={[{ label: 'Portal do Cliente', href: '/portal-do-cliente' }, { label: 'Dashboard' }]} />
 
-            <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              Sessão autenticada
-            </span>
+            <div className="mt-5 flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                Sessão autenticada
+              </span>
+              {/* Esta tela roda sobre `constants/dashboard-mock`. Enquanto for
+                  assim, o aviso fica no mesmo nível dos números. */}
+              <span className="inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-amber-500">
+                <AlertTriangle className="h-3 w-3" />
+                Dados demonstrativos
+              </span>
+            </div>
 
             <h1 className="mt-5 text-balance text-[34px] font-extrabold leading-[1.06] tracking-tight text-text-strong sm:text-[44px] lg:text-[52px] lg:leading-[1.05]">
               Bem-vindo de volta,{' '}

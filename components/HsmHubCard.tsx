@@ -86,23 +86,49 @@ export function HsmHubCard() {
         )}
 
         {state.status === 'ok' && (
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-            <div className="rounded-xl border border-border bg-surface-card p-2.5 text-center shadow-soft">
-              <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-text-subtle">Abertos</span>
-              <p className="mt-1 text-xl font-extrabold tabular-nums text-amber-500">{state.kpis.abertos}</p>
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+              <div className="rounded-xl border border-border bg-surface-card p-2.5 text-center shadow-soft">
+                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-text-subtle">Abertos</span>
+                <p className="mt-1 text-xl font-extrabold tabular-nums text-amber-500">{state.kpis.abertos}</p>
+              </div>
+              <div className="rounded-xl border border-border bg-surface-card p-2.5 text-center shadow-soft">
+                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-text-subtle">Em Andamento</span>
+                <p className="mt-1 text-xl font-extrabold tabular-nums text-sky-500">{state.kpis.emAndamento}</p>
+              </div>
+              <div className="rounded-xl border border-border bg-surface-card p-2.5 text-center shadow-soft">
+                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-text-subtle">Aguardando</span>
+                <p className="mt-1 text-xl font-extrabold tabular-nums text-brand-500">{state.kpis.aguardando}</p>
+              </div>
+              <div className="rounded-xl border border-border bg-surface-card p-2.5 text-center shadow-soft">
+                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-text-subtle">Resolvidos</span>
+                <p className="mt-1 text-xl font-extrabold tabular-nums text-emerald-500">{state.kpis.resolvidos}</p>
+              </div>
             </div>
-            <div className="rounded-xl border border-border bg-surface-card p-2.5 text-center shadow-soft">
-              <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-text-subtle">Em Andamento</span>
-              <p className="mt-1 text-xl font-extrabold tabular-nums text-sky-500">{state.kpis.emAndamento}</p>
-            </div>
-            <div className="rounded-xl border border-border bg-surface-card p-2.5 text-center shadow-soft">
-              <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-text-subtle">Aguardando</span>
-              <p className="mt-1 text-xl font-extrabold tabular-nums text-brand-500">{state.kpis.aguardando}</p>
-            </div>
-            <div className="rounded-xl border border-border bg-surface-card p-2.5 text-center shadow-soft">
-              <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-text-subtle">Resolvidos</span>
-              <p className="mt-1 text-xl font-extrabold tabular-nums text-emerald-500">{state.kpis.resolvidos}</p>
-            </div>
+
+            {/* Gamificação: Próxima ação sugerida */}
+            {state.kpis.aguardando > 0 ? (
+              <div className="rounded-xl border border-brand-500/30 bg-brand-500/10 p-3.5 text-xs text-brand-600 dark:text-brand-400">
+                <p className="font-bold">Ação necessária</p>
+                <p className="mt-1 text-[11.5px] leading-relaxed opacity-90">
+                  Você tem {state.kpis.aguardando} {state.kpis.aguardando === 1 ? 'chamado aguardando' : 'chamados aguardando'} sua resposta. Acesse o portal para interagir e manter o SLA da operação.
+                </p>
+              </div>
+            ) : state.kpis.emAndamento > 0 || state.kpis.abertos > 0 ? (
+              <div className="rounded-xl border border-sky-500/30 bg-sky-500/10 p-3.5 text-xs text-sky-600 dark:text-sky-400">
+                <p className="font-bold">Tudo fluindo</p>
+                <p className="mt-1 text-[11.5px] leading-relaxed opacity-90">
+                  Temos especialistas atuando nos seus chamados abertos. Nenhuma ação é necessária da sua parte no momento.
+                </p>
+              </div>
+            ) : (
+              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3.5 text-xs text-emerald-600 dark:text-emerald-400">
+                <p className="font-bold">Fila zerada!</p>
+                <p className="mt-1 text-[11.5px] leading-relaxed opacity-90">
+                  Nenhum chamado ativo no momento. Se precisar de ajuda, o suporte técnico da Hypercloud está sempre pronto.
+                </p>
+              </div>
+            )}
           </div>
         )}
 
