@@ -1,13 +1,9 @@
 import type { Metadata } from 'next';
 import { Roboto_Flex, Roboto_Mono } from 'next/font/google';
 import './globals.css';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { LeadDialogProvider } from '@/components/LeadDialogProvider';
 import { CommandPaletteProvider } from '@/components/CommandPaletteProvider';
-import { FloatingWhatsapp } from '@/components/FloatingWhatsapp';
-import { MobileCtaBar } from '@/components/MobileCtaBar';
 import { StructuredData } from '@/components/StructuredData';
 import { Analytics } from '@/components/Analytics';
 
@@ -67,19 +63,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <StructuredData />
       </head>
-      <body className="min-h-screen bg-surface-base font-sans text-text antialiased pb-16 md:pb-0">
+      <body className="min-h-screen bg-surface-base font-sans text-text antialiased">
         <Analytics />
         <ThemeProvider>
           <LeadDialogProvider>
-            <CommandPaletteProvider>
-              <div className="relative flex min-h-screen flex-col">
-                <Navbar />
-                <main className="flex-1">{children}</main>
-                <Footer />
-                <FloatingWhatsapp />
-                <MobileCtaBar />
-              </div>
-            </CommandPaletteProvider>
+            <CommandPaletteProvider>{children}</CommandPaletteProvider>
           </LeadDialogProvider>
         </ThemeProvider>
       </body>
