@@ -3,7 +3,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Cloud,
+  BrainCircuit,
+  Users,
+  Workflow,
+  Landmark,
+  type LucideIcon
+} from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useLeadDialog } from '@/components/LeadDialogProvider';
@@ -16,100 +26,157 @@ const regularLinks = [
   { href: '/sobre', label: 'Sobre' }
 ];
 
-const dropdownGroups = [
+type MegaMenuItem = {
+  title: string;
+  href: string;
+  description: string;
+  icon: LucideIcon;
+  iconClass: string;
+};
+
+// Só entram itens com página real em `app/(site)`. Link que não leva a lugar
+// nenhum é pior que ausência.
+const solucoes: MegaMenuItem[] = [
   {
-    title: 'Cloud & Infraestrutura',
-    description: 'Migração sem interrupção e otimização de custos (FinOps)',
-    links: [{ label: 'Google Cloud', href: '/solucoes/google-cloud' }]
+    title: 'Cloud',
+    href: '/solucoes/google-cloud',
+    description: 'Infraestrutura, dados e modernização para empresas de alto desempenho.',
+    icon: Cloud,
+    iconClass: 'text-emerald-500 bg-emerald-500/10'
   },
   {
-    title: 'IA & Engenharia de Dados',
-    description: 'Automação de processos operacionais e agentes inteligentes',
-    links: [
-      { label: 'Gemini Enterprise', href: '/solucoes/gemini-enterprise' },
-      { label: 'AppSheet', href: '/solucoes/appsheet' }
-    ]
+    title: 'Inteligência Artificial e Dados',
+    href: '/solucoes/gemini-enterprise',
+    description: 'IA generativa aplicada ao dia a dia da equipe, com Google Workspace with Gemini.',
+    icon: BrainCircuit,
+    iconClass: 'text-violet-500 bg-violet-500/10'
   },
   {
-    title: 'Segurança & Governança',
-    description: 'Proteção de dados corporativos e adequação à LGPD',
-    links: [{ label: 'Google Workspace', href: '/solucoes/google-workspace' }]
+    title: 'Produtividade e Colaboração',
+    href: '/solucoes/google-workspace',
+    description: 'Comunicação centralizada e segura com Google Workspace.',
+    icon: Users,
+    iconClass: 'text-sky-500 bg-sky-500/10'
+  },
+  {
+    title: 'Automação sem Código',
+    href: '/solucoes/appsheet',
+    description:
+      'Formulários, aprovações e processos internos com AppSheet, sem desenvolvimento tradicional.',
+    icon: Workflow,
+    iconClass: 'text-rose-500 bg-rose-500/10'
+  },
+  {
+    title: 'Setor Público',
+    href: '/setor-publico',
+    description: 'Soluções com ATAs vigentes e compliance formal para o governo.',
+    icon: Landmark,
+    iconClass: 'text-amber-500 bg-amber-500/10'
   }
 ];
 
 function DesktopDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname();
 
+  // Esc fecha e devolve o foco ao trigger; clique fora apenas fecha.
   useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
-        const btn = containerRef.current?.querySelector('button');
-        btn?.focus();
-      }
+    if (!isOpen) return;
+
+    function handleKeyDown(e: globalThis.KeyboardEvent) {
+      if (e.key !== 'Escape') return;
+      setIsOpen(false);
+      buttonRef.current?.focus();
     }
     function handleClickOutside(e: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setIsOpen(false);
       }
     }
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen]);
 
+  // Navegou: o painel não pode sobreviver à troca de rota.
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   const handleBlur = (e: React.FocusEvent) => {
-    if (!containerRef.current?.contains(e.relatedTarget)) {
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
       setIsOpen(false);
     }
   };
 
   return (
-    <div className="relative inline-block text-left" ref={containerRef} onBlur={handleBlur} onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+    <div className="relative" ref={containerRef} onBlur={handleBlur}>
       <button
+        ref={buttonRef}
         type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            setIsOpen(!isOpen);
-          }
-        }}
+        onClick={() => setIsOpen((value) => !value)}
         aria-expanded={isOpen}
+        aria-controls="mega-solucoes"
         className={cn(
-          'group inline-flex items-center gap-1 rounded-md px-3 py-2 text-[13px] font-semibold transition',
-          isOpen ? 'text-text-strong' : 'text-text-muted hover:text-text-strong'
+          'group inline-flex items-center gap-1.5 rounded-md px-3 py-2 text-[13px] font-semibold transition-colors',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
+          isOpen || pathname.startsWith('/solucoes')
+            ? 'text-text-strong'
+            : 'text-text-muted hover:text-text-strong'
         )}
       >
         Soluções
-        <ChevronDown className={cn("h-3.5 w-3.5 transition-transform duration-200", isOpen && "rotate-180")} />
+        <ChevronDown
+          className={cn(
+            'h-3.5 w-3.5 transition-transform duration-200 motion-reduce:transition-none',
+            isOpen && 'rotate-180'
+          )}
+        />
       </button>
-      
-      {isOpen && (
-        <div className="absolute left-0 top-full pt-2 z-50">
-          <div className="w-[520px] rounded-xl border border-border bg-surface-base p-3 shadow-premium grid gap-1">
-            {dropdownGroups.map(group => (
-              <div key={group.title} className="flex flex-col gap-1 rounded-lg p-3 hover:bg-surface-soft transition">
-                <h3 className="text-[14px] font-bold text-text-strong">{group.title}</h3>
-                <p className="text-[13px] text-text-muted leading-relaxed mb-2">{group.description}</p>
-                <div className="flex gap-2">
-                  {group.links.map(link => (
-                    <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="inline-flex items-center rounded bg-surface-card border border-border px-2.5 py-1 text-xs font-semibold text-text hover:border-brand-500/30 hover:text-brand-500 transition">
-                      {link.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
+
+      {isOpen ? (
+        <div
+          id="mega-solucoes"
+          className="absolute left-0 top-full z-50 mt-2 w-[min(600px,calc(100vw-3rem))] rounded-xl border border-border bg-surface-card p-4 shadow-premium"
+        >
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {solucoes.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  onClick={() => setIsOpen(false)}
+                  className={cn(
+                    'flex h-full items-start gap-3 rounded-lg p-3 transition-colors hover:bg-surface-soft',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
+                    'motion-reduce:transition-none'
+                  )}
+                >
+                  <span
+                    className={cn(
+                      'inline-flex shrink-0 items-center justify-center rounded-lg p-2',
+                      item.iconClass
+                    )}
+                  >
+                    <item.icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="text-[13px] font-bold text-text-strong">{item.title}</p>
+                    <p className="mt-0.5 text-[12px] leading-relaxed text-text-muted">
+                      {item.description}
+                    </p>
+                  </div>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
@@ -177,7 +244,8 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  'group relative inline-flex items-center gap-1 rounded-md px-3 py-2 text-[13px] font-semibold transition',
+                  'group relative inline-flex items-center gap-1 rounded-md px-3 py-2 text-[13px] font-semibold transition-colors',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
                   active
                     ? 'text-text-strong'
                     : 'text-text-muted hover:text-text-strong'
@@ -186,7 +254,7 @@ export function Navbar() {
                 {link.label}
                 <span
                   className={cn(
-                    'pointer-events-none absolute inset-x-3 -bottom-0.5 h-px origin-left bg-brand-gradient transition-transform duration-300',
+                    'pointer-events-none absolute inset-x-3 -bottom-0.5 h-px origin-left bg-brand-gradient transition-transform duration-300 motion-reduce:transition-none',
                     active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                   )}
                 />
@@ -215,7 +283,7 @@ export function Navbar() {
             aria-label={open ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-surface-card text-text-muted transition hover:text-text"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-surface-card text-text-muted transition-colors hover:text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -226,27 +294,31 @@ export function Navbar() {
         <div className="border-t border-border bg-surface-soft lg:hidden">
           <div className="container-shell flex flex-col gap-1 py-4">
             <details className="group">
-              <summary className="flex cursor-pointer items-center justify-between rounded-md px-4 py-3 text-sm font-semibold text-text transition hover:bg-surface-muted hover:text-text-strong">
+              <summary className="flex cursor-pointer items-center justify-between rounded-md px-4 py-3 text-sm font-semibold text-text transition-colors hover:bg-surface-muted hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40">
                 Soluções
-                <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180" />
+                <ChevronDown className="h-4 w-4 transition-transform group-open:rotate-180 motion-reduce:transition-none" />
               </summary>
-              <div className="flex flex-col gap-1 pb-2 pl-4 pr-4 pt-1">
-                {dropdownGroups.map(group => (
-                  <div key={group.title} className="mt-2 flex flex-col gap-1">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-text-subtle">{group.title}</span>
-                    {group.links.map(link => (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        onClick={() => setOpen(false)}
-                        className="block rounded-md py-1.5 text-sm text-text-muted hover:text-text-strong"
+              <ul className="mx-4 mt-1 flex flex-col gap-1 border-l-2 border-border pl-4">
+                {solucoes.map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-2.5 rounded-md py-2 text-[13px] font-medium text-text-muted transition-colors hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+                    >
+                      <span
+                        className={cn(
+                          'inline-flex shrink-0 items-center justify-center rounded-md p-1.5',
+                          item.iconClass
+                        )}
                       >
-                        {link.label}
-                      </Link>
-                    ))}
-                  </div>
+                        <item.icon className="h-4 w-4" aria-hidden="true" />
+                      </span>
+                      {item.title}
+                    </Link>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </details>
 
             {regularLinks.map((link) => (
@@ -254,7 +326,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-md px-4 py-3 text-sm font-semibold text-text transition hover:bg-surface-muted hover:text-text-strong"
+                className="rounded-md px-4 py-3 text-sm font-semibold text-text transition-colors hover:bg-surface-muted hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
               >
                 {link.label}
               </Link>
