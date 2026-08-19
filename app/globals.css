@@ -97,6 +97,16 @@
 
 html {
   scroll-behavior: smooth;
+  /* O header é sticky (72px, 80px a partir de lg). Sem esta reserva, todo
+     alvo de âncora (#planos, #simular-economia, #diagnostico-rapido...)
+     para debaixo dele e o título da seção some. */
+  scroll-padding-top: 88px;
+}
+
+@media (min-width: 1024px) {
+  html {
+    scroll-padding-top: 96px;
+  }
 }
 
 body {
