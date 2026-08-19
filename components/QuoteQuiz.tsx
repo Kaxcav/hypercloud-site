@@ -274,8 +274,8 @@ function QuizShell({ children }: { children: React.ReactNode }) {
     <section id="diagnostico-rapido" className="bg-surface-base py-20 sm:py-28 lg:py-32">
       <div className="container-shell">
         <SectionHeader
-          title="Dois passos até um diagnóstico de verdade."
-          description="Responda o que você precisa e para quantas pessoas. O engenheiro chega na conversa já sabendo do que se trata."
+          title="Receba um plano de otimização desenhado para a sua infraestrutura."
+          description="Sem enrolação de vendedores de licença. Conte seu cenário e fale diretamente com a equipe de engenharia."
           maxWidth="narrow"
         />
         <div className="mx-auto max-w-2xl rounded-2xl border border-border bg-surface-card p-6 shadow-medium sm:p-8 lg:p-10">
