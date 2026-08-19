@@ -140,8 +140,10 @@ churn fora do escopo. Fica como sugestão para depois.
 **Não foi tocado:** `lib/auth.ts`, `app/api/auth/**`, `.env*`, `.cpanel.yml`, middleware de
 sessão. O portal e o NextAuth seguem como estavam.
 
-**Screenshots:** não foi possível capturar — o painel do browser não estava sendo exibido
-nesta sessão. A verificação foi feita via DOM, console e medição de layout.
+**Screenshots:** o painel do browser não renderiza nesta sessão, então capturei as 12 telas
+por Playwright (Chromium headless) contra o dev server — desktop e mobile, claro e escuro,
+estados do quiz e da calculadora, Sobre e Cases. Ficam em `.impeccable/review/`
+(gitignorado). A verificação de comportamento foi feita no browser real.
 
 ### Defeito pré-existente encontrado (não é meu, não corrigi)
 
