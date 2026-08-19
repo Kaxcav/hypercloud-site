@@ -100,7 +100,7 @@ export function HlmHubCard() {
         )}
 
         {state.status === 'ok' && (
-          <div className="space-y-3">
+          <div className="space-y-4">
             <div className="grid grid-cols-3 gap-2">
               <div className="rounded-xl border border-border bg-surface-card p-2.5 text-center shadow-soft">
                 <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-text-subtle">Contratadas</span>
@@ -121,6 +121,53 @@ export function HlmHubCard() {
                 </p>
               </div>
             </div>
+
+            {/* Gamificação: Barra de progresso de atribuição */}
+            {state.resumo.totals.totalLicenses > 0 && (
+              <div className="rounded-xl border border-border bg-surface-soft p-3">
+                <div className="flex items-baseline justify-between mb-2">
+                  <span className="text-[10.5px] font-bold uppercase tracking-[0.16em] text-text-subtle">Taxa de adoção</span>
+                  <span className="text-xs font-bold text-text-strong">
+                    {Math.round((state.resumo.totals.assigned / state.resumo.totals.totalLicenses) * 100)}%
+                  </span>
+                </div>
+                <div className="h-2 w-full overflow-hidden rounded-full bg-surface-muted">
+                  <div
+                    className="h-full rounded-full bg-emerald-500 transition-all duration-1000 ease-out"
+                    style={{ width: `${Math.round((state.resumo.totals.assigned / state.resumo.totals.totalLicenses) * 100)}%` }}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Gamificação: Próxima ação sugerida */}
+            {state.resumo.totals.available > 0 ? (
+              <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-600 dark:text-amber-400">
+                <p className="font-bold flex items-center gap-1.5"><AlertCircle className="h-3.5 w-3.5" /> Ação sugerida</p>
+                <p className="mt-1 text-[11.5px] leading-relaxed opacity-90">
+                  Você possui {state.resumo.totals.available} {state.resumo.totals.available === 1 ? 'licença parada' : 'licenças paradas'}. Atribua à sua equipe no painel HLM para aproveitar ao máximo o seu investimento.
+                </p>
+              </div>
+            ) : state.resumo.totals.totalLicenses > 0 ? (
+              <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs text-emerald-600 dark:text-emerald-400">
+                <p className="font-bold flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5" /> Máxima eficiência</p>
+                <p className="mt-1 text-[11.5px] leading-relaxed opacity-90">
+                  100% das licenças contratadas estão atribuídas à sua equipe.
+                </p>
+              </div>
+            ) : (
+              /* Cliente conectado e sem nenhuma licença: acolhedor e acionável,
+                 nunca uma tela de zeros. */
+              <div className="rounded-xl border border-border bg-surface-soft p-3 text-xs text-text-muted">
+                <p className="font-bold flex items-center gap-1.5 text-text-strong">
+                  <Layers className="h-3.5 w-3.5 text-brand-500" /> Tudo pronto para começar
+                </p>
+                <p className="mt-1 text-[11.5px] leading-relaxed">
+                  Ainda não há licenças vinculadas a esta conta. Fale com seu consultor Hypercloud para contratar
+                  Google Workspace, Gemini ou Cloud e acompanhar tudo por aqui.
+                </p>
+              </div>
+            )}
 
             {state.resumo.scope && state.resumo.scope.clientCount > 0 && (
               <div className="flex items-center justify-between text-[11.5px] text-text-muted px-1">

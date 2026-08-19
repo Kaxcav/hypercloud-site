@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { leadFormSchema } from '@/lib/lead';
+import { anyLeadSchema, type AnyLeadValues } from '@/lib/lead';
 import { company } from '@/constants/company';
 
 export const dynamic = 'force-dynamic';
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: 'invalid-body' }, { status: 400 });
   }
 
-  const result = leadFormSchema.safeParse(payload);
+  const result = anyLeadSchema.safeParse(payload);
   if (!result.success) {
     return NextResponse.json(
       { ok: false, error: 'validation', issues: result.error.flatten() },
@@ -68,7 +68,9 @@ export async function POST(request: Request) {
 
   // Roteamento inteligente de e-mail por setor
   const defaultToEmail =
-    lead.sector === 'publico' ? company.emails.licitacoes : company.emails.comercial;
+    'sector' in lead && lead.sector === 'publico'
+      ? company.emails.licitacoes
+      : company.emails.comercial;
   const toEmail = process.env.LEAD_NOTIFY_EMAIL ?? defaultToEmail;
   const resendKey = process.env.RESEND_API_KEY;
 
@@ -84,7 +86,7 @@ export async function POST(request: Request) {
           from: 'Hypercloud Leads <noreply@hypercloud.com.br>',
           reply_to: lead.email,
           to: [toEmail],
-          subject: `[LEAD] ${lead.company} (${lead.sector.toUpperCase()}) — ${lead.name}`,
+          subject: buildSubject(lead),
           text: formatLeadEmail(lead, timestamp)
         })
       });
@@ -111,22 +113,42 @@ export async function POST(request: Request) {
   return NextResponse.json({ ok: true });
 }
 
-function formatLeadEmail(lead: ReturnType<typeof leadFormSchema.parse>, timestamp: string) {
+function buildSubject(lead: AnyLeadValues) {
+  if ('origin' in lead) {
+    const tag = lead.origin === 'calculadora' ? 'CALCULADORA' : 'QUIZ';
+    return `[LEAD][${tag}] ${lead.name} — ${lead.email}`;
+  }
+  return `[LEAD] ${lead.company} (${lead.sector.toUpperCase()}) — ${lead.name}`;
+}
+
+function formatLeadEmail(lead: AnyLeadValues, timestamp: string) {
+  // A captura curta (quiz/calculadora) não pergunta empresa, porte nem setor.
+  const quick = 'origin' in lead ? lead : null;
+  const full = 'origin' in lead ? null : lead;
+
   return [
     `=== NOVO LEAD RECEBIDO ===`,
     `Data/Hora: ${timestamp}`,
     ``,
-    `Empresa: ${lead.company}`,
-    `Porte: ${lead.size}`,
-    `Setor: ${lead.sector}`,
-    `Interesses: ${lead.interests.join(', ')}`,
+    quick ? `Origem do formulário: ${quick.origin}` : null,
+    quick?.objective ? `Objetivo principal: ${quick.objective}` : null,
+    quick?.userRange ? `Faixa de usuários: ${quick.userRange}` : null,
+    quick?.monthlySpend ? `Gasto mensal informado: ${quick.monthlySpend}` : null,
+    quick?.provider ? `Provedor atual: ${quick.provider}` : null,
+    quick?.estimatedAnnualSaving !== undefined
+      ? `Estimativa exibida ao usuário (BRL/ano): ${quick.estimatedAnnualSaving}`
+      : null,
+    full ? `Empresa: ${full.company}` : null,
+    full ? `Porte: ${full.size}` : null,
+    full ? `Setor: ${full.sector}` : null,
+    full ? `Interesses: ${full.interests.join(', ')}` : null,
     ``,
     `Contato: ${lead.name}`,
     `E-mail: ${lead.email}`,
     `Telefone: ${lead.phone}`,
     `Consentimento LGPD: Aceito em ${timestamp} (versão v1.0)`,
     ``,
-    lead.context ? `Contexto / Observações:\n${lead.context}\n` : null,
+    full?.context ? `Contexto / Observações:\n${full.context}\n` : null,
     `=== ATRIBUIÇÃO E NAVEGAÇÃO ===`,
     lead.landingPage ? `Página de Origem: ${lead.landingPage}` : null,
     lead.referrer ? `Referrer: ${lead.referrer}` : null,

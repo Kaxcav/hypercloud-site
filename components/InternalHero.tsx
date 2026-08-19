@@ -14,7 +14,8 @@ type Cta = {
 
 type InternalHeroProps = {
   breadcrumbs: BreadcrumbItem[];
-  eyebrow: string;
+  /** Opcional: superfícies novas deixam o h1 falar sozinho. */
+  eyebrow?: string;
   title: React.ReactNode;
   description: string;
   primaryCta?: Cta;
@@ -46,10 +47,12 @@ export function InternalHero({
         <Reveal>
           <Breadcrumbs items={breadcrumbs} />
 
-          <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-400 backdrop-blur">
-            <span className="h-1 w-1 rounded-full bg-brand-500" />
-            {eyebrow}
-          </span>
+          {eyebrow ? (
+            <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-700 backdrop-blur dark:text-brand-400">
+              <span className="h-1 w-1 rounded-full bg-brand-500" />
+              {eyebrow}
+            </span>
+          ) : null}
 
           <h1 className="mt-5 text-balance text-[34px] font-extrabold leading-[1.06] tracking-tight text-text-strong sm:text-[44px] lg:text-[52px] lg:leading-[1.05]">
             {title}

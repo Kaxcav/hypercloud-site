@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
-import { Headphones, KeyRound, LifeBuoy, LockKeyhole, ShieldCheck, Sparkles, type LucideIcon } from 'lucide-react';
+import { ArrowRight, Headphones, KeyRound, LifeBuoy, LockKeyhole, ShieldCheck, Sparkles, type LucideIcon } from 'lucide-react';
+import Link from 'next/link';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { PortalLoginForm } from '@/components/PortalLoginForm';
 import { SectionHeader } from '@/components/SectionHeader';
 import { HsmHubCard } from '@/components/HsmHubCard';
 import { HlmHubCard } from '@/components/HlmHubCard';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { btnPrimary } from '@/components/ui/buttons';
 import { portalUrls } from '@/constants/portals';
 
 export const metadata: Metadata = {
@@ -64,10 +64,12 @@ const features = [
   }
 ];
 
-export default function PortalDoClientePage() {
+export default async function PortalDoClientePage() {
+  const session = await getServerSession(authOptions);
+
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border bg-hero-glow py-14 sm:py-16 lg:py-20">
+      <section className="relative overflow-hidden border-b border-border bg-surface-card py-14 sm:py-16 lg:py-20">
         <div className="absolute inset-0 bg-grid pointer-events-none" />
 
         <div className="container-shell relative grid items-start gap-12 lg:grid-cols-[1.05fr_420px] lg:gap-16">
@@ -108,18 +110,40 @@ export default function PortalDoClientePage() {
           <div className="relative">
             <div className="pointer-events-none absolute -inset-6 -z-10 rounded-[40px] bg-[radial-gradient(circle_at_30%_20%,rgba(249,115,22,0.16),transparent_55%),radial-gradient(circle_at_70%_80%,rgba(251,146,60,0.12),transparent_60%)] blur-2xl" />
 
-            <div className="rounded-2xl border border-border bg-surface-card p-6 shadow-premium sm:p-8">
-              <div className="mb-6">
-                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-text-subtle">Entrar</p>
-                <h2 className="mt-2 text-xl font-extrabold tracking-tight text-text-strong sm:text-2xl">
-                  Acesse seu ambiente
-                </h2>
-                <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
-                  Use suas credenciais para acessar informações e acompanhamento da sua conta.
-                </p>
-              </div>
-
-              <PortalLoginForm />
+            <div className="rounded-2xl border border-border bg-surface-base p-6 shadow-premium sm:p-8">
+              {session ? (
+                <div className="text-center sm:text-left">
+                  <div className="mb-6">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-400">Sessão Autenticada</p>
+                    <h2 className="mt-2 text-xl font-extrabold tracking-tight text-text-strong sm:text-2xl">
+                      Olá, {session.user?.name?.split(' ')[0]}
+                    </h2>
+                    <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
+                      Você já está conectado ao ambiente seguro. Acesse seus painéis integrados abaixo ou vá para o Dashboard unificado.
+                    </p>
+                  </div>
+                  <Link
+                    href="/dashboard"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brand-gradient px-5 py-3 text-sm font-bold text-white shadow-brand transition hover:opacity-95"
+                  >
+                    Ir para o Dashboard
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              ) : (
+                <>
+                  <div className="mb-6">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-text-subtle">Entrar</p>
+                    <h2 className="mt-2 text-xl font-extrabold tracking-tight text-text-strong sm:text-2xl">
+                      Acesse seu ambiente
+                    </h2>
+                    <p className="mt-2 text-[13px] leading-relaxed text-text-muted">
+                      Use suas credenciais para acessar informações e acompanhamento da sua conta.
+                    </p>
+                  </div>
+                  <PortalLoginForm />
+                </>
+              )}
             </div>
           </div>
         </div>

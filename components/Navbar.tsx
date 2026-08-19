@@ -3,12 +3,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Lock, Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { TopBar } from '@/components/TopBar';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useLeadDialog } from '@/components/LeadDialogProvider';
-import { EcosystemLinks } from '@/components/EcosystemLinks';
 import { cn } from '@/components/ui';
 import { btnPrimary } from '@/components/ui/buttons';
 
@@ -25,7 +23,7 @@ const dropdownGroups = [
     links: [{ label: 'Google Cloud', href: '/solucoes/google-cloud' }]
   },
   {
-    title: 'IA & Automação',
+    title: 'IA & Engenharia de Dados',
     description: 'Automação de processos operacionais e agentes inteligentes',
     links: [
       { label: 'Gemini Enterprise', href: '/solucoes/gemini-enterprise' },
@@ -33,7 +31,7 @@ const dropdownGroups = [
     ]
   },
   {
-    title: 'Workspace & Governança',
+    title: 'Segurança & Governança',
     description: 'Proteção de dados corporativos e adequação à LGPD',
     links: [{ label: 'Google Workspace', href: '/solucoes/google-workspace' }]
   }
@@ -141,7 +139,6 @@ export function Navbar() {
           : 'border-transparent bg-transparent'
       )}
     >
-      <TopBar />
 
       <div className="container-shell flex h-[72px] items-center gap-6 lg:h-20 lg:gap-8">
         <Link
@@ -199,7 +196,6 @@ export function Navbar() {
         </nav>
 
         <div className="ml-auto hidden items-center gap-2 lg:flex">
-          <EcosystemLinks variant="navbar" className="hidden xl:flex" />
 
           <ThemeToggle />
 
@@ -264,15 +260,6 @@ export function Navbar() {
               </Link>
             ))}
             <div className="mt-2 flex flex-col gap-3 border-t border-border pt-4">
-              <Link
-                href="/portal-do-cliente"
-                onClick={() => setOpen(false)}
-                className="inline-flex items-center justify-center gap-2 rounded-md border border-border px-4 py-3 text-sm font-semibold text-text transition hover:text-text-strong"
-              >
-                <Lock className="h-4 w-4" />
-                Portal do Cliente
-              </Link>
-              <EcosystemLinks variant="mobile" onNavigate={() => setOpen(false)} />
               <button
                 type="button"
                 onClick={() => {

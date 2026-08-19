@@ -1,11 +1,37 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Home, MessageSquare } from 'lucide-react';
+import { Home } from 'lucide-react';
 
+// Vive na raiz de `app/`, fora dos route groups, porque atende URL não casada em
+// qualquer segmento. Não monta Navbar/Footer de propósito: o boundary de
+// not-found é serializado no payload RSC de toda página, e arrastar o chrome
+// institcional para dentro dele encareceria inclusive as rotas logadas.
+// Por isso a página é autossuficiente — logo, título e duas saídas claras.
 export default function NotFound() {
   return (
-    <main className="flex min-h-[70vh] flex-col items-center justify-center py-20 text-center">
+    <main className="flex min-h-screen flex-col items-center justify-center py-20 text-center">
       <div className="container-shell max-w-lg">
-        <span className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-500/10 text-2xl font-extrabold text-brand-400">
+        <Link href="/" aria-label="Hypercloud" className="inline-block">
+          <Image
+            src="/logo/lg.hypercloud_horizontal.png"
+            alt="Hypercloud"
+            width={220}
+            height={56}
+            className="mx-auto block h-9 w-auto dark:hidden"
+            priority
+          />
+          <Image
+            src="/logo/lg.hypercloud_vetor-branca.png"
+            alt=""
+            aria-hidden="true"
+            width={220}
+            height={56}
+            className="mx-auto hidden h-9 w-auto dark:block"
+            priority
+          />
+        </Link>
+
+        <span className="mt-10 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-500/10 text-2xl font-extrabold text-brand-400">
           404
         </span>
         <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-text-strong sm:text-4xl">
