@@ -86,8 +86,8 @@ export function FinOpsCalculator() {
     <section id="simular-economia" className="border-y border-border bg-surface-soft py-20 sm:py-28 lg:py-32">
       <div className="container-shell">
         <SectionHeader
-          title="Quanto sobra quando a conta é revisada?"
-          description="Escolha a faixa de gasto e o provedor atual. A estimativa aparece na hora — o relatório detalhado sai com um engenheiro."
+          title="Sua fatura de Nuvem está até 30% maior do que deveria. Faça a simulação."
+          description="Selecione seu gasto atual e o provedor. Calcule em segundos o valor desperdiçado com licenças ociosas e recursos mal dimensionados."
           maxWidth="narrow"
         />
 
