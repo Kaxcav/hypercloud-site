@@ -161,3 +161,54 @@ Salvei tudo em **`wip/route-groups-portal`** antes de qualquer coisa. No PR leve
 arquitetura (route groups + PortalHeader + separação de chrome entre site e área logada) e
 **descartei a Navbar local**, usando a mergeada do PR #4 como base. Nada se perdeu — a
 versão megamenu continua na branch wip se você preferir ela.
+
+---
+
+## 7. Rodada de revisão (finish-reviewer da impeccable)
+
+O revisor recusou a primeira rodada por falta de captura — corretamente: sem
+screenshot, julgar contraste e estado seria transformar leitura de código em
+aprovação visual. Capturei 12 telas (desktop/mobile, claro/escuro, estados do
+quiz e da calculadora, Sobre e Cases) e devolvi. Achados materiais e o que fiz:
+
+### Corrigido
+
+| Achado | Gravidade | Correção |
+|---|---|---|
+| **Consentimento LGPD pré-marcado** no quiz e na calculadora | Legal | Começa desmarcado. O mesmo default indevido existia no dialog antigo (`leadDefaults`) e foi corrigido junto — `consent` agora é omitido, não `true` |
+| Radios `sr-only` com bolinha falsa: anel de foco nativo sumia | A11y | Viraram radios visíveis com `appearance-none`; foco nativo de volta |
+| Botão desabilitado com `opacity-45` (~1,6:1) | A11y | Preenchimento sólido apagado, texto legível, e o motivo ao lado |
+| Painel FinOps não liderava: 4 botões primários iguais na seção | Hierarquia | Cards passaram a secundário; título do painel subiu de escala |
+| `--surface-soft` idêntico a `--surface-card` no tema claro | Sistema | Ganhou degrau próprio (`#F6F6F2`) — **mudança global, veja abaixo** |
+| Laranja de texto pequeno a 3,56:1 | A11y | `brand-600` → `brand-700`, com par `dark:` |
+| `h-4.5 w-4.5` não existe na escala do Tailwind | Bug | Ícone do aviso renderizava fora de ritmo; virou `h-4 w-4` |
+| Foco não acompanhava a troca de passo | A11y | Foco vai para o novo passo; sucesso virou `role="status"` |
+| Checkbox montado à mão existindo `ui/checkbox.tsx` | Consistência | Passou a usar o do projeto |
+| Eyebrow ainda passado no Sobre | Coerência | `InternalHero.eyebrow` virou opcional e saiu do Sobre |
+
+> **Atenção, mudança global:** `--surface-soft` no tema claro deixou de ser
+> `#FFFFFF`. Isso afeta **todas** as seções que usam `bg-surface-soft`, não só as
+> novas. Era uma inconsistência real (o tema escuro tinha três degraus de
+> superfície, o claro tinha dois iguais), mas vale você bater o olho nas páginas
+> antigas antes de mergear.
+
+### Não corrigido, de propósito
+
+- **`text-gradient-brand` (texto em gradiente)** continua definido em
+  `globals.css` e usado em 11 arquivos pré-existentes. Removi das seções que
+  reescrevi; varrer o site inteiro é churn fora do escopo deste PR.
+- **Motion nas peças novas:** o revisor apontou que quiz e calculadora não têm
+  transição de estado além da barra de progresso. Procede, mas é enriquecimento,
+  não defeito — fica como próximo passo.
+- **Tokens de status:** cores de erro/sucesso ainda são paleta crua do Tailwind
+  (`red-600`, `emerald-700`) com par `dark:` manual, em vez de tokens em
+  `globals.css`. Promovê-las é refactor que toca superfícies fora deste PR.
+- **`PRODUCT.md` / `DESIGN.md` não existem.** O projeto nunca passou por
+  `/impeccable init`. Não inventei os dois: é dívida de processo, e criar um
+  contrato de direção sem você seria fabricar decisão sua.
+
+### Verificação da rodada final
+
+`tsc` limpo · `lint` limpo · `build` verde (21 rotas) · `detect.mjs` `[]` ·
+capturas conferidas em pixel: consentimento desmarcado, anel de foco visível,
+botão desabilitado legível com motivo, quiz avançando ao passo 2.
