@@ -69,7 +69,7 @@ export default async function PortalDoClientePage() {
 
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border bg-surface-card py-14 sm:py-16 lg:py-20">
+      <section className="relative overflow-hidden border-b border-border bg-hero-glow py-14 sm:py-16 lg:py-20">
         <div className="absolute inset-0 bg-grid pointer-events-none" />
 
         <div className="container-shell relative grid items-start gap-12 lg:grid-cols-[1.05fr_420px] lg:gap-16">
@@ -110,7 +110,7 @@ export default async function PortalDoClientePage() {
           <div className="relative">
             <div className="pointer-events-none absolute -inset-6 -z-10 rounded-[40px] bg-[radial-gradient(circle_at_30%_20%,rgba(249,115,22,0.16),transparent_55%),radial-gradient(circle_at_70%_80%,rgba(251,146,60,0.12),transparent_60%)] blur-2xl" />
 
-            <div className="rounded-2xl border border-border bg-surface-base p-6 shadow-premium sm:p-8">
+            <div className="rounded-2xl border border-border bg-surface-card p-6 shadow-premium sm:p-8">
               {session ? (
                 <div className="text-center sm:text-left">
                   <div className="mb-6">
