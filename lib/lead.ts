@@ -83,26 +83,26 @@ export const leadDefaults: Partial<LeadFormValues> = {
    CAPTURA CURTA — quiz de 2 passos e calculadora FinOps
    ============================================================
    O dialog completo continua governado por `leadFormSchema`. As duas
-   superficies curtas pedem menos campos (nao perguntam empresa nem setor),
-   entao ganham schema proprio em vez de afrouxar o schema principal.
+   superfícies curtas pedem menos campos (não perguntam empresa nem setor),
+   então ganham schema próprio em vez de afrouxar o schema principal.
    A rota aceita os dois via `anyLeadSchema`. */
 
 export const objectiveOptions = [
   { value: 'finops', label: 'Reduzir custos (FinOps)' },
-  { value: 'migracao', label: 'Migrar sem parar a operacao' },
+  { value: 'migracao', label: 'Migrar sem parar a operação' },
   { value: 'ia', label: 'Implementar IA (Gemini)' },
   { value: 'outro', label: 'Outro' }
 ] as const;
 
 export const userRangeOptions = [
-  { value: 'ate-20', label: 'Ate 20' },
+  { value: 'ate-20', label: 'Até 20' },
   { value: '21-100', label: '21 a 100' },
   { value: '101-500', label: '101 a 500' },
   { value: '500-plus', label: 'Mais de 500' }
 ] as const;
 
 export const monthlySpendOptions = [
-  { value: 'ate-5k', label: 'Ate R$ 5 mil', midpoint: 5000 },
+  { value: 'ate-5k', label: 'Até R$ 5 mil', midpoint: 5000 },
   { value: '5k-15k', label: 'R$ 5 mil a R$ 15 mil', midpoint: 15000 },
   { value: '15k-50k', label: 'R$ 15 mil a R$ 50 mil', midpoint: 50000 },
   { value: '50k-plus', label: 'Mais de R$ 50 mil', midpoint: 80000 }
@@ -125,13 +125,13 @@ export const quickLeadSchema = z.object({
   /** Estimativa exibida ao usuario, em BRL/ano. Registrada para conferencia. */
   estimatedAnnualSaving: z.number().nonnegative().optional(),
   name: z.string().trim().min(2, 'Informe seu nome'),
-  email: z.string().trim().email('E-mail invalido'),
+  email: z.string().trim().email('E-mail inválido'),
   phone: z
     .string()
     .trim()
-    .refine((v) => v.replace(/\D/g, '').length >= 10, 'Informe um WhatsApp valido'),
+    .refine((v) => v.replace(/\D/g, '').length >= 10, 'Informe um WhatsApp válido'),
   consent: z.literal(true, {
-    message: 'Voce precisa autorizar o contato para enviar o pedido'
+    message: 'Você precisa autorizar o contato para enviar o pedido'
   }),
   website: z.string().optional(),
   utm_source: z.string().optional(),

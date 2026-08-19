@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Award, CheckCircle2, ShieldCheck, FileText, ExternalLink } from 'lucide-react';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { SectionHeader } from '@/components/SectionHeader';
+import { CaseStudies } from '@/components/CaseStudies';
 import { SpecialistCta } from '@/components/SpecialistCta';
 import { googleCredentials, trackRecord } from '@/constants/cases';
 import { badges } from '@/constants/badges';
@@ -20,22 +21,22 @@ export default function CasesPage() {
         <div className="absolute inset-0 bg-grid pointer-events-none" />
         <div className="container-shell relative py-14 sm:py-16 lg:py-20">
           <Breadcrumbs items={[{ label: 'Cases e Credenciais' }]} />
-          <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-brand-400">
-            Credenciais Oficiais · Google Partner
-          </span>
           <h1 className="mt-5 max-w-3xl text-balance text-[34px] font-extrabold leading-[1.06] tracking-tight text-text-strong sm:text-[44px] lg:text-[52px] lg:leading-[1.05]">
-            Autoridade técnica comprovada por certificação, não por ficção.
+            Resultados comprovados em números, não apenas em papéis e certificações.
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-text-muted sm:text-lg sm:leading-8">
-            Conheça as certificações de nivelamento Premier Partner, nossas especializações em transformação de ambiente corporativo e os veículos de contratação direta vigentes.
+            Reduzir a fatura de nuvem, migrar sem interromper a operação e automatizar com IA o
+            que consome o tempo do time. É isso que os projetos precisam entregar — e é isso que
+            aparece aqui.
           </p>
         </div>
       </section>
 
+      <CaseStudies />
+
       <section className="bg-surface-base py-16 sm:py-20 lg:py-24">
         <div className="container-shell">
           <SectionHeader
-            eyebrow="Badges & Especializações"
             title="Credenciais emitidas e auditadas pela própria Google."
             description="Para ser Premier Partner e ter Especialização, a equipe técnica passa por avaliações rigorosas de arquitetura, segurança e atendimento."
           />
