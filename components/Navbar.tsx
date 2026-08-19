@@ -186,6 +186,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { open: openLead } = useLeadDialog();
+  const portalActive = pathname === '/portal-do-cliente';
 
   useEffect(() => {
     function onScroll() {
@@ -267,6 +268,21 @@ export function Navbar() {
 
           <ThemeToggle />
 
+          {/* Entrada para a área logada. Fica no cluster da direita, antes do CTA
+              comercial, com o mesmo peso visual dos links de nav — é utilitário,
+              não uma terceira oferta. */}
+          <Link
+            href="/portal-do-cliente"
+            aria-current={portalActive ? 'page' : undefined}
+            className={cn(
+              'inline-flex items-center rounded-md px-3 py-2 text-[13px] font-semibold transition-colors',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40',
+              portalActive ? 'text-text-strong' : 'text-text-muted hover:text-text-strong'
+            )}
+          >
+            Área do Cliente
+          </Link>
+
           <button
             type="button"
             onClick={() => openLead('Vamos entender seu cenário em três passos rápidos.')}
@@ -332,6 +348,14 @@ export function Navbar() {
               </Link>
             ))}
             <div className="mt-2 flex flex-col gap-3 border-t border-border pt-4">
+              <Link
+                href="/portal-do-cliente"
+                onClick={() => setOpen(false)}
+                aria-current={portalActive ? 'page' : undefined}
+                className="rounded-md px-4 py-3 text-sm font-semibold text-text transition-colors hover:bg-surface-muted hover:text-text-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500/40"
+              >
+                Área do Cliente
+              </Link>
               <button
                 type="button"
                 onClick={() => {
