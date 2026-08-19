@@ -79,8 +79,8 @@ export function Faq() {
         <div className="grid gap-12 lg:grid-cols-[.9fr_1.4fr] lg:gap-16">
           <div>
             <SectionHeader
-              title="O que trava a decisão, respondido antes de você perguntar."
-              description="As dúvidas que aparecem em quase toda primeira conversa. Se a sua não está aqui, fala com a gente."
+              title="Sem surpresas no contrato, sem chamados sem resposta."
+              description="Respondemos direto ao ponto as maiores preocupações dos Diretores e CTOs antes de trocar de parceiro."
               align="left"
             />
 
