@@ -5,11 +5,17 @@ import { useId, useMemo, useState } from 'react';
 import { ArrowRight, Check, Loader2, TrendingDown } from 'lucide-react';
 import { SectionHeader } from '@/components/SectionHeader';
 import { btnPrimary } from '@/components/ui/buttons';
+import { Checkbox } from '@/components/ui/checkbox';
 import { monthlySpendOptions, providerOptions, quickLeadSchema } from '@/lib/lead';
 import type { QuickLeadValues } from '@/lib/lead';
 import { submitQuickLead, type QuickLeadState } from '@/lib/quick-lead';
 import { FINOPS_SAVING_RANGE, brl, estimateAnnualSaving } from '@/constants/finops';
 import { trackEvent } from '@/lib/analytics';
+
+// Preenchimento sólido apagado com texto legível (ver QuoteQuiz).
+const DISABLED_BTN =
+  'inline-flex w-full items-center justify-center gap-2 rounded-md px-6 py-3 text-[13px] font-bold ' +
+  'cursor-not-allowed border border-border bg-surface-muted text-text-subtle sm:text-[14px]';
 
 type Spend = (typeof monthlySpendOptions)[number]['value'];
 type Provider = (typeof providerOptions)[number]['value'];
@@ -25,7 +31,9 @@ export function FinOpsCalculator() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [consent, setConsent] = useState(true);
+  // LGPD art. 8: consentimento precisa ser inequívoco. Caixa pré-marcada não
+  // é escolha — começa desmarcada e o schema bloqueia o envio sem ela.
+  const [consent, setConsent] = useState(false);
   const [honeypot, setHoneypot] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [state, setState] = useState<QuickLeadState>('idle');
@@ -117,7 +125,7 @@ export function FinOpsCalculator() {
               </div>
             ) : state === 'success' ? (
               <div className="flex flex-1 flex-col justify-center py-8 text-center">
-                <span className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-600">
+                <span className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 dark:text-emerald-400">
                   <Check className="h-6 w-6" />
                 </span>
                 <h3 className="mt-5 text-xl font-extrabold tracking-tight text-text-strong">
@@ -130,7 +138,7 @@ export function FinOpsCalculator() {
               </div>
             ) : (
               <>
-                <p className="text-[13px] font-bold uppercase tracking-[0.16em] text-brand-600">
+                <p className="text-[13px] font-bold uppercase tracking-[0.16em] text-brand-700 dark:text-brand-400">
                   Estimativa de otimização identificada
                 </p>
                 <p className="mt-4 text-[15px] leading-relaxed text-text-muted">
@@ -190,12 +198,11 @@ export function FinOpsCalculator() {
                     error={errors.phone}
                   />
 
-                  <label className="flex cursor-pointer items-start gap-3 text-[12.5px] leading-relaxed text-text-muted">
-                    <input
-                      type="checkbox"
+                  <label className="flex cursor-pointer select-none items-start gap-3 text-[12.5px] leading-relaxed text-text-muted">
+                    <Checkbox
                       checked={consent}
-                      onChange={(e) => setConsent(e.target.checked)}
-                      className="mt-0.5 h-4 w-4 shrink-0 accent-brand-500"
+                      onCheckedChange={(checked) => setConsent(checked === true)}
+                      className="mt-0.5"
                     />
                     <span>
                       Autorizo o contato da Hypercloud sobre esta estimativa, conforme a{' '}
@@ -224,7 +231,9 @@ export function FinOpsCalculator() {
                   <button
                     type="submit"
                     disabled={state === 'sending'}
-                    className={btnPrimary('lg', 'w-full disabled:opacity-60')}
+                    className={
+                      state === 'sending' ? DISABLED_BTN : btnPrimary('lg', 'w-full')
+                    }
                   >
                     {state === 'sending' ? (
                       <>
@@ -272,7 +281,7 @@ function ChoiceGroup({
           return (
             <label
               key={option.value}
-              className={`flex cursor-pointer items-center gap-2.5 rounded-xl border px-4 py-3.5 text-[13.5px] font-semibold transition ${
+              className={`flex cursor-pointer select-none items-center gap-2.5 rounded-xl border px-4 py-3.5 text-[13.5px] font-semibold transition ${
                 selected
                   ? 'border-brand-500 bg-brand-500/8 text-text-strong shadow-soft'
                   : 'border-border bg-surface-soft text-text-muted hover:border-brand-500/40 hover:text-text-strong'
@@ -284,19 +293,11 @@ function ChoiceGroup({
                 value={option.value}
                 checked={selected}
                 onChange={() => onChange(option.value)}
-                className="peer sr-only"
+                // Radio de verdade, visível: o anel de foco nativo só existe
+                // em elemento visível. `sr-only` + dot falso apagava o foco.
+                className="h-4 w-4 shrink-0 cursor-pointer appearance-none rounded-full border-2 border-border-strong transition checked:border-[5px] checked:border-brand-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
               />
-              <span
-                aria-hidden="true"
-                className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition ${
-                  selected ? 'border-brand-500' : 'border-border-strong'
-                }`}
-              >
-                {selected ? <span className="h-1.5 w-1.5 rounded-full bg-brand-500" /> : null}
-              </span>
-              <span className="peer-focus-visible:underline peer-focus-visible:underline-offset-4">
-                {option.label}
-              </span>
+              <span>{option.label}</span>
             </label>
           );
         })}

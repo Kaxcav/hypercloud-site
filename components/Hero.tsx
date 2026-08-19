@@ -61,13 +61,11 @@ export function Hero() {
           >
             Evolua sua infraestrutura de Nuvem e IA{' '}
             {/* Régua da marca sob a promessa de ROI — o gradiente é filete, nunca
-                preenchimento de texto. */}
-            <span className="relative inline-block">
-              <span className="relative z-10">sem estourar o orçamento</span>
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-0 bottom-[0.08em] -z-0 h-[0.14em] rounded-full bg-brand-gradient"
-              />
+                preenchimento de texto. Desenhada como background com
+                box-decoration-break: clone, para acompanhar cada linha quando o
+                trecho quebra (barra absoluta ficava pendurada em 375px). */}
+            <span className="bg-[linear-gradient(90deg,#f97316_0%,#fb923c_45%,#facc15_100%)] bg-[length:100%_0.1em] bg-[position:0_calc(100%-0.06em)] bg-no-repeat [-webkit-box-decoration-break:clone] [box-decoration-break:clone]">
+              sem estourar o orçamento
             </span>{' '}
             e com garantia de adoção do time.
           </motion.h1>

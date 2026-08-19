@@ -41,7 +41,7 @@
   color-scheme: light;
 
   --surface-base: #FAFAF7;
-  --surface-soft: #FFFFFF;
+  --surface-soft: #F6F6F2;
   --surface-card: #FFFFFF;
   --surface-muted: #F5F5F0;
 
@@ -72,7 +72,7 @@
 :root:not([data-theme]) {
   color-scheme: light;
   --surface-base: #FAFAF7;
-  --surface-soft: #FFFFFF;
+  --surface-soft: #F6F6F2;
   --surface-card: #FFFFFF;
   --surface-muted: #F5F5F0;
   --border-subtle: rgba(15, 23, 42, 0.05);

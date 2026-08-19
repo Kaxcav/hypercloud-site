@@ -25,7 +25,7 @@ export function SectionHeader({
   return (
     <div className={`mb-12 ${widthClass} ${alignClass}`}>
       {eyebrow ? (
-        <p className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand-600">
+        <p className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-brand-700 dark:text-brand-400">
           {eyebrow}
         </p>
       ) : null}

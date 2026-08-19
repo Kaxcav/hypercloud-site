@@ -90,7 +90,6 @@ export default function SobrePage() {
     <>
       <InternalHero
         breadcrumbs={[{ label: 'Sobre' }]}
-        eyebrow="Quem somos"
         title="Tecnologia de ponta com atendimento humano e foco real no seu ROI."
         description="Nascemos para acabar com o suporte burocrático e as soluções de TI caras que não geram resultado prático."
         primaryCta={{ label: 'Conhecer Nossa Equipe', href: '#equipe' }}

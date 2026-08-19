@@ -18,7 +18,7 @@ export function CaseStudies() {
             seção declara isso em vez de deixar o número passar por verdadeiro. */}
         {!hasPublishedCase ? (
           <div className="mx-auto mb-10 flex max-w-3xl items-start gap-3 rounded-xl border border-amber-500/40 bg-amber-500/8 px-5 py-4">
-            <AlertTriangle className="mt-0.5 h-4.5 w-4.5 shrink-0 text-amber-600" />
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
             <p className="text-[13.5px] leading-relaxed text-text-default">
               <span className="font-bold text-text-strong">Conteúdo em preparação.</span>{' '}
               Os cases abaixo são ilustrativos e servem para mostrar a estrutura da entrega.
@@ -99,7 +99,9 @@ export function CaseStudies() {
 function Stage({ label, body }: { label: string; body: string }) {
   return (
     <div>
-      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-600">{label}</p>
+      <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-700 dark:text-brand-400">
+        {label}
+      </p>
       <p className="mt-2 text-[13.5px] leading-relaxed text-text-muted">{body}</p>
     </div>
   );

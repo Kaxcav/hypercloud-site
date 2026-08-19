@@ -67,7 +67,8 @@ export const leadDefaults: Partial<LeadFormValues> = {
   name: '',
   email: '',
   phone: '',
-  consent: true,
+  // `consent` fica ausente de proposito: LGPD art. 8 exige acao
+  // afirmativa do titular, entao nenhum default marca a caixa.
   website: '',
   utm_source: '',
   utm_medium: '',
@@ -154,7 +155,8 @@ export const quickLeadDefaults: Partial<QuickLeadValues> = {
   name: '',
   email: '',
   phone: '',
-  consent: true,
+  // `consent` fica ausente de proposito: LGPD art. 8 exige acao
+  // afirmativa do titular, entao nenhum default marca a caixa.
   website: '',
   utm_source: '',
   utm_medium: '',

@@ -1,14 +1,21 @@
 // components/QuoteQuiz.tsx
 'use client';
 
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
 import { SectionHeader } from '@/components/SectionHeader';
 import { btnPrimary, btnSecondary } from '@/components/ui/buttons';
+import { Checkbox } from '@/components/ui/checkbox';
 import { objectiveOptions, quickLeadSchema, userRangeOptions } from '@/lib/lead';
 import type { QuickLeadValues } from '@/lib/lead';
 import { submitQuickLead, type QuickLeadState } from '@/lib/quick-lead';
 import { trackEvent } from '@/lib/analytics';
+
+// Preenchimento sólido apagado com texto legível — o antigo `opacity-45`
+// deixava branco sobre laranja em ~1,6:1.
+const DISABLED_BTN =
+  'inline-flex w-full items-center justify-center gap-2 rounded-md px-6 py-3 text-[13px] font-bold ' +
+  'cursor-not-allowed border border-border bg-surface-muted text-text-subtle sm:w-auto sm:text-[14px]';
 
 type Objective = (typeof objectiveOptions)[number]['value'];
 type UserRange = (typeof userRangeOptions)[number]['value'];
@@ -21,12 +28,21 @@ export function QuoteQuiz() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [consent, setConsent] = useState(true);
+  // LGPD art. 8: consentimento precisa ser inequívoco. Caixa pré-marcada não
+  // é escolha — começa desmarcada e o schema bloqueia o envio sem ela.
+  const [consent, setConsent] = useState(false);
   const [honeypot, setHoneypot] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [state, setState] = useState<QuickLeadState>('idle');
 
   const step1Complete = objective !== null && userRange !== null;
+
+  // Trocar de passo desmonta o botão que tinha o foco, que cairia no <body>.
+  // Levar o foco para o novo passo mantém quem navega por teclado orientado.
+  const stepRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (step === 1) stepRef.current?.focus();
+  }, [step]);
 
   function advance() {
     if (!step1Complete) return;
@@ -70,8 +86,12 @@ export function QuoteQuiz() {
   if (state === 'success') {
     return (
       <QuizShell>
-        <div className="flex flex-col items-center py-6 text-center">
-          <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-600">
+        <div
+          className="flex flex-col items-center py-6 text-center"
+          role="status"
+          aria-live="polite"
+        >
+          <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/12 text-emerald-700 dark:text-emerald-400">
             <Check className="h-6 w-6" />
           </span>
           <h3 className="mt-5 text-2xl font-extrabold tracking-tight text-text-strong">
@@ -140,21 +160,31 @@ export function QuoteQuiz() {
               columns
             />
 
-            <button
-              type="button"
-              onClick={advance}
-              disabled={!step1Complete}
-              className={btnPrimary(
-                'lg',
-                'w-full disabled:cursor-not-allowed disabled:opacity-45 disabled:before:hidden sm:w-auto'
-              )}
-            >
-              Avançar para o Diagnóstico
-              <ArrowRight className="h-4 w-4" />
-            </button>
+            <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
+              <button
+                type="button"
+                onClick={advance}
+                disabled={!step1Complete}
+                // Estado desabilitado como classe própria, não como variante:
+                // `disabled:` dentro de btnPrimary não sobrevive ao tailwind-merge.
+                className={
+                  step1Complete
+                    ? btnPrimary('lg', 'w-full sm:w-auto')
+                    : DISABLED_BTN
+                }
+              >
+                Avançar para o Diagnóstico
+                <ArrowRight className="h-4 w-4" />
+              </button>
+              {!step1Complete ? (
+                <p className="text-[12.5px] text-text-muted">
+                  Escolha as duas opções para avançar.
+                </p>
+              ) : null}
+            </div>
           </div>
         ) : (
-          <div className="space-y-5">
+          <div className="space-y-5" ref={stepRef} tabIndex={-1} aria-label="Passo 2 de 2: contato">
             <Field
               id={`${uid}-name`}
               label="Nome"
@@ -183,12 +213,11 @@ export function QuoteQuiz() {
               error={errors.phone}
             />
 
-            <label className="flex cursor-pointer items-start gap-3 text-[13px] leading-relaxed text-text-muted">
-              <input
-                type="checkbox"
+            <label className="flex cursor-pointer select-none items-start gap-3 text-[13px] leading-relaxed text-text-muted">
+              <Checkbox
                 checked={consent}
-                onChange={(e) => setConsent(e.target.checked)}
-                className="mt-0.5 h-4 w-4 shrink-0 accent-brand-500"
+                onCheckedChange={(checked) => setConsent(checked === true)}
+                className="mt-0.5"
               />
               <span>
                 Autorizo o contato da Hypercloud sobre esta solicitação, conforme a{' '}
@@ -211,7 +240,7 @@ export function QuoteQuiz() {
               <button
                 type="submit"
                 disabled={state === 'sending'}
-                className={btnPrimary('lg', 'w-full disabled:opacity-60 sm:w-auto')}
+                className={state === 'sending' ? DISABLED_BTN : btnPrimary('lg', 'w-full sm:w-auto')}
               >
                 {state === 'sending' ? (
                   <>
@@ -283,7 +312,7 @@ function ChoiceGroup({
           return (
             <label
               key={option.value}
-              className={`relative flex cursor-pointer items-center gap-2.5 rounded-xl border px-4 py-3.5 text-[13.5px] font-semibold transition ${
+              className={`relative flex cursor-pointer select-none items-center gap-2.5 rounded-xl border px-4 py-3.5 text-[13.5px] font-semibold transition ${
                 selected
                   ? 'border-brand-500 bg-brand-500/8 text-text-strong shadow-soft'
                   : 'border-border bg-surface-soft text-text-muted hover:border-brand-500/40 hover:text-text-strong'
@@ -295,19 +324,11 @@ function ChoiceGroup({
                 value={option.value}
                 checked={selected}
                 onChange={() => onChange(option.value)}
-                className="peer sr-only"
+                // Radio de verdade, visível: o anel de foco nativo só existe
+                // em elemento visível. `sr-only` + dot falso apagava o foco.
+                className="h-4 w-4 shrink-0 cursor-pointer appearance-none rounded-full border-2 border-border-strong transition checked:border-[5px] checked:border-brand-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
               />
-              <span
-                aria-hidden="true"
-                className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition ${
-                  selected ? 'border-brand-500' : 'border-border-strong'
-                }`}
-              >
-                {selected ? <span className="h-1.5 w-1.5 rounded-full bg-brand-500" /> : null}
-              </span>
-              <span className="peer-focus-visible:underline peer-focus-visible:underline-offset-4">
-                {option.label}
-              </span>
+              <span>{option.label}</span>
             </label>
           );
         })}

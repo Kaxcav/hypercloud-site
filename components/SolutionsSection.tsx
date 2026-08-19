@@ -108,7 +108,7 @@ export function SolutionsSection() {
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-500/12 text-brand-600">
                   <TrendingDown className="h-5 w-5" />
                 </span>
-                <h3 className="mt-5 text-2xl font-extrabold tracking-tight text-text-strong sm:text-3xl">
+                <h3 className="mt-5 text-3xl font-extrabold tracking-tight text-text-strong sm:text-4xl">
                   Otimização de Custos (FinOps)
                 </h3>
                 <p className="mt-4 text-[15px] leading-relaxed text-text-muted">
@@ -177,10 +177,12 @@ export function SolutionsSection() {
                   ) : null}
 
                   <div className="mt-5 flex flex-wrap items-center gap-2.5">
+                    {/* Secundário de propósito: o primário desta seção pertence
+                        ao painel FinOps. Quatro botões de mesmo peso não têm líder. */}
                     <button
                       type="button"
                       onClick={() => openLead(card.leadContext)}
-                      className={btnPrimary('md')}
+                      className={btnSecondary('md')}
                     >
                       Falar com Engenheiro
                       <ArrowRight className="h-3.5 w-3.5" />
